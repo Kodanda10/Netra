@@ -58,7 +58,7 @@ export default function AmoghHeader() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
-          className={`mt-4 text-center text-lg font-medium text-white/85 ${isHindi ? 'font-amita' : ''}`}
+          className={`mt-4 text-center text-lg text-white/85 ${isHindi ? 'font-noto-dev font-semibold' : 'font-inter font-semibold'}`}
         >
           {isHindi ? subHi : subEn}
         </motion.p>
