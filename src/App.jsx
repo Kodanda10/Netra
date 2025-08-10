@@ -1,28 +1,67 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, SlidersHorizontal, RefreshCw, TrendingUp, TrendingDown, Globe2, DollarSign, Building2, Newspaper, Twitter, Facebook, Activity } from 'lucide-react'
+import { Search, SlidersHorizontal, RefreshCw, TrendingUp, TrendingDown, Globe2, DollarSign, Building2, Newspaper, Twitter, Facebook, Activity, Sun, Moon } from 'lucide-react'
 import { formatDistanceToNow, subMinutes } from 'date-fns'
 import './index.css'
 
-const glassCard = 'backdrop-blur-md bg-black/30 border border-white/10 rounded-xl shadow-lg'
+const baseCard = 'backdrop-blur-md rounded-xl shadow-lg border'
+const glassCard = `${baseCard}`
+
+function Header({ theme, setTheme, lang, setLang }) {
+  const title = lang === 'hi' ? 'अमोघ' : 'Amogh'
+  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
+  const toggleLang = () => setLang(lang === 'hi' ? 'en' : 'hi')
+  return (
+    <div className="sticky top-0 z-50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+        <div className="w-8 h-8" />
+        <div className="flex items-center gap-3">
+          <img src="/amogh-logo.png" alt="Amogh" className="w-8 h-8 rounded-md object-cover" />
+          <h1 className="text-center text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
+            {title}
+          </h1>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleLang}
+            className={`${baseCard} px-3 py-1.5 text-sm border-[color:var(--card-border)]`}
+            style={{ backgroundColor: 'var(--card-bg)', color: 'var(--fg)' }}
+            aria-label="Toggle language"
+          >
+            {lang === 'hi' ? 'EN' : 'हिं'}
+          </button>
+          <button
+            onClick={toggleTheme}
+            className={`${baseCard} px-3 py-1.5 text-sm border-[color:var(--card-border)]`}
+            style={{ backgroundColor: 'var(--card-bg)', color: 'var(--fg)' }}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function StickyFilters({ onRefresh }) {
   return (
-    <div className="sticky top-0 z-40">
-      <div className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 ${glassCard}`}>
+    <div className="sticky top-14 z-40">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3" style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
         <div className="flex flex-wrap gap-3 items-center justify-between">
           <div className="flex items-center gap-2">
-            <Search className="w-5 h-5 text-white/70" />
+            <Search className="w-5 h-5 opacity-70" />
             <input
               placeholder="Filter by keyword, sector, state…"
-              className="bg-transparent placeholder-white/40 text-white/90 outline-none w-64"
+              className="bg-transparent placeholder-white/40 outline-none w-64"
+              style={{ color: 'var(--fg)' }}
             />
           </div>
           <div className="flex items-center gap-2">
-            <button className={`px-3 py-1.5 text-sm ${glassCard} hover:bg-white/10 transition-colors flex items-center gap-2`}>
+            <button className={`${baseCard} px-3 py-1.5 text-sm hover:bg-white/10 transition-colors flex items-center gap-2`} style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
               <SlidersHorizontal className="w-4 h-4" /> Advanced Filters
             </button>
-            <button onClick={onRefresh} className={`px-3 py-1.5 text-sm ${glassCard} hover:bg-white/10 transition-colors flex items-center gap-2`}>
+            <button onClick={onRefresh} className={`${baseCard} px-3 py-1.5 text-sm hover:bg-white/10 transition-colors flex items-center gap-2`} style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
               <RefreshCw className="w-4 h-4" /> Refresh
             </button>
           </div>
@@ -41,14 +80,15 @@ function StatPanel({ label, value, trend, icon: Icon }) {
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.05, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
-      className={`p-4 ${glassCard}`}
+      className={`p-4 ${glassCard} border-[color:var(--card-border)]`}
+      style={{ backgroundColor: 'var(--card-bg)' }}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-white/5">
-            <Icon className="w-5 h-5 text-white/80" />
+          <div className="p-2 rounded-lg" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
+            <Icon className="w-5 h-5 opacity-80" />
           </div>
-          <span className="text-white/70 text-sm">{label}</span>
+          <span className="opacity-70 text-sm">{label}</span>
         </div>
         <div className={`text-sm ${isUp ? 'text-emerald-400' : 'text-rose-400'} flex items-center gap-1`}>
           {isUp ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
@@ -61,7 +101,7 @@ function StatPanel({ label, value, trend, icon: Icon }) {
 }
 
 function Skeleton({ className = '' }) {
-  return <div className={`animate-pulse bg-white/10 rounded-md ${className}`} />
+  return <div className={`animate-pulse rounded-md ${className}`} style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
 }
 
 function useInfiniteFeed() {
@@ -247,20 +287,26 @@ function SocialSection() {
 }
 
 export default function App() {
-  const onRefresh = () => {
-    // placeholder for refetch
-  }
+  const [theme, setTheme] = useState('dark')
+  const [lang, setLang] = useState('en')
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme)
+  }, [theme])
+
+  const onRefresh = () => {}
 
   return (
     <div className="min-h-dvh">
+      <Header theme={theme} setTheme={setTheme} lang={lang} setLang={setLang} />
       <StickyFilters onRefresh={onRefresh} />
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         <section className="grid grid-cols-1 md:grid-cols-4 gap-3">
-          <StatPanel label="FDI YoY" value="$12.3B" trend={3.4} icon={DollarSign} />
-          <StatPanel label="Exports" value="$41.6B" trend={-1.1} icon={Globe2} />
-          <StatPanel label="Manufacturing PMI" value="56.2" trend={2.2} icon={Building2} />
-          <StatPanel label="Market Breadth" value="61% Adv" trend={1.6} icon={Activity} />
+          <StatPanel label={lang === 'hi' ? 'एफडीआई वार्षिक' : 'FDI YoY'} value={lang === 'hi' ? '₹12.3B' : '$12.3B'} trend={3.4} icon={DollarSign} />
+          <StatPanel label={lang === 'hi' ? 'निर्यात' : 'Exports'} value={lang === 'hi' ? '₹41.6B' : '$41.6B'} trend={-1.1} icon={Globe2} />
+          <StatPanel label={lang === 'hi' ? 'एमपीआई विनिर्माण' : 'Manufacturing PMI'} value="56.2" trend={2.2} icon={Building2} />
+          <StatPanel label={lang === 'hi' ? 'मार्केट ब्रेड्थ' : 'Market Breadth'} value={lang === 'hi' ? '61% बढ़त' : '61% Adv'} trend={1.6} icon={Activity} />
         </section>
 
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
