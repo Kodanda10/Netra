@@ -41,7 +41,7 @@ export default function AmoghHeader() {
           initial={{ opacity: 0, y: -14, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ type: "spring", stiffness: 120, damping: 14 }}
-          className="pt-4 text-center font-extrabold leading-[1.15] tracking-wide"
+          className={`pt-4 text-center font-extrabold leading-[1.15] tracking-wide ${isHindi ? 'font-amita' : ''}`}
           style={{
             fontSize: "clamp(3rem, 8vw, 6rem)",
             background: "linear-gradient(90deg, #E6F1FF 0%, #B8D8F0 50%, #8CB4E0 100%)",
@@ -58,7 +58,7 @@ export default function AmoghHeader() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
-          className="mt-4 text-center text-lg font-medium text-white/85"
+          className={`mt-4 text-center text-lg font-medium text-white/85 ${isHindi ? 'font-amita' : ''}`}
         >
           {isHindi ? subHi : subEn}
         </motion.p>
