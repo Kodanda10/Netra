@@ -7,61 +7,98 @@ import './index.css'
 const baseCard = 'backdrop-blur-md rounded-xl shadow-lg border'
 const glassCard = `${baseCard}`
 
+function GoldParticles() {
+  const dots = Array.from({ length: 14 }).map((_, i) => ({
+    id: i,
+    top: `${18 + Math.random() * 60}%`,
+    left: `${20 + Math.random() * 60}%`,
+    delay: Math.random() * 6,
+    duration: 8 + Math.random() * 6,
+    driftX: (Math.random() * 12 - 6),
+    driftY: (Math.random() * 10 - 5),
+  }))
+  return (
+    <div aria-hidden className="absolute inset-0 -z-10 overflow-visible">
+      {dots.map(d => (
+        <motion.span
+          key={d.id}
+          className="particle-dot"
+          style={{ top: d.top, left: d.left }}
+          initial={{ opacity: 0, x: 0, y: 0 }}
+          animate={{ opacity: [0.15, 0.6, 0.15], x: d.driftX, y: d.driftY }}
+          transition={{ duration: d.duration, repeat: Infinity, delay: d.delay, ease: 'easeInOut' }}
+        />
+      ))}
+    </div>
+  )
+}
+
 function Header({ theme, setTheme, lang, setLang }) {
-  const title = lang === 'hi' ? 'अमोघ' : 'Amogh'
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
   const toggleLang = () => setLang(lang === 'hi' ? 'en' : 'hi')
+
   return (
-    <div className="sticky top-0 z-50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-        <div className="w-8 h-8" />
-        <div className="flex items-center gap-3">
-          <img src="/amogh-logo.png" alt="Amogh" className="w-8 h-8 rounded-md object-cover" />
-          <h1 className="text-center text-xl sm:text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
-            {title}
-          </h1>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={toggleLang}
-            className={`${baseCard} px-3 py-1.5 text-sm border-[color:var(--card-border)]`}
-            style={{ backgroundColor: 'var(--card-bg)', color: 'var(--fg)' }}
-            aria-label="Toggle language"
-          >
-            {lang === 'hi' ? 'EN' : 'हिं'}
-          </button>
-          <button
-            onClick={toggleTheme}
-            className={`${baseCard} px-3 py-1.5 text-sm border-[color:var(--card-border)]`}
-            style={{ backgroundColor: 'var(--card-bg)', color: 'var(--fg)' }}
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
+    <header className="sticky top-0 z-50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
+        <div className="glass-header relative rounded-2xl px-4 sm:px-8 py-8 md:py-10 overflow-visible">
+          <GoldParticles />
+          <div className="flex items-center justify-end gap-2 absolute right-4 top-4 z-10">
+            <button onClick={toggleLang} className={`${baseCard} px-3 py-1.5 text-sm rounded-lg border-[color:var(--card-border)]`} style={{ backgroundColor: 'var(--card-bg)', color: 'var(--fg)' }} aria-label="Toggle language">{lang === 'hi' ? 'EN' : 'हिं'}</button>
+            <button onClick={toggleTheme} className={`${baseCard} px-3 py-1.5 text-sm rounded-lg border-[color:var(--card-border)]`} style={{ backgroundColor: 'var(--card-bg)', color: 'var(--fg)' }} aria-label="Toggle theme">{theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}</button>
+          </div>
+
+          <div className="flex flex-col items-center text-center select-none relative z-0">
+            <motion.h1 className="hindi-title-fix font-amita text-[44px] sm:text-6xl md:text-7xl lg:text-8xl xl:text-[116px] font-black bg-clip-text text-transparent gold-metallic animate-shimmer text-glow tracking-wide" initial={{ opacity: 0, y: 10, scale: 0.985 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 1, type: 'spring', stiffness: 140, damping: 18 }}>
+              अमोघ
+            </motion.h1>
+
+            <AnimatePresence mode="wait">
+              <motion.p key={lang} className={`${lang === 'hi' ? 'font-noto-dev' : 'font-inter'} text-white/90 text-lg sm:text-xl md:text-2xl mt-2`} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.45 }}>
+                {lang === 'hi' ? 'इंटेलीजेंट वित्तीय डैशबोर्ड' : 'Intelligent Finance Dashboard'}
+              </motion.p>
+            </AnimatePresence>
+
+            <motion.div className="relative w-40 sm:w-56 md:w-72 h-4 mt-4" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15 }}>
+              <div className="absolute inset-y-1 left-0 right-6 rounded-full arrow-bar" />
+              <motion.svg
+                className="absolute right-0 top-0 h-4 w-6 z-10"
+                viewBox="0 0 24 16"
+                fill="none"
+                initial={{ opacity: 0.9, y: 0 }}
+                animate={{ opacity: [0.9, 1, 0.9], y: [0, -1, 0] }}
+                transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <defs>
+                  <linearGradient id="arrowGold" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#FFD700"/>
+                    <stop offset="100%" stopColor="#FFA500"/>
+                  </linearGradient>
+                </defs>
+                <path d="M2 8 L18 8" stroke="url(#arrowGold)" strokeWidth="4" strokeLinecap="round" />
+                <path className="arrow-head" d="M12 2 L22 8 L12 14 Z" fill="url(#arrowGold)" stroke="#7a5200" strokeWidth="1" />
+              </motion.svg>
+            </motion.div>
+          </div>
         </div>
       </div>
-    </div>
+    </header>
   )
 }
 
 function StickyFilters({ onRefresh }) {
   return (
-    <div className="sticky top-14 z-40">
+    <div className="sticky top-[168px] md:top-[196px] z-40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3" style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
         <div className="flex flex-wrap gap-3 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Search className="w-5 h-5 opacity-70" />
-            <input
-              placeholder="Filter by keyword, sector, state…"
-              className="bg-transparent placeholder-white/40 outline-none w-64"
-              style={{ color: 'var(--fg)' }}
-            />
+          <div className="flex items-center gap-2 flex-1 min-w-0">
+            <Search className="w-5 h-5 opacity-70 flex-none" />
+            <input placeholder={"Filter by keyword, sector, state…"} className="bg-transparent placeholder-white/40 outline-none w-full" style={{ color: 'var(--fg)' }} />
           </div>
           <div className="flex items-center gap-2">
-            <button className={`${baseCard} px-3 py-1.5 text-sm hover:bg-white/10 transition-colors flex items-center gap-2`} style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
+            <button className={`${baseCard} px-3 py-1.5 text-sm rounded-lg hover:bg-white/10 transition-colors flex items-center gap-2`} style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
               <SlidersHorizontal className="w-4 h-4" /> Advanced Filters
             </button>
-            <button onClick={onRefresh} className={`${baseCard} px-3 py-1.5 text-sm hover:bg-white/10 transition-colors flex items-center gap-2`} style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
+            <button onClick={onRefresh} className={`${baseCard} px-3 py-1.5 text-sm rounded-lg hover:bg-white/10 transition-colors flex items-center gap-2`} style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
               <RefreshCw className="w-4 h-4" /> Refresh
             </button>
           </div>
@@ -74,15 +111,7 @@ function StickyFilters({ onRefresh }) {
 function StatPanel({ label, value, trend, icon: Icon }) {
   const isUp = trend >= 0
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ scale: 1.05, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
-      className={`p-4 ${glassCard} border-[color:var(--card-border)]`}
-      style={{ backgroundColor: 'var(--card-bg)' }}
-    >
+    <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-50px' }} transition={{ duration: 0.5 }} whileHover={{ scale: 1.05, transition: { type: 'spring', stiffness: 300, damping: 20 } }} className={`p-4 ${glassCard} border-[color:var(--card-border)]`} style={{ backgroundColor: 'var(--card-bg)' }}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
@@ -100,9 +129,7 @@ function StatPanel({ label, value, trend, icon: Icon }) {
   )
 }
 
-function Skeleton({ className = '' }) {
-  return <div className={`animate-pulse rounded-md ${className}`} style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
-}
+function Skeleton({ className = '' }) { return <div className={`animate-pulse rounded-md ${className}`} style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} /> }
 
 function useInfiniteFeed() {
   const [items, setItems] = useState([])
@@ -288,11 +315,9 @@ function SocialSection() {
 
 export default function App() {
   const [theme, setTheme] = useState('dark')
-  const [lang, setLang] = useState('en')
+  const [lang, setLang] = useState('hi')
 
-  useEffect(() => {
-    document.body.setAttribute('data-theme', theme)
-  }, [theme])
+  useEffect(() => { document.body.setAttribute('data-theme', theme) }, [theme])
 
   const onRefresh = () => {}
 

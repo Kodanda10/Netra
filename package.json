@@ -13,7 +13,11 @@
     "preview": "vite preview --host"
   },
   "dependencies": {
+    "@fontsource/amita": "^5.1.0",
+    "@fontsource/inter": "^5.2.6",
+    "@fontsource/montserrat": "^5.1.0",
     "@heroicons/react": "^2.2.0",
+    "@rive-app/react-canvas": "^4.16.2",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.539.0",
@@ -33,6 +37,7 @@
     "globals": "^16.3.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
+    "typescript": "^5.6.3",
     "vite": "^7.1.0"
   }
 }
