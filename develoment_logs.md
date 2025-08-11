@@ -10,3 +10,4 @@
 - 2025-08-11 14:17:33 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 14:47:05 UTC: feat(tabs): replace with visionOS-grade NavTabs (liquid pill, metallic sweep, optional Rive); a11y + reduced-motion; centered content-width
 - 2025-08-11 14:47:05 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 14:57:10 UTC: feat(header): mount visionOS NavTabs directly inside AmoghHeader (centered under logo; HI/EN sync)
