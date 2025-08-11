@@ -1,9 +1,7 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense } from 'react'
 import AmoghHeader from './components/AmoghHeader'
 import { Routes, Route, Navigate } from 'react-router-dom'
-
-const FinancePageHi = lazy(() => import('./routes/hi/finance/Page'))
-const FinancePageEn = lazy(() => import('./routes/en/finance/Page'))
+import Finance from './pages/Finance'
 
 const App: React.FC = () => {
   return (
@@ -13,8 +11,7 @@ const App: React.FC = () => {
         <Suspense fallback={<div aria-live="polite" className="text-white/80">Loading…</div>}>
           <Routes>
             <Route path="/" element={<Navigate to="/hi/finance" replace />} />
-            <Route path="/hi/finance" element={<FinancePageHi />} />
-            <Route path="/en/finance" element={<FinancePageEn />} />
+            <Route path= "/:lang/finance" element={<Finance />} />
           </Routes>
         </Suspense>
       </main>
