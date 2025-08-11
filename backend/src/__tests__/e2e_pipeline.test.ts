@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import * as fetcher from '../ingestion/fetcher.js';
-import { processArticle } from '../processing/processor.js';
+import { processorFactory } from '../processing/processor.js';
 import * as enforcer from '../cost/enforcer.js';
 import * as limits from '../cost/limits.js';
 import dayjs from 'dayjs';
@@ -13,10 +13,12 @@ vi.mock('undici', () => ({
 
 describe('E2E Pipeline', () => {
   const existingArticles = new Set();
+  let processFn;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     existingArticles.clear();
     vi.resetAllMocks();
+    processFn = await processorFactory(limits);
   });
 
   it('Full pipeline test', async () => {
@@ -38,12 +40,12 @@ describe('E2E Pipeline', () => {
       .mockRejectedValueOnce(feedC);
     vi.spyOn(fetcher, 'fetchGNews').mockResolvedValue(gnewsFeed);
 
-    const result = await fetcher.ingestCycle({}, fetcher.fetchGNews);
+    const result = await fetcher.ingestCycle({}, fetcher.fetchGNews, processFn);
     const ingestedArticles = result.articles || [];
 
     let processedCount = 0;
     for (const article of ingestedArticles) {
-      if (await processArticle(article, existingArticles)) {
+      if (await processFn(article)) {
         processedCount++;
       }
     }

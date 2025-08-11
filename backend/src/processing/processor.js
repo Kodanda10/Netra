@@ -5,7 +5,6 @@ dayjs.extend(utc);
 
 // naive in-memory caches for demo/testing
 export const translationCache = new Map();
-const seenHashes = new Set();
 
 const FINANCE_POS = ["RBI", "FDI", "investment", "market", "NSE", "BSE", "SEBI", "rupee", "inflation", "policy"];
 const CIVIC_NEG = ["crime", "rape", "murder", "theft", "court", "judgement", "accident"];
@@ -27,6 +26,7 @@ function hashKey(title, url) {
 }
 
 export async function processorFactory(limits) {
+  const seenHashes = new Set();
   return async function process(item) {
     // Date filter
     if (!isTodayISO(item.publishedAt)) return null;

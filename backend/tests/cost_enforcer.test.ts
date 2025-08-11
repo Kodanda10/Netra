@@ -1,7 +1,13 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { setBurstActive, evaluateBurstAuto, quotaGate } from "../src/cost/enforcer.js";
 import { limitsFromEnv } from "../src/cost/limits.js";
 import { makeStores, incDailyCounter } from "../src/cost/counters.js";
+
+vi.mock("pg", () => ({
+  Pool: vi.fn(() => ({
+    query: vi.fn(),
+  })),
+}));
 
 const limits = limitsFromEnv({ AMOGH_MAX_DAILY_ARTICLES: "100", AMOGH_BURST_PERCENT: "20", AMOGH_GNEWS_MAX_DAILY: "50", AMOGH_COOLDOWN_AT_PCT: "0.9", AMOGH_QUOTA_WARN_PCT: "0.8" });
 

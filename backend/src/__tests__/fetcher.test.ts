@@ -57,7 +57,7 @@ describe('Fetcher', () => {
     for (let i = 1; i < 6; i++) {
       request.mockResolvedValueOnce({ body: { text: () => Promise.resolve(toRss([])) } });
     }
-    const fetchGNews = vi.fn().mockResolvedValue(mockGnewsArticles);
+    const fetchGNews = vi.spyOn(fetcher, 'fetchGNews').mockResolvedValue(mockGnewsArticles);
 
     const result = await fetcher.ingestCycle(mockRedis, fetchGNews, processFn);
 

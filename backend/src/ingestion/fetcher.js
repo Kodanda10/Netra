@@ -86,7 +86,7 @@ export async function ingestCycle(stores, limits, processFn) {
   let ingested = 0;
   const from = [];
   for (const item of collected.slice(0, effective)) {
-    const enriched = await processFn(item);
+    const enriched = processFn ? await processFn(item) : item;
     if (!enriched) continue;
     await recordArticleIngest(stores, { source: enriched.source }, limits);
     gauges.sourceToday.set({ source: enriched.source }, 1);
