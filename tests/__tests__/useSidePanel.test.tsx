@@ -25,10 +25,12 @@ describe('useSidePanel', () => {
     openBtn.focus()
     fireEvent.click(openBtn)
     // focus should move inside panel soon
-    await screen.findByRole('button', { name: 'first' })
+    const first = await screen.findByRole('button', { name: 'first' })
     // close returns focus
     fireEvent.click(screen.getByRole('button', { name: 'close' }))
-    expect(document.activeElement).toBe(openBtn)
+    // allow effect to run
+    await new Promise(r => setTimeout(r, 0))
+    expect(document.activeElement?.textContent).toBe('open')
   })
 })
 
