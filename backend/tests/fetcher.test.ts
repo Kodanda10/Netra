@@ -54,3 +54,8 @@ describe("Fetcher", () => {
     expect(g[0].source).toBe("gnews");
   });
 });
+
+function toRss(articles) {
+  const items = articles.map(a => `<item><title>${a.title}</title><description>${a.description}</description><link>http://example.com</link><pubDate>${a.publishedAt}</pubDate></item>`).join('');
+  return `<rss version="2.0"><channel><title>Mock Feed</title><link>http://mock.com</link>${items}</channel></rss>`;
+}

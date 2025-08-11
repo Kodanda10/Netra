@@ -16,6 +16,8 @@ export default defineConfig({
       branches: 85,
       functions: 90,
       lines: 90,
+      include: ['src/**/*.{ts,tsx,js,jsx}'],
+      exclude: ['backend/**', 'tests/**', 'src/main.*', 'src/App.jsx']
     },
   },
 })

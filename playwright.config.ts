@@ -15,14 +15,17 @@ export default defineConfig({
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined
     : {
-        command: 'vite preview --port 4173',
+        command: 'vite preview --port 4173 --strictPort',
         url: 'http://localhost:4173',
         reuseExistingServer: true,
+        timeout: 180_000,
         stdout: 'pipe',
       },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    { name: 'iphone-14-pro', use: { ...devices['iPhone 14 Pro'] } },
+    { name: 'pixel-7', use: { ...devices['Pixel 7'] } },
   ],
 })
 

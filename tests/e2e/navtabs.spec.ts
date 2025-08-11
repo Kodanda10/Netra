@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test'
 
-test('nav bar renders and is centered', async ({ page }) => {
+test('bar is centered content-width', async ({ page }) => {
   await page.addStyleTag({ content: '*,*::before,*::after{animation:none!important;transition:none!important}' })
   await page.goto('/')
-
-test('bar is centered content-width', async ({ page }) => {
+  // header mounts tabs inside; wait for it
+  await page.waitForSelector('[role="tablist"]')
   const bar = page.locator('[role="tablist"]').first()
   await expect(bar).toBeVisible()
   const box = await bar.boundingBox()
@@ -15,6 +15,7 @@ test('bar is centered content-width', async ({ page }) => {
 
 test('keyboard navigation moves active', async ({ page }) => {
   await page.goto('/')
+  await page.waitForSelector('[data-testid="tab-finance-news"]')
   await page.getByTestId('tab-finance-news').focus()
   await page.keyboard.press('ArrowRight')
   await expect(page.getByTestId('tab-stocks')).toHaveAttribute('aria-selected', 'true')

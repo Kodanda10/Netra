@@ -24,3 +24,8 @@
 - 2025-08-11 16:49:06 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 19:06:56 UTC: hook verification entry
 - 2025-08-11 19:06:56 UTC: chore: hook verification
+- 2025-08-11 19:06:56 UTC: docs(log): auto-update [auto-log]
+
+- 2025-08-11 19:40:00 UTC: feat(finance): migrate Finance UI to Vite + React Router; add /hi/finance and /en/finance routes; preserve VisionOS glass, metallic gradient, Framer Motion, virtualization; add SWR mock fallback
+- 2025-08-11 19:40:00 UTC: chore: remove Next.js app/ folder to avoid conflicts; keep SPA routing via vercel.json
+- 2025-08-11 19:40:00 UTC: build: Vite prod build successful; assets generated; fonts resolved at runtime via @fontsource

@@ -33,5 +33,13 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
-  }
+  },
+  "description": "This directory contains a preliminary structure for the backend services powering the **Amogh** dashboard.  The implementation is intentionally minimal at this stage; it will evolve during Phases 2–4.",
+  "main": "test_counters.js",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

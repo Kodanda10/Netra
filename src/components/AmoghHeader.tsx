@@ -3,9 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NavTabs, { type TabItem } from "./NavTabs";
+import { useNavigate } from 'react-router-dom';
 import { Newspaper, TrendingUp, Share2, Banknote } from "lucide-react";
 
 export default function AmoghHeader() {
+  const navigate = useNavigate();
   const [lang, setLang] = useState<"hi" | "en">("hi");
   const [subtitleIndex, setSubtitleIndex] = useState<0 | 1>(0);
   const [logoSrc, setLogoSrc] = useState<string>("/amogh-logo-header.png");
@@ -113,7 +115,11 @@ export default function AmoghHeader() {
               { id: 'fdi',    icon: <Banknote size={20} />,  labelHi: 'एफडीआई',        labelEn: 'FDI' } as TabItem,
             ]}
             lang={isHindi ? 'hi' : 'en'}
-            onChange={() => {}}
+            onChange={(id) => {
+              if (id === 'news') {
+                navigate(isHindi ? '/hi/finance' : '/en/finance')
+              }
+            }}
           />
         </div>
 

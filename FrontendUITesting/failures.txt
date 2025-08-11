@@ -1,0 +1,157 @@
+SyntaxError: /Users/abhijita/Documents/Project_Netra/tests/e2e/navtabs.spec.ts: Unexpected token (24:0)
+Error: No tests found
+    Error: [31mTimed out 10000ms waiting for [39m[2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m
+    test-results/navtabs-bar-is-centered-content-width-chromium/test-failed-1.png
+    Error Context: test-results/navtabs-bar-is-centered-content-width-chromium/error-context.md
+    Error: locator.focus: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-chromium/test-failed-1.png
+    Error Context: test-results/navtabs-keyboard-navigation-moves-active-chromium/error-context.md
+    Error: [31mTimed out 10000ms waiting for [39m[2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m
+    test-results/navtabs-bar-is-centered-content-width-webkit/test-failed-1.png
+    Error Context: test-results/navtabs-bar-is-centered-content-width-webkit/error-context.md
+    Error: locator.focus: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-webkit/test-failed-1.png
+    Error Context: test-results/navtabs-keyboard-navigation-moves-active-webkit/error-context.md
+  4 failed
+Error: Timed out waiting 60000ms from config.webServer.
+  ✘  5 [chromium] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) (45.1s)
+  ✘  8 [chromium] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (45.2s)
+  ✘  6 [webkit] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) (45.1s)
+  ✘  8 [chromium] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (1.4s)
+  ✘  2 [chromium] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) (2.8s)
+  ✘  9 [webkit] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) (2.6s)
+  ✘  16 [webkit] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (2.2s)
+  ✘  17 [iphone-14-pro] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) (1.7s)
+  ✘  24 [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (1.8s)
+  ✘  25 [pixel-7] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) (1.3s)
+  ✘  32 [pixel-7] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (1.4s)
+  1) [chromium] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ─────────────
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    > 16 |   expect(results.violations).toEqual([])
+    test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+    test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/video.webm
+    Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/error-context.md
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-chromium/test-failed-1.png
+    Error Context: test-results/navtabs-keyboard-navigation-moves-active-chromium/error-context.md
+  3) [chromium] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+    Error: A snapshot doesn't exist at /Users/abhijita/Documents/Project_Netra/tests/e2e/navtabs.visual.spec.ts-snapshots/navtabs-dpr1-chromium-darwin.png, writing actual.
+    Error: A snapshot doesn't exist at /Users/abhijita/Documents/Project_Netra/tests/e2e/navtabs.visual.spec.ts-snapshots/navtabs-dpr2-chromium-darwin.png, writing actual.
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-chromium/test-failed-1.png
+    Error Context: test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-chromium/error-context.md
+  4) [webkit] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ───────────────
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    > 16 |   expect(results.violations).toEqual([])
+    test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+    test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/video.webm
+    Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/error-context.md
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-webkit/test-failed-1.png
+    Error Context: test-results/navtabs-keyboard-navigation-moves-active-webkit/error-context.md
+  6) [webkit] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+    Error: A snapshot doesn't exist at /Users/abhijita/Documents/Project_Netra/tests/e2e/navtabs.visual.spec.ts-snapshots/navtabs-dpr1-webkit-darwin.png, writing actual.
+    Error: A snapshot doesn't exist at /Users/abhijita/Documents/Project_Netra/tests/e2e/navtabs.visual.spec.ts-snapshots/navtabs-dpr2-webkit-darwin.png, writing actual.
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-webkit/test-failed-1.png
+    Error Context: test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-webkit/error-context.md
+  7) [iphone-14-pro] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ────────
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    > 16 |   expect(results.violations).toEqual([])
+    test-results/a11y.page-page-has-no-axe-violations-smoke--iphone-14-pro/test-failed-1.png
+    test-results/a11y.page-page-has-no-axe-violations-smoke--iphone-14-pro/video.webm
+    Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--iphone-14-pro/error-context.md
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-iphone-14-pro/test-failed-1.png
+    Error Context: test-results/navtabs-keyboard-navigation-moves-active-iphone-14-pro/error-context.md
+  9) [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+    Error: A snapshot doesn't exist at /Users/abhijita/Documents/Project_Netra/tests/e2e/navtabs.visual.spec.ts-snapshots/navtabs-dpr1-iphone-14-pro-darwin.png, writing actual.
+    Error: A snapshot doesn't exist at /Users/abhijita/Documents/Project_Netra/tests/e2e/navtabs.visual.spec.ts-snapshots/navtabs-dpr2-iphone-14-pro-darwin.png, writing actual.
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-iphone-14-pro/test-failed-1.png
+    Error Context: test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-iphone-14-pro/error-context.md
+  10) [pixel-7] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ─────────────
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    > 16 |   expect(results.violations).toEqual([])
+    test-results/a11y.page-page-has-no-axe-violations-smoke--pixel-7/test-failed-1.png
+    test-results/a11y.page-page-has-no-axe-violations-smoke--pixel-7/video.webm
+    Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--pixel-7/error-context.md
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    test-results/navtabs.matrix-NavTabs-mat-24a2c-nd-y-lift-indicator-instant-pixel-7/test-failed-1.png
+    Error Context: test-results/navtabs.matrix-NavTabs-mat-24a2c-nd-y-lift-indicator-instant-pixel-7/error-context.md
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-pixel-7/test-failed-1.png
+    Error Context: test-results/navtabs-keyboard-navigation-moves-active-pixel-7/error-context.md
+  13) [pixel-7] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+    Error: A snapshot doesn't exist at /Users/abhijita/Documents/Project_Netra/tests/e2e/navtabs.visual.spec.ts-snapshots/navtabs-dpr1-pixel-7-darwin.png, writing actual.
+    Error: A snapshot doesn't exist at /Users/abhijita/Documents/Project_Netra/tests/e2e/navtabs.visual.spec.ts-snapshots/navtabs-dpr2-pixel-7-darwin.png, writing actual.
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-pixel-7/test-failed-1.png
+    Error Context: test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-pixel-7/error-context.md
+  13 failed
+    [chromium] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ──────────────
+    [chromium] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+    [webkit] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ────────────────
+    [webkit] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+    [iphone-14-pro] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ─────────
+    [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+    [pixel-7] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ───────────────
+    [pixel-7] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+  ErrorBlock.tsx   |       0 |      100 |     100 |       0 | 3-10              
+  ✓  8 [chromium] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (1.5s)
+  ✘  2 [chromium] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) (2.6s)
+  ✘  9 [webkit] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) (1.7s)
+  ✓  15 [webkit] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (1.6s)
+  ✘  17 [iphone-14-pro] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) (1.3s)
+  ✓  24 [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (1.6s)
+  ✘  25 [pixel-7] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) (823ms)
+  ✓  32 [pixel-7] › tests/e2e/navtabs.visual.spec.ts:4:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (1.3s)
+  1) [chromium] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ─────────────
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    > 16 |   expect(results.violations).toEqual([])
+    test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+    test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/video.webm
+    Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/error-context.md
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-chromium/test-failed-1.png
+    Error Context: test-results/navtabs-keyboard-navigation-moves-active-chromium/error-context.md
+  3) [webkit] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ───────────────
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    > 16 |   expect(results.violations).toEqual([])
+    test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+    test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/video.webm
+    Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/error-context.md
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-webkit/test-failed-1.png
+    Error Context: test-results/navtabs-keyboard-navigation-moves-active-webkit/error-context.md
+  5) [iphone-14-pro] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ────────
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    > 16 |   expect(results.violations).toEqual([])
+    test-results/a11y.page-page-has-no-axe-violations-smoke--iphone-14-pro/test-failed-1.png
+    test-results/a11y.page-page-has-no-axe-violations-smoke--iphone-14-pro/video.webm
+    Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--iphone-14-pro/error-context.md
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-iphone-14-pro/test-failed-1.png
+    Error Context: test-results/navtabs-keyboard-navigation-moves-active-iphone-14-pro/error-context.md
+  7) [pixel-7] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ──────────────
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    > 16 |   expect(results.violations).toEqual([])
+    test-results/a11y.page-page-has-no-axe-violations-smoke--pixel-7/test-failed-1.png
+    test-results/a11y.page-page-has-no-axe-violations-smoke--pixel-7/video.webm
+    Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--pixel-7/error-context.md
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    test-results/navtabs.matrix-NavTabs-mat-24a2c-nd-y-lift-indicator-instant-pixel-7/test-failed-1.png
+    Error Context: test-results/navtabs.matrix-NavTabs-mat-24a2c-nd-y-lift-indicator-instant-pixel-7/error-context.md
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-pixel-7/test-failed-1.png
+    Error Context: test-results/navtabs-keyboard-navigation-moves-active-pixel-7/error-context.md
+  9 failed
+    [chromium] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ──────────────
+    [webkit] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ────────────────
+    [iphone-14-pro] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ─────────
+    [pixel-7] › tests/e2e/a11y.page.spec.ts:3:1 › page has no axe violations (smoke) ───────────────
+--- FAILURES SUMMARY ---
