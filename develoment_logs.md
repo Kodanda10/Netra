@@ -56,3 +56,4 @@
 - 2025-08-11 20:07:45 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 20:31:54 UTC: tests(unit): add SourceTray, SourcesSidePanel, useFinance hook tests; raise coverage; log update
 - 2025-08-11 20:31:54 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 20:39:28 UTC: tests(unit): add useSidePanel focus restore test and HI/EN finance page smoke tests; coverage up; log update
