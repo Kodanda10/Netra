@@ -56,11 +56,31 @@ export const NavTabs: React.FC<{
 
   return (
     <div className={clsx('w-full flex justify-center px-4', className)}>
+      {/* Small phones: segmented grid */}
+      <div className="seg-only grid grid-cols-4 gap-1 p-1 rounded-full glass-bar" role="tablist" aria-label="Amogh sections (compact)" onKeyDown={onKeyDown}>
+        {tabs.map((t) => {
+          const selected = t.id === active
+          return (
+            <button key={t.id} role="tab" aria-selected={String(selected)} tabIndex={selected ? 0 : -1}
+              onClick={() => handle(t.id)}
+              className={clsx('h-9 text-[12px] px-0 min-w-0 truncate flex items-center justify-center gap-1 rounded-full',
+                selected ? 'bg-white/10 text-metallic' : 'text-white/85 hover:bg-white/5')}
+            >
+              <span className={clsx('font-medium tracking-tight', lang === 'hi' ? 'leading-[1.15] pt-[2px]' : undefined)}>
+                {lang === 'hi' ? t.labelHi : t.labelEn}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Default bar */}
       <div
         role="tablist"
         aria-label="Amogh sections"
         onKeyDown={onKeyDown}
         className={clsx(
+          'seg-hide',
           'glass-bar',
           'inline-flex items-center justify-center gap-2',
           'px-2 py-2 rounded-full',

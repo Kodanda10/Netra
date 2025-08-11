@@ -17,7 +17,7 @@ export const SourcesSidePanel: React.FC<{ open:boolean; onClose:()=>void; source
       {open && (
         <div className="fixed inset-0 z-50" aria-modal="true" role="dialog">
           <motion.div className="absolute inset-0 bg-black/50" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:0.14}} onClick={onClose} />
-          <motion.div layoutId={layoutIds.sourcePanel} className="absolute top-0 left-0 h-full w-[380px] glass-border rounded-r-3xl bg-transparent p-4 overflow-y-auto"
+          <motion.div layoutId={layoutIds.sourcePanel} className="absolute top-0 left-0 h-full w-[380px] glass-liquid rounded-r-3xl bg-transparent p-4 overflow-y-auto"
             initial={{x:-24, opacity:0}} animate={{x:0, opacity:1}} exit={{x:-24, opacity:0}} transition={{duration:0.24}}>
             <div className="text-lg font-semibold text-metallic mb-3">Sources</div>
             <div className="space-y-1">

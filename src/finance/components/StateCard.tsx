@@ -3,9 +3,9 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { springs } from '../finance.tokens'
 import { NewsList } from './NewsList'
 import { SourceTray } from './SourceTray'
-import { SourcesSidePanel } from './SourcesSidePanel'
 import { Landmark } from 'lucide-react'
 import '../../finance/finance.css'
+const SourcesSidePanel = React.lazy(() => import('./SourcesSidePanel'))
 
 export const StateCard: React.FC<{
   title: string
@@ -21,16 +21,20 @@ export const StateCard: React.FC<{
         initial={reduce ? false : { opacity: 0, x: 20 }}
         animate={reduce ? undefined : { opacity: 1, x: 0 }}
         transition={springs.state as any}
-        className="glass-border rounded-3xl p-4 md:p-5"
+        className="glass-liquid rounded-3xl p-4 md:p-5"
         style={{ backgroundColor: '#121212' }}
       >
-        <div className="flex items-center gap-2 mb-2 text-white/90 font-semibold">
+        <div className="flex items-center gap-2 mb-2 card-title font-semibold">
           <Landmark className="w-5 h-5 text-white/80" /> {title}
         </div>
         <NewsList items={items.slice(0,3)} height={200} />
         <SourceTray total={sources.reduce((a,b)=>a+b.count,0)} label={sourcesLabel} onOpen={()=>setOpen(true)} />
       </motion.div>
-      <SourcesSidePanel open={open} onClose={()=>setOpen(false)} sources={sources} />
+      {open && (
+        <React.Suspense fallback={null}>
+          <SourcesSidePanel open={open} onClose={()=>setOpen(false)} sources={sources} />
+        </React.Suspense>
+      )}
     </>
   )
 }

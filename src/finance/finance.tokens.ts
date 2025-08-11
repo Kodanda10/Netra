@@ -13,3 +13,9 @@ export const springs = {
 
 export const layoutIds = { sourcePanel: 'sourcePanel' } as const
 
+export const springFast = { type: 'spring', stiffness: 520, damping: 42, mass: 0.62 } as const
+export const fadeUp = {
+  hidden: { y: 12, opacity: 0 },
+  show: { y: 0, opacity: 1, transition: springFast as any }
+} as const
+

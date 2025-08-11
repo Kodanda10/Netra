@@ -115,3 +115,13 @@ body { background-color: var(--bg); color: var(--fg); }
   box-shadow: 0 8px 22px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.04) inset;
   border-radius: 1.25rem;
 }
+
+/* Segmented tabs visibility */
+@media (max-width: 420px){
+  .seg-only{ display: grid; }
+  .seg-hide{ display: none; }
+}
+@media (min-width: 421px){
+  .seg-only{ display: none; }
+  .seg-hide{ display: inline-flex; }
+}

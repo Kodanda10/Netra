@@ -1,10 +1,10 @@
 import React from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { springs } from '../finance.tokens'
+import { springs, springFast } from '../finance.tokens'
 import { NewsList } from './NewsList'
 import { SourceTray } from './SourceTray'
-import { SourcesSidePanel } from './SourcesSidePanel'
 import '../../finance/finance.css'
+const SourcesSidePanel = React.lazy(() => import('./SourcesSidePanel'))
 
 export const BharatLongCard: React.FC<{
   title: string
@@ -20,19 +20,25 @@ export const BharatLongCard: React.FC<{
         initial={reduce ? false : { opacity: 0, y: 12, scale: 0.985 }}
         animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
         transition={springs.bharat as any}
-        className="glass-border rounded-3xl p-4 md:p-6"
+        className="glass-liquid rounded-3xl p-4 md:p-6"
         style={{ backgroundColor: '#121212' }}
       >
         <div className="flex items-center justify-between mb-3">
-          <div className="text-xl font-bold text-metallic flex items-center gap-2">
+          <div className="text-xl font-bold card-title flex items-center gap-2">
             <img src="/flag-india-static.svg" alt="India" className="w-5 h-5" />
             {title}
           </div>
         </div>
-        <NewsList items={items} height={520} />
+        <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{duration:.28}}>
+          <NewsList items={items} height={520} />
+        </motion.div>
         <SourceTray total={sources.reduce((a,b)=>a+b.count,0)} label={sourcesLabel} onOpen={()=>setOpen(true)} />
       </motion.div>
-      <SourcesSidePanel open={open} onClose={()=>setOpen(false)} sources={sources} />
+      {open && (
+        <React.Suspense fallback={null}>
+          <SourcesSidePanel open={open} onClose={()=>setOpen(false)} sources={sources} />
+        </React.Suspense>
+      )}
     </>
   )
 }
