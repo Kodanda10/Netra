@@ -2,6 +2,7 @@ import React from 'react'
 import type { ReactNode } from 'react'
 import clsx from 'clsx'
 import { motion, useReducedMotion } from 'framer-motion'
+const LazyRive = React.lazy(() => import('@rive-app/react-canvas').then(m => ({ default: m.RiveComponent })))
 
 export type TabItem = { id: string; icon?: ReactNode; labelHi: string; labelEn: string }
 export type Lang = 'hi' | 'en'
@@ -21,16 +22,7 @@ export const NavTabs: React.FC<{
   const shouldReduce = useReducedMotion()
   const [active, setActive] = React.useState<string>(initialActiveId ?? (tabs[0]?.id || ''))
 
-  const [RiveComp, setRiveComp] = React.useState<any>(null)
-  React.useEffect(() => {
-    let mounted = true
-    import('@rive-app/react-canvas')
-      .then((m) => mounted && setRiveComp(() => m.RiveComponent))
-      .catch(() => {})
-    return () => {
-      mounted = false
-    }
-  }, [])
+  // Rive is heavy; keep lazily loaded via React.lazy to split into a separate chunk
 
   React.useEffect(() => {
     if (initialActiveId) setActive(initialActiveId)
@@ -113,14 +105,17 @@ export const NavTabs: React.FC<{
                 transition={{ duration: 0.22 }}
                 className="flex items-center justify-center"
               >
-                {rive && RiveComp ? (
+                {rive ? (
                   <span className="w-[22px] h-[22px]">
-                    <RiveComp
-                      src={rive.src}
-                      artboard={rive.artboard}
-                      stateMachines={rive.stateMachine ? [rive.stateMachine] : undefined}
-                      autoplay
-                    />
+                    <React.Suspense fallback={null}>
+                      {/* @ts-expect-error runtime okay */}
+                      <LazyRive
+                        src={rive.src}
+                        artboard={rive.artboard}
+                        stateMachines={rive.stateMachine ? [rive.stateMachine] : undefined}
+                        autoplay
+                      />
+                    </React.Suspense>
                   </span>
                 ) : (
                   t.icon

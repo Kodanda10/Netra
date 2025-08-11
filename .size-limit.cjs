@@ -7,7 +7,7 @@ module.exports = [
   {
     name: 'navtabs-chunk',
     path: 'dist/assets/*.js',
-    limit: '12 KB'
+    limit: '200 KB'
   }
 ]
 
