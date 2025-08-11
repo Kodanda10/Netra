@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function AmoghHeader() {
   const [lang, setLang] = useState<"hi" | "en">("hi");
   const [subtitleIndex, setSubtitleIndex] = useState<0 | 1>(0);
   const [logoSrc, setLogoSrc] = useState<string>("/amogh-logo-header.png");
+  const assetVersion = useMemo(() => String(Date.now()), []);
 
   const isHindi = lang === "hi";
   const titleText = "अमोघ"; // Title is rendered via logo image; kept for alt text
@@ -52,8 +53,8 @@ export default function AmoghHeader() {
             style={{ width: "clamp(128px, 18vw, 240px)" }}
           >
             <img
-              src={logoSrc}
-              srcSet="/amogh-logo-header.png 1x, /amogh-logo-header@2x.png 2x"
+              src={`${logoSrc}?v=${assetVersion}`}
+              srcSet={`/amogh-logo-header.png?v=${assetVersion} 1x, /amogh-logo-header@2x.png?v=${assetVersion} 2x`}
               alt={titleText}
               loading="eager"
               decoding="async"
@@ -62,6 +63,7 @@ export default function AmoghHeader() {
                 if (logoSrc !== "/amogh-logo.png") {
                   setLogoSrc("/amogh-logo.png");
                   e.currentTarget.removeAttribute("srcset");
+                  e.currentTarget.src = `/amogh-logo.png?v=${assetVersion}`;
                 }
               }}
             />
@@ -69,7 +71,7 @@ export default function AmoghHeader() {
         </div>
 
         {/* Subtitle (centered, below arrow) – rotates HI/EN */}
-        <div className="relative h-[20px] sm:h-[24px]">
+        <div className="relative min-h-[22px] sm:min-h-[26px]">
           <AnimatePresence mode="wait">
             {subtitleIndex === 0 ? (
               <motion.p
@@ -78,8 +80,8 @@ export default function AmoghHeader() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -3 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="mx-auto pt-1 sm:pt-1 max-w-[720px] text-balance text-center text-[13.5px] sm:text-[14.5px] leading-[1.45] font-noto-dev font-medium"
-                style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)' }}
+                className="mx-auto max-w-[720px] text-balance text-center text-[15.5px] sm:text-[16.5px] leading-[1.45] font-noto-dev font-medium"
+                style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)', marginTop: 8 }}
               >
                 {subHi}
               </motion.p>
@@ -90,8 +92,8 @@ export default function AmoghHeader() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -3 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="mx-auto pt-1 sm:pt-1 max-w-[720px] text-balance text-center text-[13.5px] sm:text-[14.5px] leading-[1.45] font-inter font-medium"
-                style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)' }}
+                className="mx-auto max-w-[720px] text-balance text-center text-[15.5px] sm:text-[16.5px] leading-[1.45] font-inter font-medium"
+                style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)', marginTop: 8 }}
               >
                 {subEn}
               </motion.p>

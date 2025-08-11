@@ -96,3 +96,22 @@ body { background-color: var(--bg); color: var(--fg); }
 *::-webkit-scrollbar { height: 8px; width: 8px; }
 *::-webkit-scrollbar-track { background: transparent; }
 *::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.15); border-radius: 9999px; }
+
+/* Tabs utilities */
+.text-metallic {
+  background-image: linear-gradient(90deg, #F8E3A1, #E6B980, #C88639, #9A5C1A, #4F2A00);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: metallicSweep 10s linear infinite;
+}
+@keyframes metallicSweep { 0% { background-position: 0% 0 } 100% { background-position: 300% 0 } }
+.glass-bar {
+  background: rgba(12,12,12,0.28);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  border-radius: 1.25rem;
+}
