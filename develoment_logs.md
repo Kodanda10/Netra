@@ -68,3 +68,4 @@
 - 2025-08-11 21:04:19 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 21:09:37 UTC: tests(unit): subtitle rotation timing; i18n helpers; NewsCard/NewsList; coverage >55%; log update
 - 2025-08-11 21:09:37 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 21:17:40 UTC: feat(states): add full states.config with pickDisplayStates and StatesGrid that renders top 3–4; wire-ready for locale
