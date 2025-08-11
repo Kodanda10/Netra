@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function AmoghHeader() {
   const [lang, setLang] = useState<"hi" | "en">("hi");
   const [subtitleIndex, setSubtitleIndex] = useState<0 | 1>(0);
+  const [logoSrc, setLogoSrc] = useState<string>("/amogh-logo-header.png");
 
   const isHindi = lang === "hi";
   const titleText = "अमोघ"; // Title is rendered via logo image; kept for alt text
@@ -54,17 +55,20 @@ export default function AmoghHeader() {
             className="mx-auto select-none pointer-events-none"
             style={{ width: "clamp(164px, 24vw, 320px)" }}
           >
-            <picture>
-              <source type="image/webp" srcSet="/amogh-logo-header.webp 1x, /amogh-logo-header@2x.webp 2x" />
-              <source type="image/png" srcSet="/amogh-logo-header.png 1x, /amogh-logo-header@2x.png 2x" />
-              <img
-                src="/amogh-logo.png"
-                alt={titleText}
-                loading="eager"
-                decoding="async"
-                style={{ width: "100%", height: "auto", filter: "drop-shadow(0 10px 24px rgba(255,140,0,0.14))" }}
-              />
-            </picture>
+            <img
+              src={logoSrc}
+              srcSet="/amogh-logo-header.png 1x, /amogh-logo-header@2x.png 2x"
+              alt={titleText}
+              loading="eager"
+              decoding="async"
+              style={{ width: "100%", height: "auto", filter: "drop-shadow(0 10px 24px rgba(255,140,0,0.14))" }}
+              onError={(e) => {
+                if (logoSrc !== "/amogh-logo.png") {
+                  setLogoSrc("/amogh-logo.png");
+                  e.currentTarget.removeAttribute("srcset");
+                }
+              }}
+            />
           </motion.div>
         </div>
 
