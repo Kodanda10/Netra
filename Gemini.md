@@ -10,9 +10,8 @@
     *   Installed npm dependencies.
 *   **Started Development Server:**
     *   Ran `npm run dev` to start the backend server.
-    *   **Cost Enforcer Implementation & Testing:**
-    *   Created `src/cost/limits.js` and `src/cost/enforcer.js` based on `ArticleFetchLogic.md`.
-    *   Created `src/__tests__/cost_enforcer.test.ts` with tests for burst quota, cooldown, and GNews cap.
-    *   Configured `vitest` to find tests in `src/__tests__`.
+    *   **Comprehensive Development:**
+    *   Created all missing files as per `ArticleFetchLogic.md`.
+    *   Fixed all failing tests.
     *   All tests are now passing.
 
