@@ -36,3 +36,4 @@
 - Frontend tests run: Vitest passed; Playwright 27/32 passing; remaining: visual snapshot diffs (4) and one Pixel-7 reduced-motion click.
 - Lighthouse perf below budget (0.59), SizeLimit over budget for navtabs chunk (161.16 kB > 12 kB).
 - Changes: fix duplicate exports, stabilize E2E via API stubs, contrast fix, a11y smoke stabilized.
+- 2025-08-11 19:20:54 UTC: frontend: fix Vite build (duplicate default exports), stabilize E2E (API route stubs, keyboard selectors), improve a11y (heading+landmark), contrast tweak; update logs; do not touch backend
