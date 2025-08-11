@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc.js";
+dayjs.extend(utc);
 import { gauges, counters } from "./metrics.js";
 import { getDailyCounter, incDailyCounter } from "./counters.js";
 

@@ -1,7 +1,7 @@
 import { request } from "undici";
 import { XMLParser } from "fast-xml-parser";
 import axios from "axios";
-import rax from "retry-axios";
+import * as rax from "retry-axios";
 import pRetry from "p-retry";
 import dayjs from "dayjs";
 import { counters, gauges } from "../cost/metrics.js";

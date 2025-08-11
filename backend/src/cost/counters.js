@@ -1,6 +1,8 @@
 import Redis from "ioredis";
 import { Pool } from "pg";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc.js";
+dayjs.extend(utc);
 
 export function makeStores() {
   const redis = new Redis(process.env.REDIS_URL);
