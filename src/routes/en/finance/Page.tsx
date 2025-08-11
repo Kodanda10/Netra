@@ -1,4 +1,3 @@
-import React from 'react'
 import '../../../features/finance/styles/finance.css'
 import { BharatLongCard } from '../../../features/finance/components/BharatLongCard'
 import { StateCard } from '../../../features/finance/components/StateCard'

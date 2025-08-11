@@ -30,3 +30,9 @@
 - 2025-08-11 19:40:00 UTC: chore: remove Next.js app/ folder to avoid conflicts; keep SPA routing via vercel.json
 - 2025-08-11 19:40:00 UTC: build: Vite prod build successful; assets generated; fonts resolved at runtime via @fontsource
 - 2025-08-11 19:11:59 UTC: feat(finance): migrate to Vite + React Router; add /hi/finance and /en/finance pages; preserve animations & styles; add SWR mock fallback; remove Next app/; build clean
+- 2025-08-11 19:12:00 UTC: docs(log): auto-update [auto-log]
+
+## 2025-08-11 19:20:43 UTC
+- Frontend tests run: Vitest passed; Playwright 27/32 passing; remaining: visual snapshot diffs (4) and one Pixel-7 reduced-motion click.
+- Lighthouse perf below budget (0.59), SizeLimit over budget for navtabs chunk (161.16 kB > 12 kB).
+- Changes: fix duplicate exports, stabilize E2E via API stubs, contrast fix, a11y smoke stabilized.
