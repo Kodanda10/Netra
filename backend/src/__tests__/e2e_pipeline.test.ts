@@ -51,7 +51,7 @@ describe('E2E Pipeline', () => {
     }
 
     expect(processedCount).toBeLessThanOrEqual(limits.MAX_DAILY_ARTICLES || 0);
-    const gnewsArticles = ingestedArticles.filter(a => a.source === 'gnews');
+    const gnewsArticles = (ingestedArticles || []).filter(a => a.source === 'gnews');
     expect(gnewsArticles.length).toBeLessThanOrEqual(limits.GNEWS_MAX_DAILY);
   });
 });

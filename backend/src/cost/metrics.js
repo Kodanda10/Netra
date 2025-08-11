@@ -24,7 +24,7 @@ export const gauges = {
 
 export const counters = {
   fetchReq: c("amogh_fetch_requests_total", "Fetch requests total"),
-  fetchErr: c("amogh_fetch_errors_total", "Fetch errors total"),
+  fetchErr: c("amogh_fetch_errors_total", "Fetch errors total", ["code"]),
   circuitOpen: c("amogh_circuit_open_total", "Circuit open total"),
   dbTxFail: c("amogh_db_tx_failures_total", "DB tx failures"),
   overrides: c("amogh_override_events_total", "Override events total", ["reason"])

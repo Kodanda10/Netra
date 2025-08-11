@@ -84,7 +84,6 @@ export const NavTabs: React.FC<{
               data-testid={`tab-${t.id}`}
               role="tab"
               aria-selected={String(selected)}
-              aria-controls={t.id}
               tabIndex={selected ? 0 : -1}
               onClick={() => handle(t.id)}
               className={clsx(
