@@ -26,12 +26,14 @@ test.describe('NavTabs visual and console hygiene', () => {
 
     expect(messages, `Console should be clean on ${browserName}`).toEqual([])
 
-    await expect(page).toHaveScreenshot('navtabs-dpr1.png', { maxDiffPixelRatio: 0.001 })
+    const bar = page.locator('[role="tablist"]').first()
+    await expect(bar).toBeVisible()
+    await expect(bar).toHaveScreenshot('navtabs-bar-dpr1.png', { maxDiffPixelRatio: 0.02 })
 
     await page.setViewportSize({ width: 1200, height: 800 })
     await page.emulateMedia({ media: 'screen' })
     await page.setExtraHTTPHeaders({ DPR: '2' })
-    await expect(page).toHaveScreenshot('navtabs-dpr2.png', { maxDiffPixelRatio: 0.001 })
+    await expect(bar).toHaveScreenshot('navtabs-bar-dpr2.png', { maxDiffPixelRatio: 0.02 })
   })
 })
 

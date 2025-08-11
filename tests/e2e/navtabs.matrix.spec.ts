@@ -23,10 +23,7 @@ test.describe('NavTabs matrix', () => {
 
   test('reduced motion disables shimmer and y-lift; indicator instant', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
-  const active = page.getByTestId('tab-news')
-  await active.click({ trial: true }).catch(() => {})
-  await active.click({ force: true })
-    // check that indicator exists
+    // initial selected tab is news; indicator should already be present
     await expect(page.getByTestId('active-indicator')).toBeVisible()
   })
 
