@@ -45,16 +45,18 @@ const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; dict
   if (!ready) return <div ref={ref} className="col-span-12 xl:col-span-8 2xl:col-span-7" />
   return (
     <div className="col-span-12 xl:col-span-8 2xl:col-span-7 grid md:grid-cols-2 gap-6">
-      {(() => {
-        const chh = useFinanceData('state', 'chhattisgarh', lang)
-        return <StateCard title={names['chhattisgarh']} items={chh.items as any} sources={chh.sourcesOrdered} sourcesLabel={dictSources(chh.items.length)} />
-      })()}
-      {otherStates.map((s) => {
-        const d = useFinanceData('state', s, lang)
-        return <StateCard key={s} title={names[s]} items={d.items as any} sources={d.sourcesOrdered} sourcesLabel={dictSources(d.items.length)} />
-      })}
+      <StateCardData stateId="chhattisgarh" title={names['chhattisgarh']} lang={lang} dictSources={dictSources} />
+      {otherStates.map((s) => (
+        <StateCardData key={s} stateId={s} title={names[s]} lang={lang} dictSources={dictSources} />
+      ))}
     </div>
   )
+}
+
+const StateCardData: React.FC<{ stateId: string; title: string; lang: 'hi'|'en'; dictSources: (n:number)=>string }>
+  = ({ stateId, title, lang, dictSources }) => {
+  const d = useFinanceData('state', stateId, lang)
+  return <StateCard title={title} items={d.items as any} sources={d.sourcesOrdered} sourcesLabel={dictSources(d.items.length)} />
 }
 
 export default Finance

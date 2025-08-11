@@ -23,6 +23,11 @@ app.get("/metrics", async (_req, res) => {
 
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
+app.get("/news", async (_req, res) => {
+  const articles = await stores.pool.query("SELECT * FROM news_articles ORDER BY published_at DESC LIMIT 100");
+  res.json(articles.rows);
+});
+
 // provider stubs (wire your sources)
 async function getVIX() { return 19; } // triggers burst by default
 async function semanticSpike() { return false; }
