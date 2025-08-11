@@ -7,7 +7,7 @@ export default function AmoghHeader() {
   const [lang, setLang] = useState<"hi" | "en">("hi");
 
   const isHindi = lang === "hi";
-  const titleText = isHindi ? "अमोघ" : "AuthKit";
+  const titleText = "अमोघ"; // Use the Hindi title on both HI and EN views
   const subHi = "इंटेलीजेंट वित्तीय डैशबोर्ड";
   const subEn = "Intelligent Finance Dashboard";
 
@@ -46,23 +46,18 @@ export default function AmoghHeader() {
             backgroundPosition: ["0% 0%", "200% 0%"],
           }}
           transition={{ type: "spring", stiffness: 120, damping: 14, backgroundPosition: { duration: 8, repeat: Infinity, ease: "linear" } }}
-          className={`pt-4 text-center leading-[1.12] tracking-wide bg-clip-text text-transparent ${
-            isHindi
-              ? "font-amita font-bold hindi-title-fix animate-shimmer text-glow"
-              : "font-inter font-extrabold"
-          }`}
+          className={
+            "pt-4 text-center leading-[1.12] tracking-wide bg-clip-text text-transparent font-amita font-bold hindi-title-fix animate-shimmer text-glow"
+          }
           style={{
             fontSize: "clamp(3rem, 8vw, 6rem)",
-            backgroundImage: isHindi
-              ? "linear-gradient(90deg, #6b4e00 0%, #ffe9a3 10%, #b8860b 22%, #fff4bf 35%, #a0740f 48%, #ffd700 62%, #a85e00 78%, #ffcc66 90%, #6b4e00 100%)"
-              : "linear-gradient(90deg, #E6F1FF 0%, #B8D8F0 50%, #8CB4E0 100%)",
+            backgroundImage:
+              "linear-gradient(90deg, #6b4e00 0%, #ffe9a3 10%, #b8860b 22%, #fff4bf 35%, #a0740f 48%, #ffd700 62%, #a85e00 78%, #ffcc66 90%, #6b4e00 100%)",
             backgroundSize: "200% 100%",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            fontWeight: isHindi ? 700 : undefined,
-            textShadow: isHindi
-              ? "0 3px 20px rgba(255, 200, 0, 0.22), 0 1px 8px rgba(255, 200, 0, 0.16)"
-              : "0 2px 20px rgba(180, 220, 255, 0.25)",
+            fontWeight: 700,
+            textShadow: "0 3px 20px rgba(255, 200, 0, 0.22), 0 1px 8px rgba(255, 200, 0, 0.16)",
           }}
         >
           {titleText}
@@ -73,7 +68,9 @@ export default function AmoghHeader() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
-          className={`mt-4 text-center text-lg text-white/85 ${isHindi ? 'font-noto-dev font-semibold' : 'font-inter font-semibold'}`}
+          className={`mx-auto mt-3 sm:mt-4 max-w-[720px] text-balance text-center text-[18px] sm:text-[20px] leading-[1.45] text-white/85 ${
+            isHindi ? 'font-noto-dev font-semibold' : 'font-inter font-semibold'
+          }`}
         >
           {isHindi ? subHi : subEn}
         </motion.p>
