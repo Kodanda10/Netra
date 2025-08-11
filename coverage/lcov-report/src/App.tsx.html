@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -84,9 +84,13 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -102,25 +106,30 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { Suspense, lazy } from 'react'<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
 <span class="cstat-no" title="statement not covered" >import AmoghHeader from './components/AmoghHeader'</span>
 <span class="cstat-no" title="statement not covered" >import { Routes, Route, Navigate } from 'react-router-dom'</span>
-<span class="cstat-no" title="statement not covered" >import FinancePageHi from './routes/hi/finance/Page'</span>
-<span class="cstat-no" title="statement not covered" >import FinancePageEn from './routes/en/finance/Page'</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >const FinancePageHi = lazy(() =&gt; import('./routes/hi/finance/Page'))</span>
+<span class="cstat-no" title="statement not covered" >const FinancePageEn = lazy(() =&gt; import('./routes/en/finance/Page'))</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >const App: React.FC = () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
 <span class="cstat-no" title="statement not covered" >    &lt;div className="min-h-dvh bg-[#121212] text-white"&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;AmoghHeader /&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;Routes&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;Route path="/" element={&lt;Navigate to="/hi/finance" replace /&gt;} /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;Route path="/hi/finance" element={&lt;FinancePageHi /&gt;} /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;Route path="/en/finance" element={&lt;FinancePageEn /&gt;} /&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/Routes&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Suspense fallback={&lt;div aria-live="polite" className="text-white/80"&gt;Loading…&lt;/div&gt;}&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Routes&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;Route path="/" element={&lt;Navigate to="/hi/finance" replace /&gt;} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;Route path="/hi/finance" element={&lt;FinancePageHi /&gt;} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;Route path="/en/finance" element={&lt;FinancePageEn /&gt;} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/Routes&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/Suspense&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/main&gt;</span>
 <span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
   )
@@ -133,7 +142,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-11T19:07:02.363Z
+                at 2025-08-11T19:36:41.166Z
             </div>
         <script src="../prettify.js"></script>
         <script>

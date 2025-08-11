@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/utils/quicksort.js</title>
+    <title>Code coverage report for src/finance/mockData.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/utils</a> quicksort.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/finance</a> mockData.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -88,22 +88,7 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -111,8 +96,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -129,47 +112,31 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >/**<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
-<span class="cstat-no" title="statement not covered" > * Quicksort (in-place) with Lomuto partition.</span>
-<span class="cstat-no" title="statement not covered" > * Average: O(n log n), Worst: O(n^2) when already sorted with poor pivot.</span>
-<span class="cstat-no" title="statement not covered" > * Stable: no. Space: O(log n) recursion.</span>
-<span class="cstat-no" title="statement not covered" > */</span>
-<span class="cstat-no" title="statement not covered" >export function quicksort(array) {</span>
-<span class="cstat-no" title="statement not covered" >  if (!Array.isArray(array)) throw new TypeError('quicksort expects an array')</span>
-<span class="cstat-no" title="statement not covered" >  const a = array</span>
-<span class="cstat-no" title="statement not covered" >  sort(a, 0, a.length - 1)</span>
-<span class="cstat-no" title="statement not covered" >  return a</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >export const mockBharat = [<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span>
+<span class="cstat-no" title="statement not covered" >  { id:'in-1', title:'RBI policy hints at extended pause; liquidity tweaks aid banks', summary:'Bond yields eased after guidance signalled a longer pause while liquidity steps aim to compress term premia.', url:'#', source:'Mint', publishedAt:'2025-08-10T09:10:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:'in-2', title:'Centre eyes infra push via NIIF; logistics costs seen easing', summary:'Pipeline targets freight corridors and warehousing efficiency to lower logistics costs by 2–3ppt over 3 years.', url:'#', source:'Business Standard', publishedAt:'2025-08-10T07:20:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:'in-3', title:'Rupee steady as DXY cools; RBI presence keeps range intact', summary:'FX traders flagged two-way flows with RBI smoothing; importers covered near day’s lows.', url:'#', source:'ET Markets', publishedAt:'2025-08-10T06:10:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:'in-4', title:'Record GST collections buoy states; input-credit audits tighten', summary:'Revenue buoyancy offsets capex rollover; compliance drives widen base across MSMEs.', url:'#', source:'Mint', publishedAt:'2025-08-10T05:30:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:'in-5', title:'Bank credit expands 13.8% YoY; NBFC funding costs edge lower', summary:'Spreads narrowed as system liquidity improved; securitisation volumes up QoQ.', url:'#', source:'Financial Express', publishedAt:'2025-08-10T04:10:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >] as const</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >export const mockChhattisgarh = [</span>
+<span class="cstat-no" title="statement not covered" >  { id:'cg-1', title:'Raipur clears ₹1,200 cr steel investments under revised policy', summary:'State cabinet approved proposals with MSME employment targets and downstream incentives.', url:'#', source:'Business Standard', publishedAt:'2025-08-10T06:45:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >  { id:'cg-2', title:'Dhamtari industrial cluster gets logistics park nod', summary:'Greenfield park to anchor metal downstream; single-window clearances promised.', url:'#', source:'ET Bureau', publishedAt:'2025-08-10T05:10:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >] as const</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >export const mockStates: Record&lt;string, typeof mockChhattisgarh&gt; = {</span>
+<span class="cstat-no" title="statement not covered" >  chhattisgarh: mockChhattisgarh,</span>
+<span class="cstat-no" title="statement not covered" >  maharashtra: [</span>
+<span class="cstat-no" title="statement not covered" >    { id:'mh-1', title:'Pune EV supplier expands; 1,600 jobs planned', summary:'Tier-2 vendor to commission gigacasting line with export focus.', url:'#', source:'Mint', publishedAt:'2025-08-10T04:20:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >    { id:'mh-2', title:'Mumbai IFSC push gains pace; fund registrations rise', summary:'Regulatory sandbox draws alt managers; infra desk approvals climb.', url:'#', source:'BS', publishedAt:'2025-08-10T03:40:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
+<span class="cstat-no" title="statement not covered" >  'uttar-pradesh': [</span>
+<span class="cstat-no" title="statement not covered" >    { id:'up-1', title:'Noida data centre capex accelerates with new policy', summary:'DfA reduces stamp duty; captive renewables in scope.', url:'#', source:'ET', publishedAt:'2025-08-10T02:50:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >    { id:'up-2', title:'Agra leather cluster readies ZLD retrofit', summary:'Credit window opened; export certification support extended.', url:'#', source:'FE', publishedAt:'2025-08-10T02:10:00Z' },</span>
+<span class="cstat-no" title="statement not covered" >  ],</span>
 <span class="cstat-no" title="statement not covered" >}</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >function sort(a, lo, hi) {</span>
-<span class="cstat-no" title="statement not covered" >  if (lo &gt;= hi) return</span>
-<span class="cstat-no" title="statement not covered" >  const p = partition(a, lo, hi)</span>
-<span class="cstat-no" title="statement not covered" >  sort(a, lo, p - 1)</span>
-<span class="cstat-no" title="statement not covered" >  sort(a, p + 1, hi)</span>
-<span class="cstat-no" title="statement not covered" >}</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >function partition(a, lo, hi) {</span>
-<span class="cstat-no" title="statement not covered" >  const pivot = a[hi]</span>
-<span class="cstat-no" title="statement not covered" >  let i = lo</span>
-<span class="cstat-no" title="statement not covered" >  for (let j = lo; j &lt; hi; j++) {</span>
-<span class="cstat-no" title="statement not covered" >    if (a[j] &lt;= pivot) {</span>
-<span class="cstat-no" title="statement not covered" >      ;[a[i], a[j]] = [a[j], a[i]]</span>
-<span class="cstat-no" title="statement not covered" >      i++</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-<span class="cstat-no" title="statement not covered" >  ;[a[i], a[hi]] = [a[hi], a[i]]</span>
-<span class="cstat-no" title="statement not covered" >  return i</span>
-<span class="cstat-no" title="statement not covered" >}</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >// Example usage:</span>
-<span class="cstat-no" title="statement not covered" >// quicksort([3,1,4,1,5,9])</span>
-&nbsp;
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
 

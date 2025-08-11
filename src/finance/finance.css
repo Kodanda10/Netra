@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+.glass-border{background:transparent;border:1px solid rgba(255,255,255,0.12);box-shadow:inset 0 1px rgba(255,255,255,0.30),0 0 18px rgba(255,184,77,0.20);}
+.text-metallic{background:linear-gradient(90deg,#F8E3A1,#E6B980,#C88639,#9A5C1A,#4F2A00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;background-size:300% 100%;animation:metallicSweep 10s linear infinite;}
+@keyframes metallicSweep{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+.hairline{height:1px;background:rgba(255,255,255,0.08)}
+
