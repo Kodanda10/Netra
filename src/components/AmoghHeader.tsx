@@ -47,19 +47,25 @@ export default function AmoghHeader() {
 
         {/* Title (Cinematic logo image with arrow underline) */}
         <div className="flex flex-col items-center justify-center">
-          <motion.img
-            src="/amogh-logo.png"
-            alt={titleText}
+          <motion.div
             initial={{ opacity: 0, y: -10, scale: 0.99 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: "spring", stiffness: 140, damping: 18 }}
-            className="select-none pointer-events-none mx-auto"
-            style={{
-              width: "clamp(180px, 28vw, 360px)",
-              height: "auto",
-              filter: "drop-shadow(0 12px 28px rgba(255,140,0,0.14))",
-            }}
-          />
+            className="mx-auto select-none pointer-events-none"
+            style={{ width: "clamp(164px, 24vw, 320px)" }}
+          >
+            <picture>
+              <source type="image/webp" srcSet="/amogh-logo-header.webp 1x, /amogh-logo-header@2x.webp 2x" />
+              <source type="image/png" srcSet="/amogh-logo-header.png 1x, /amogh-logo-header@2x.png 2x" />
+              <img
+                src="/amogh-logo.png"
+                alt={titleText}
+                loading="eager"
+                decoding="async"
+                style={{ width: "100%", height: "auto", filter: "drop-shadow(0 10px 24px rgba(255,140,0,0.14))" }}
+              />
+            </picture>
+          </motion.div>
         </div>
 
         {/* Subtitle (centered, below arrow) – rotates HI/EN */}
