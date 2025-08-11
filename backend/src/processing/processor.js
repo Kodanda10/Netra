@@ -1,8 +1,10 @@
 import crypto from "node:crypto";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc.js";
+dayjs.extend(utc);
 
 // naive in-memory caches for demo/testing
-const translationCache = new Map();
+export const translationCache = new Map();
 const seenHashes = new Set();
 
 const FINANCE_POS = ["RBI", "FDI", "investment", "market", "NSE", "BSE", "SEBI", "rupee", "inflation", "policy"];

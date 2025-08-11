@@ -1,7 +1,11 @@
+
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import * as fetcher from '../ingestion/fetcher.js';
 import * as enforcer from '../cost/enforcer.js';
 import { request } from 'undici';
+import { processorFactory } from '../processing/processor.js';
+import { limitsFromEnv } from '../cost/limits.js';
+
 vi.mock('p-retry', () => ({ default: (fn) => fn() }));
 
 vi.mock('../cost/enforcer.js');
@@ -14,8 +18,12 @@ describe('Fetcher', () => {
     get: vi.fn(),
     incr: vi.fn(),
   }; 
-  beforeEach(() => {
+  const limits = limitsFromEnv({ AMOGH_MAX_SUMMARY_CHARS: "200" });
+  let processFn;
+
+  beforeEach(async () => {
     vi.resetAllMocks();
+    processFn = await processorFactory(limits);
   });
 
   it('When RSS >= 50 valid items -> GNews not called', async () => {
@@ -30,7 +38,7 @@ describe('Fetcher', () => {
     request.mockResolvedValue({ body: { text: () => Promise.resolve(toRss(mockRssArticles)) } });
     const fetchGNews = vi.spyOn(fetcher, 'fetchGNews').mockResolvedValue([]);
 
-    await fetcher.ingestCycle(mockRedis, fetchGNews);
+    await fetcher.ingestCycle(mockRedis, fetchGNews, processFn);
 
     expect(fetchGNews).not.toHaveBeenCalled();
   });
@@ -51,7 +59,7 @@ describe('Fetcher', () => {
     }
     const fetchGNews = vi.fn().mockResolvedValue(mockGnewsArticles);
 
-    const result = await fetcher.ingestCycle(mockRedis, fetchGNews);
+    const result = await fetcher.ingestCycle(mockRedis, fetchGNews, processFn);
 
     expect(fetchGNews).toHaveBeenCalled();
     expect(result.ingested).toBe(40); // 20 from RSS + 20 from GNews
@@ -67,7 +75,7 @@ describe('Fetcher', () => {
 
     request.mockRejectedValue(new Error('Fetch failed'));
 
-    const result = await fetcher.ingestCycle(mockRedis, vi.fn().mockResolvedValue([]));
+    const result = await fetcher.ingestCycle(mockRedis, vi.fn().mockResolvedValue([]), processFn);
 
     expect(request).toHaveBeenCalledTimes(6); // 6 feeds, 1 try each
     expect(result.ingested).toBe(0);

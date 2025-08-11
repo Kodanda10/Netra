@@ -13,3 +13,4 @@
 - 2025-08-11 14:57:10 UTC: feat(header): mount visionOS NavTabs directly inside AmoghHeader (centered under logo; HI/EN sync)
 - 2025-08-11 14:57:10 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 15:09:26 UTC: fix(ui): remove duplicate NavTabs from App; keep single header-mounted bar
+- 2025-08-11 15:09:27 UTC: docs(log): auto-update [auto-log]

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NavTabs, { type TabItem } from "./NavTabs";
-import { Newspaper, TrendingUp, Share2, Landmark } from "lucide-react";
+import { Newspaper, TrendingUp, Share2, Banknote } from "lucide-react";
 
 export default function AmoghHeader() {
   const [lang, setLang] = useState<"hi" | "en">("hi");
@@ -110,7 +110,7 @@ export default function AmoghHeader() {
               { id: 'news',   icon: <Newspaper size={20} />, labelHi: 'वित्तीय समाचार', labelEn: 'Finance News' } as TabItem,
               { id: 'stocks', icon: <TrendingUp size={20} />, labelHi: 'शेयर बाजार',   labelEn: 'Stock Market' } as TabItem,
               { id: 'social', icon: <Share2 size={20} />,    labelHi: 'सोशल मीडिया',   labelEn: 'Social Media' } as TabItem,
-              { id: 'fdi',    icon: <Landmark size={20} />,  labelHi: 'एफडीआई',        labelEn: 'FDI' } as TabItem,
+              { id: 'fdi',    icon: <Banknote size={20} />,  labelHi: 'एफडीआई',        labelEn: 'FDI' } as TabItem,
             ]}
             lang={isHindi ? 'hi' : 'en'}
             onChange={() => {}}

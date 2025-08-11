@@ -1,14 +1,18 @@
-
 import { describe, it, expect, beforeEach } from 'vitest';
-import { processArticle, translationCache } from '../processing/processor.js';
+import { processorFactory, translationCache } from '../processing/processor.js';
+import { limitsFromEnv } from '../cost/limits.js';
 import dayjs from 'dayjs';
+
+const limits = limitsFromEnv({ AMOGH_MAX_SUMMARY_CHARS: "200" });
 
 describe('Processor', () => {
   const existingArticles = new Set();
+  let processArticle;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     existingArticles.clear();
     translationCache.clear();
+    processArticle = await processorFactory(limits);
   });
 
   it('Reject old/future articles', async () => {

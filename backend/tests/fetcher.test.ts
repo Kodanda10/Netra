@@ -1,5 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import * as undici from "undici";
+vi.mock("undici", () => ({
+  request: vi.fn(),
+}));
 import { XMLParser } from "fast-xml-parser";
 import { ingestCycle, fetchRSS, fetchGNews } from "../src/ingestion/fetcher.js";
 import { processorFactory } from "../src/processing/processor.js";
