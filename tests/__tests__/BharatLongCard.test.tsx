@@ -1,5 +1,16 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
+
+vi.mock('../../src/features/finance/components/NewsList', () => ({
+  NewsList: ({ items }: { items: { title: string; url: string }[] }) => (
+    <div>
+      {items.map((it) => (
+        <a key={it.url} href={it.url}>{it.title}</a>
+      ))}
+    </div>
+  ),
+}))
+
 import { BharatLongCard } from '../../src/features/finance/components/BharatLongCard'
 
 describe('BharatLongCard', () => {
