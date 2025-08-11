@@ -1,108 +1,37 @@
+import client from "prom-client";
+const register = new client.Registry();
+client.collectDefaultMetrics({ register });
 
-import { Registry, Gauge, Counter } from 'prom-client';
+const g = (name, help, labelNames = []) =>
+  new client.Gauge({ name, help, labelNames });
+const c = (name, help, labelNames = []) =>
+  new client.Counter({ name, help, labelNames });
 
-export const register = new Registry();
+export const gauges = {
+  dailyArticles: g("amogh_daily_article_count", "Articles ingested today"),
+  dailyQuota: g("amogh_daily_article_quota", "Effective article quota today"),
+  gnewsDaily: g("amogh_gnews_daily_count", "GNews items used today"),
+  gnewsQuota: g("amogh_gnews_daily_quota", "GNews daily cap"),
+  costSummaryINR: g("amogh_article_cost_inr_hourly", "Hourly summary cost INR"),
+  costTransINR: g("amogh_translation_cost_inr_hourly", "Hourly translation cost INR"),
+  itemsPerHour: g("amogh_items_per_hour", "Items per hour"),
+  queueDepth: g("amogh_queue_depth", "Queue depth"),
+  backlog: g("amogh_processor_backlog", "Processor backlog"),
+  burstActive: g("amogh_burst_mode_active", "Burst mode active (0/1)"),
+  freshnessP95m: g("amogh_freshness_age_minutes_p95", "Freshness age p95 minutes"),
+  sourceToday: g("amogh_source_items_today", "Items by source today", ["source"])
+};
 
-export const dailyArticleCount = new Gauge({
-  name: 'amogh_daily_article_count',
-  help: 'Number of articles ingested today',
-  registers: [register],
-});
+export const counters = {
+  fetchReq: c("amogh_fetch_requests_total", "Fetch requests total"),
+  fetchErr: c("amogh_fetch_errors_total", "Fetch errors total"),
+  circuitOpen: c("amogh_circuit_open_total", "Circuit open total"),
+  dbTxFail: c("amogh_db_tx_failures_total", "DB tx failures"),
+  overrides: c("amogh_override_events_total", "Override events total", ["reason"])
+};
 
-export const dailyArticleQuota = new Gauge({
-  name: 'amogh_daily_article_quota',
-  help: 'Total daily article quota',
-  registers: [register],
-});
+for (const m of [...Object.values(gauges), ...Object.values(counters)]) {
+  register.registerMetric(m);
+}
 
-export const gnewsDailyCount = new Gauge({
-  name: 'amogh_gnews_daily_count',
-  help: 'Number of GNews articles ingested today',
-  registers: [register],
-});
-
-export const gnewsDailyQuota = new Gauge({
-  name: 'amogh_gnews_daily_quota',
-  help: 'Total daily GNews article quota',
-  registers: [register],
-});
-
-export const articleCostInrHourly = new Gauge({
-  name: 'amogh_article_cost_inr_hourly',
-  help: 'Hourly cost of article ingestion in INR',
-  registers: [register],
-});
-
-export const translationCostInrHourly = new Gauge({
-  name: 'amogh_translation_cost_inr_hourly',
-  help: 'Hourly cost of translation in INR',
-  registers: [register],
-});
-
-export const itemsPerHour = new Gauge({
-  name: 'amogh_items_per_hour',
-  help: 'Number of items processed per hour',
-  registers: [register],
-});
-
-export const queueDepth = new Gauge({
-  name: 'amogh_queue_depth',
-  help: 'Number of items in the processing queue',
-  registers: [register],
-});
-
-export const processorBacklog = new Gauge({
-  name: 'amogh_processor_backlog',
-  help: 'Number of items in the processor backlog',
-  registers: [register],
-});
-
-export const burstModeActive = new Gauge({
-  name: 'amogh_burst_mode_active',
-  help: 'Whether burst mode is currently active',
-  registers: [register],
-});
-
-export const freshnessAgeMinutesP95 = new Gauge({
-  name: 'amogh_freshness_age_minutes_p95',
-  help: '95th percentile of article freshness in minutes',
-  registers: [register],
-});
-
-export const sourceItemsToday = new Gauge({
-  name: 'amogh_source_items_today',
-  help: 'Number of items ingested today by source',
-  labelNames: ['source'],
-  registers: [register],
-});
-
-export const fetchRequestsTotal = new Counter({
-  name: 'amogh_fetch_requests_total',
-  help: 'Total number of fetch requests',
-  registers: [register],
-});
-
-export const fetchErrorsTotal = new Counter({
-  name: 'amogh_fetch_errors_total',
-  help: 'Total number of fetch errors',
-  registers: [register],
-});
-
-export const circuitOpenTotal = new Counter({
-  name: 'amogh_circuit_open_total',
-  help: 'Total number of times the circuit breaker has opened',
-  registers: [register],
-});
-
-export const dbTxFailuresTotal = new Counter({
-  name: 'amogh_db_tx_failures_total',
-  help: 'Total number of database transaction failures',
-  registers: [register],
-});
-
-export const overrideEventsTotal = new Counter({
-  name: 'amogh_override_events_total',
-  help: 'Total number of override events',
-  labelNames: ['reason'],
-  registers: [register],
-});
+export { register };

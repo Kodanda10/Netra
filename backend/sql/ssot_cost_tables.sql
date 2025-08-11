@@ -1,22 +1,21 @@
-
-CREATE TABLE IF NOT EXISTS daily_counters (
-  day DATE NOT NULL,
-  key TEXT NOT NULL,
-  value BIGINT NOT NULL,
-  PRIMARY KEY (day, key)
+CREATE TABLE IF NOT EXISTS daily_counters(
+  day date,
+  key text,
+  value bigint,
+  PRIMARY KEY(day, key)
 );
 
-CREATE TABLE IF NOT EXISTS translation_cache (
-  hash TEXT PRIMARY KEY,
-  text_hi TEXT NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  expires_at TIMESTAMPTZ
+CREATE TABLE IF NOT EXISTS translation_cache(
+  hash text PRIMARY KEY,
+  text_hi text,
+  created_at timestamptz DEFAULT now(),
+  expires_at timestamptz
 );
 
-CREATE TABLE IF NOT EXISTS cost_logs (
-  id BIGSERIAL PRIMARY KEY,
-  day DATE NOT NULL,
-  metric TEXT NOT NULL,
-  value_inr NUMERIC(12, 2) NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW()
+CREATE TABLE IF NOT EXISTS cost_logs(
+  id bigserial PRIMARY KEY,
+  day date,
+  metric text,
+  value_inr numeric(12,2),
+  created_at timestamptz DEFAULT now()
 );

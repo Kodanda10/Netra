@@ -1,26 +1,17 @@
+# Stub: wire to your Kafka topics; prints alerts on spikes
+import time, random
 
-import json
-from kafka import KafkaConsumer
+def rolling_avg(xs): return sum(xs) / max(1, len(xs))
+cost_window = []
+rss_window = []
 
-# Stubs for rolling average calculation
-rolling_avg_cost = 100
-rolling_avg_rss = 100
-
-def main():
-    consumer = KafkaConsumer(
-        'metrics',
-        bootstrap_servers=['localhost:9092'],
-        value_deserializer=lambda m: json.loads(m.decode('ascii'))
-    )
-
-    for message in consumer:
-        metric = message.value
-        if metric['name'] == 'amogh_article_cost_inr_hourly':
-            if metric['value'] >= 2 * rolling_avg_cost:
-                print(f"ALERT: Cost spike detected! Hourly cost is {metric['value']}")
-        elif metric['name'] == 'amogh_source_items_today' and metric['labels']['source'] == 'rss':
-            if metric['value'] <= 0.5 * rolling_avg_rss:
-                print(f"ALERT: RSS feed drop detected! RSS items today is {metric['value']}")
-
-if __name__ == '__main__':
-    main()
+while True:
+    cost = 10 + random.random() * 5
+    rss = 60 + random.random() * 20
+    cost_window = (cost_window + [cost])[-20:]
+    rss_window  = (rss_window + [rss])[-20:]
+    if len(cost_window) >= 5 and cost > 2 * rolling_avg(cost_window[:-1]):
+        print("ALERT cost spike >=2x rolling avg")
+    if len(rss_window) >= 5 and rss < 0.5 * rolling_avg(rss_window[:-1]):
+        print("ALERT RSS drop >=50% from rolling avg")
+    time.sleep(5)

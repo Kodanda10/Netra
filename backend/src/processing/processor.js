@@ -1,103 +1,70 @@
+import crypto from "node:crypto";
+import dayjs from "dayjs";
 
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc.js';
-dayjs.extend(utc);
+// naive in-memory caches for demo/testing
+const translationCache = new Map();
+const seenHashes = new Set();
 
-// Stubs for external services
-const manualReviewQueue = {
-  add: () => {},
-};
-const factCheck = async () => 0.9;
+const FINANCE_POS = ["RBI", "FDI", "investment", "market", "NSE", "BSE", "SEBI", "rupee", "inflation", "policy"];
+const CIVIC_NEG = ["crime", "rape", "murder", "theft", "court", "judgement", "accident"];
 
-export const translationCache = new Map();
-
-function isTodayUTC(date) {
-  if (!date) return false;
-  const today = dayjs.utc().startOf('day');
-  const articleDate = dayjs.utc(date).startOf('day');
-  return today.isSame(articleDate);
+function score(text, terms) {
+  const lc = text.toLowerCase();
+  return terms.reduce((s, t) => s + (lc.includes(t.toLowerCase()) ? 1 : 0), 0);
 }
 
-function relevanceCheck(text) {
-  // Simplified relevance check
-  const financeKeywords = ['finance', 'investment', 'stocks', 'market', 'economy'];
-  const civicKeywords = ['civic', 'election', 'politics'];
-  let financeScore = 0;
-  let civicScore = 0;
-  for (const keyword of financeKeywords) {
-    if (text.toLowerCase().includes(keyword)) {
-      financeScore++;
+function isTodayISO(iso) {
+  if (!iso) return false;
+  const d = dayjs(iso).utc();
+  const today = dayjs().utc();
+  return d.isSame(today, "day");
+}
+
+function hashKey(title, url) {
+  return crypto.createHash("sha256").update(`${title}|${url}`).digest("hex");
+}
+
+export async function processorFactory(limits) {
+  return async function process(item) {
+    // Date filter
+    if (!isTodayISO(item.publishedAt)) return null;
+    // Relevance filter
+    const pos = score(item.title, FINANCE_POS);
+    const neg = score(item.title, CIVIC_NEG);
+    if (pos < 3 || neg > 0) return null;
+
+    // Dedup
+    const key = hashKey(item.title || "", item.url || "");
+    if (seenHashes.has(key)) return null;
+    seenHashes.add(key);
+
+    // Categorize (very simple heuristic)
+    const isState = /\b(UP|Delhi|Maharashtra|Chhattisgarh|Odisha|Bengal|Tamil Nadu)\b/i.test(item.title);
+    const category = isState ? "state" : "all-india";
+    const confidence = isState ? 0.9 : 0.8;
+
+    // Summarize (placeholder clamp) then translate; cache by hash
+    const summaryEn = (item.title || "").slice(0, limits.MAX_SUMMARY_CHARS);
+    let textHi = translationCache.get(key);
+    let cached = true;
+    if (!textHi) {
+      // Your translator here; we simulate
+      textHi = `हिंदी: ${summaryEn}`;
+      translationCache.set(key, textHi);
+      cached = false;
     }
-  }
-  for (const keyword of civicKeywords) {
-    if (text.toLowerCase().includes(keyword)) {
-      civicScore++;
-    }
-  }
-  return financeScore >= 3 && civicScore === 0;
-}
 
-function deduplicate(article, existingArticles) {
-  const hash = `${article.title}:${article.url}`;
-  if (existingArticles.has(hash)) {
-    return true;
-  }
-  existingArticles.add(hash);
-  return false;
-}
+    // Fact-check stub
+    const factScore = 0.9;
 
-function categorize(article) {
-  // Simplified categorization
-  if (article.title.toLowerCase().includes('india')) {
-    return { category: 'All-India', confidence: 0.9 };
-  }
-  return { category: 'State', confidence: 0.8 };
-}
-
-async function summarizeAndTranslate(text) {
-  const hash = text; // In a real implementation, use a proper hash function
-  if (translationCache.has(hash)) {
-    return { summary: text.slice(0, 200), translatedSummary: translationCache.get(hash), cached: true };
-  }
-
-  const summary = text.slice(0, 200);
-  const translatedSummary = `Hindi translation of: ${summary}`;
-  translationCache.set(hash, translatedSummary);
-  return { summary, translatedSummary, cached: false };
-}
-
-export async function processArticle(article, existingArticles) {
-  if (!isTodayUTC(article.publishedAt)) {
-    return null;
-  }
-
-  if (!relevanceCheck(article.title + ' ' + article.description)) {
-    return null;
-  }
-
-  if (deduplicate(article, existingArticles)) {
-    return null;
-  }
-
-  const { category, confidence } = categorize(article);
-  if (confidence < 0.7) {
-    manualReviewQueue.add(article);
-    return null;
-  }
-
-  const translationResult = await summarizeAndTranslate(article.description || '');
-
-  const factCheckScore = await factCheck();
-  if (factCheckScore < 0.8) {
-    return null;
-  }
-
-  return {
-    ...article,
-    category,
-    summary: translationResult.summary,
-    translatedSummary: translationResult.translatedSummary,
-    translationCached: translationResult.cached,
-    factCheckScore,
+    return {
+      ...item,
+      category,
+      confidence,
+      summaryEn,
+      summaryHi: textHi,
+      translationCached: cached,
+      factScore
+    };
   };
 }
