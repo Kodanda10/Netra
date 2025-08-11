@@ -7,7 +7,7 @@ export default function AmoghHeader() {
   const [lang, setLang] = useState<"hi" | "en">("hi");
 
   const isHindi = lang === "hi";
-  const titleText = "अमोघ";
+  const titleText = isHindi ? "अमोघ" : "AuthKit";
   const subHi = "इंटेलीजेंट वित्तीय डैशबोर्ड";
   const subEn = "Intelligent Finance Dashboard";
 
@@ -39,15 +39,30 @@ export default function AmoghHeader() {
         {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: -14, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ type: "spring", stiffness: 120, damping: 14 }}
-          className={`pt-4 text-center font-extrabold leading-[1.15] tracking-wide ${isHindi ? 'font-amita' : ''}`}
+          animate={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            backgroundPosition: ["0% 0%", "200% 0%"],
+          }}
+          transition={{ type: "spring", stiffness: 120, damping: 14, backgroundPosition: { duration: 8, repeat: Infinity, ease: "linear" } }}
+          className={`pt-4 text-center leading-[1.12] tracking-wide bg-clip-text text-transparent ${
+            isHindi
+              ? "font-amita font-bold hindi-title-fix animate-shimmer text-glow"
+              : "font-inter font-extrabold"
+          }`}
           style={{
             fontSize: "clamp(3rem, 8vw, 6rem)",
-            background: "linear-gradient(90deg, #E6F1FF 0%, #B8D8F0 50%, #8CB4E0 100%)",
+            backgroundImage: isHindi
+              ? "linear-gradient(90deg, #6b4e00 0%, #ffe9a3 10%, #b8860b 22%, #fff4bf 35%, #a0740f 48%, #ffd700 62%, #a85e00 78%, #ffcc66 90%, #6b4e00 100%)"
+              : "linear-gradient(90deg, #E6F1FF 0%, #B8D8F0 50%, #8CB4E0 100%)",
+            backgroundSize: "200% 100%",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            textShadow: "0 2px 20px rgba(180, 220, 255, 0.25)",
+            fontWeight: isHindi ? 700 : undefined,
+            textShadow: isHindi
+              ? "0 3px 20px rgba(255, 200, 0, 0.22), 0 1px 8px rgba(255, 200, 0, 0.16)"
+              : "0 2px 20px rgba(180, 220, 255, 0.25)",
           }}
         >
           {titleText}
@@ -63,43 +78,8 @@ export default function AmoghHeader() {
           {isHindi ? subHi : subEn}
         </motion.p>
 
-        {/* Arrow Bar (fully visible) */}
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0.2 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ delay: 0.45, duration: 0.6, ease: "easeOut" }}
-          className="mt-6 flex justify-center"
-        >
-          <ArrowBar />
-        </motion.div>
       </div>
     </header>
-  );
-}
-
-/* Fixed padding for arrow visibility */
-function ArrowBar() {
-  return (
-    <div className="relative h-3 w-[240px] sm:w-[280px] md:w-[320px] pl-1 pr-6">
-      {/* Bar */}
-      <div className="absolute inset-y-0 left-0 right-6 rounded-full bg-gradient-to-r from-[#B8D8F0] via-[#8CB4E0] to-[#73A0D6] shadow-[0_0_14px_rgba(140,180,224,0.4)]" />
-      {/* Arrowhead */}
-      <svg
-        className="absolute right-0 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
-        <path d="M4 12h12" stroke="url(#grad)" strokeWidth="3" strokeLinecap="round" />
-        <path d="M13 6l7 6-7 6" fill="url(#grad)" />
-        <defs>
-          <linearGradient id="grad" x1="0" x2="24" y1="12" y2="12" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#B8D8F0" />
-            <stop offset="0.5" stopColor="#8CB4E0" />
-            <stop offset="1" stopColor="#73A0D6" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
   );
 }
 
