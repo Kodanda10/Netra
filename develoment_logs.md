@@ -29,3 +29,4 @@
 - 2025-08-11 19:40:00 UTC: feat(finance): migrate Finance UI to Vite + React Router; add /hi/finance and /en/finance routes; preserve VisionOS glass, metallic gradient, Framer Motion, virtualization; add SWR mock fallback
 - 2025-08-11 19:40:00 UTC: chore: remove Next.js app/ folder to avoid conflicts; keep SPA routing via vercel.json
 - 2025-08-11 19:40:00 UTC: build: Vite prod build successful; assets generated; fonts resolved at runtime via @fontsource
+- 2025-08-11 19:11:59 UTC: feat(finance): migrate to Vite + React Router; add /hi/finance and /en/finance pages; preserve animations & styles; add SWR mock fallback; remove Next app/; build clean
