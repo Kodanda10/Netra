@@ -49,3 +49,5 @@
 - 2025-08-11 20:02:23 UTC: tests(unit): add AmoghHeader, BharatLongCard, StateCard tests to raise coverage; log update
 - 2025-08-11 20:02:23 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 20:03:11 UTC: tests(unit): mock NewsList for BharatLongCard/StateCard; tests pass; log update
+- 2025-08-11 20:03:12 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 20:04:22 UTC: chore(test): add live deployment screenshots for /hi/finance and /en/finance (1440x900)
