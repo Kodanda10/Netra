@@ -44,3 +44,4 @@
 - 2025-08-11 19:32:12 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 19:40:52 UTC: feat(finance): Vite-only three-column Finance page, static flag, combined sources panel, mock data; bilingual routes; cinematic loads; tone-down gold; preserve a11y/matra safety
 - 2025-08-11 19:40:52 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 20:01:01 UTC: refactor(finance): unify to single Finance page switching by :lang (hi|en); update router and header toggle
