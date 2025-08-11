@@ -10,5 +10,9 @@
     *   Installed npm dependencies.
 *   **Started Development Server:**
     *   Ran `npm run dev` to start the backend server.
-    *   Verified the server is running by successfully checking the `/health` endpoint.
+    *   **Cost Enforcer Implementation & Testing:**
+    *   Created `src/cost/limits.js` and `src/cost/enforcer.js` based on `ArticleFetchLogic.md`.
+    *   Created `src/__tests__/cost_enforcer.test.ts` with tests for burst quota, cooldown, and GNews cap.
+    *   Configured `vitest` to find tests in `src/__tests__`.
+    *   All tests are now passing.
 
