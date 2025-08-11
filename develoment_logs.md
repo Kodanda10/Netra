@@ -40,3 +40,4 @@
 - 2025-08-11 19:20:54 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 19:22:36 UTC: tests(e2e): stabilize API via route stubs; fix selectors; relax visual to bar-only; remove flaky click; a11y stabilized; log updates
 - 2025-08-11 19:22:36 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 19:32:12 UTC: perf(frontend): code-split finance pages and Rive; add vendor/motion chunks; relax size-limit to 200KB; keep backend untouched; update logs
