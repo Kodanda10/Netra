@@ -23,10 +23,6 @@ export default function AmoghHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full overflow-hidden bg-[#121212]">
-      {/* Cinematic background particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        <ParticleField />
-      </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
         {/* Language toggle */}
@@ -136,16 +132,4 @@ function GridPattern() {
   );
 } 
 
-/* Subtle particles/glow backdrop */
-function ParticleField() {
-  return (
-    <div className="absolute inset-0">
-      <div className="absolute left-[10%] top-[20%] particle-dot" />
-      <div className="absolute left-[30%] top-[40%] particle-dot" />
-      <div className="absolute left-[55%] top-[25%] particle-dot" />
-      <div className="absolute left-[72%] top-[50%] particle-dot" />
-      <div className="absolute left-[20%] top-[70%] particle-dot" />
-      <div className="absolute left-[48%] top-[80%] particle-dot" />
-    </div>
-  );
-}
+// Removed cinematic particles to match a clean oil-black header background
