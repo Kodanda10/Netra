@@ -10,7 +10,13 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview --host"
+    "preview": "vite preview --host",
+    "test": "vitest",
+    "test:ci": "vitest run --coverage",
+    "e2e": "playwright test",
+    "e2e:update": "playwright test --update-snapshots",
+    "lh": "lhci autorun",
+    "lint:perf": "size-limit"
   },
   "dependencies": {
     "@fontsource/amita": "^5.1.0",
@@ -27,7 +33,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.54.2",
+    "@size-limit/file": "^11.2.0",
     "@tailwindcss/postcss": "^4.0.0",
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^4.7.0",
@@ -36,9 +47,13 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "jest-axe": "^10.0.0",
+    "playwright": "^1.54.2",
     "postcss": "^8.5.6",
+    "size-limit": "^11.2.0",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.6.3",
-    "vite": "^7.1.0"
+    "vite": "^7.1.0",
+    "vitest": "^3.2.4"
   }
 }
