@@ -66,3 +66,4 @@
 - 2025-08-11 20:51:26 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 21:04:19 UTC: feat(ui): glass-liquid surfaces, cinematic motion variants, Hindi mocks and locale purity, deduped Sources count, responsive segmented tabs, lazy states/panel; rebuild
 - 2025-08-11 21:04:19 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 21:09:37 UTC: tests(unit): subtitle rotation timing; i18n helpers; NewsCard/NewsList; coverage >55%; log update
