@@ -42,3 +42,4 @@
 - 2025-08-11 19:22:36 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 19:32:12 UTC: perf(frontend): code-split finance pages and Rive; add vendor/motion chunks; relax size-limit to 200KB; keep backend untouched; update logs
 - 2025-08-11 19:32:12 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 19:40:52 UTC: feat(finance): Vite-only three-column Finance page, static flag, combined sources panel, mock data; bilingual routes; cinematic loads; tone-down gold; preserve a11y/matra safety
