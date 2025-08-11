@@ -14,3 +14,4 @@
 - 2025-08-11 14:57:10 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 15:09:26 UTC: fix(ui): remove duplicate NavTabs from App; keep single header-mounted bar
 - 2025-08-11 15:09:27 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 15:14:39 UTC: fix(tabs): use Banknote icon for FDI to match provided spec; reassess icon mapping
