@@ -1,15 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function AmoghHeader() {
   const [lang, setLang] = useState<"hi" | "en">("hi");
+  const [subtitleIndex, setSubtitleIndex] = useState<0 | 1>(0);
 
   const isHindi = lang === "hi";
   const titleText = "अमोघ"; // Title is rendered via logo image; kept for alt text
   const subHi = "इंटेलीजेंट वित्तीय डैशबोर्ड";
   const subEn = "Intelligent Finance Dashboard";
+
+  // Rotate subtitles: HI -> EN -> HI ...
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSubtitleIndex((prev) => (prev === 0 ? 1 : 0));
+    }, 3600);
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <header className="relative w-full overflow-hidden bg-gradient-to-b from-[#09090c] via-[#0a0c16] to-[#0b1120]">
@@ -51,18 +60,36 @@ export default function AmoghHeader() {
           }}
         />
 
-        {/* Subtitle (centered, below arrow) */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
-          className={`mx-auto pt-4 sm:pt-5 mt-1 max-w-[760px] text-balance text-center text-[17px] sm:text-[19px] leading-[1.5] ${
-            isHindi ? 'font-noto-dev font-semibold' : 'font-inter font-semibold'
-          }`}
-          style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)' }}
-        >
-          {isHindi ? subHi : subEn}
-        </motion.p>
+        {/* Subtitle (centered, below arrow) – rotates HI/EN */}
+        <div className="relative h-[28px] sm:h-[32px] mt-1">
+          <AnimatePresence mode="wait">
+            {subtitleIndex === 0 ? (
+              <motion.p
+                key="hi"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="mx-auto pt-4 sm:pt-5 max-w-[760px] text-balance text-center text-[17px] sm:text-[19px] leading-[1.5] font-noto-dev font-semibold"
+                style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)' }}
+              >
+                {subHi}
+              </motion.p>
+            ) : (
+              <motion.p
+                key="en"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="mx-auto pt-4 sm:pt-5 max-w-[760px] text-balance text-center text-[17px] sm:text-[19px] leading-[1.5] font-inter font-semibold"
+                style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)' }}
+              >
+                {subEn}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
 
       </div>
     </header>
