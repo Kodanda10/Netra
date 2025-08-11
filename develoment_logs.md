@@ -48,3 +48,4 @@
 - 2025-08-11 20:01:01 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 20:02:23 UTC: tests(unit): add AmoghHeader, BharatLongCard, StateCard tests to raise coverage; log update
 - 2025-08-11 20:02:23 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 20:03:11 UTC: tests(unit): mock NewsList for BharatLongCard/StateCard; tests pass; log update
