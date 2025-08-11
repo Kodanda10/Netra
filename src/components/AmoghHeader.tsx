@@ -9,7 +9,7 @@ export default function AmoghHeader() {
 
   const isHindi = lang === "hi";
   const titleText = "अमोघ"; // Title is rendered via logo image; kept for alt text
-  const subHi = "इंटेलीजेंट वित्तीय डैशबोर्ड";
+  const subHi = "इंटेलिजेंट वित्तीय डैशबोर्ड";
   const subEn = "Intelligent Finance Dashboard";
 
   // Rotate subtitles: HI -> EN -> HI ...
@@ -21,15 +21,15 @@ export default function AmoghHeader() {
   }, []);
 
   return (
-    <header className="relative w-full overflow-hidden bg-gradient-to-b from-[#09090c] via-[#0a0c16] to-[#0b1120]">
+    <header className="sticky top-0 z-40 w-full overflow-hidden bg-gradient-to-b from-[#0a0a0d] via-[#0b0e18] to-[#0b1120] border-b border-white/10">
       {/* Cinematic background particles */}
       <div className="absolute inset-0 pointer-events-none">
         <ParticleField />
       </div>
 
-      <div className="relative z-10 mx-auto mt-10 max-w-[1200px] px-6 sm:px-8 md:px-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
         {/* Language toggle */}
-        <div className="absolute right-6 top-4 flex items-center gap-2 rounded-full bg-white/5 px-2 py-1 text-xs text-white/80 ring-1 ring-white/10 backdrop-blur">
+        <div className="absolute right-4 top-2 sm:top-2 flex items-center gap-2 rounded-full bg-white/5 px-2 py-1 text-[10px] sm:text-xs text-white/80 ring-1 ring-white/10 backdrop-blur">
           <button
             onClick={() => setLang("hi")}
             className={`${isHindi ? "bg-white/15 text-white" : "text-white/70 hover:text-white"} rounded-full px-2 py-0.5`}
@@ -46,31 +46,33 @@ export default function AmoghHeader() {
         </div>
 
         {/* Title (Cinematic logo image with arrow underline) */}
-        <motion.img
-          src="/amogh-logo.png"
-          alt={titleText}
-          initial={{ opacity: 0, y: -14, scale: 0.985 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ type: "spring", stiffness: 120, damping: 16 }}
-          className="select-none pointer-events-none mx-auto"
-          style={{
-            width: "clamp(280px, 60vw, 760px)",
-            height: "auto",
-            filter: "drop-shadow(0 20px 40px rgba(255,140,0,0.15))",
-          }}
-        />
+        <div className="flex flex-col items-center justify-center">
+          <motion.img
+            src="/amogh-logo.png"
+            alt={titleText}
+            initial={{ opacity: 0, y: -10, scale: 0.99 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ type: "spring", stiffness: 140, damping: 18 }}
+            className="select-none pointer-events-none mx-auto"
+            style={{
+              width: "clamp(180px, 28vw, 360px)",
+              height: "auto",
+              filter: "drop-shadow(0 12px 28px rgba(255,140,0,0.14))",
+            }}
+          />
+        </div>
 
         {/* Subtitle (centered, below arrow) – rotates HI/EN */}
-        <div className="relative h-[28px] sm:h-[32px] mt-1">
+        <div className="relative h-[22px] sm:h-[26px]">
           <AnimatePresence mode="wait">
             {subtitleIndex === 0 ? (
               <motion.p
                 key="hi"
-                initial={{ opacity: 0, y: 6 }}
+                initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="mx-auto pt-4 sm:pt-5 max-w-[760px] text-balance text-center text-[17px] sm:text-[19px] leading-[1.5] font-noto-dev font-semibold"
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                className="mx-auto pt-2 sm:pt-2 max-w-[720px] text-balance text-center text-[14px] sm:text-[15px] leading-[1.5] font-noto-dev font-medium"
                 style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)' }}
               >
                 {subHi}
@@ -78,11 +80,11 @@ export default function AmoghHeader() {
             ) : (
               <motion.p
                 key="en"
-                initial={{ opacity: 0, y: 6 }}
+                initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="mx-auto pt-4 sm:pt-5 max-w-[760px] text-balance text-center text-[17px] sm:text-[19px] leading-[1.5] font-inter font-semibold"
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                className="mx-auto pt-2 sm:pt-2 max-w-[720px] text-balance text-center text-[14px] sm:text-[15px] leading-[1.5] font-inter font-medium"
                 style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)' }}
               >
                 {subEn}
