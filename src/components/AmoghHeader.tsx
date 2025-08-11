@@ -22,13 +22,13 @@ export default function AmoghHeader() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 w-full overflow-hidden bg-gradient-to-b from-[#0a0a0d] via-[#0b0e18] to-[#0b1120] border-b border-white/10">
+    <header className="sticky top-0 z-40 w-full overflow-hidden bg-[#121212]">
       {/* Cinematic background particles */}
       <div className="absolute inset-0 pointer-events-none">
         <ParticleField />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
         {/* Language toggle */}
         <div className="absolute right-4 top-2 sm:top-2 flex items-center gap-2 rounded-full bg-white/5 px-2 py-1 text-[10px] sm:text-xs text-white/80 ring-1 ring-white/10 backdrop-blur">
           <button
@@ -53,7 +53,7 @@ export default function AmoghHeader() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ type: "spring", stiffness: 140, damping: 18 }}
             className="mx-auto select-none pointer-events-none"
-            style={{ width: "clamp(164px, 24vw, 320px)" }}
+            style={{ width: "clamp(128px, 18vw, 240px)" }}
           >
             <img
               src={logoSrc}
@@ -73,16 +73,16 @@ export default function AmoghHeader() {
         </div>
 
         {/* Subtitle (centered, below arrow) – rotates HI/EN */}
-        <div className="relative h-[22px] sm:h-[26px]">
+        <div className="relative h-[20px] sm:h-[24px]">
           <AnimatePresence mode="wait">
             {subtitleIndex === 0 ? (
               <motion.p
                 key="hi"
-                initial={{ opacity: 0, y: 4 }}
+                initial={{ opacity: 0, y: 3 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-                className="mx-auto pt-2 sm:pt-2 max-w-[720px] text-balance text-center text-[14px] sm:text-[15px] leading-[1.5] font-noto-dev font-medium"
+                exit={{ opacity: 0, y: -3 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="mx-auto pt-1 sm:pt-1 max-w-[720px] text-balance text-center text-[13.5px] sm:text-[14.5px] leading-[1.45] font-noto-dev font-medium"
                 style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)' }}
               >
                 {subHi}
@@ -90,11 +90,11 @@ export default function AmoghHeader() {
             ) : (
               <motion.p
                 key="en"
-                initial={{ opacity: 0, y: 4 }}
+                initial={{ opacity: 0, y: 3 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-                className="mx-auto pt-2 sm:pt-2 max-w-[720px] text-balance text-center text-[14px] sm:text-[15px] leading-[1.5] font-inter font-medium"
+                exit={{ opacity: 0, y: -3 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="mx-auto pt-1 sm:pt-1 max-w-[720px] text-balance text-center text-[13.5px] sm:text-[14.5px] leading-[1.45] font-inter font-medium"
                 style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)' }}
               >
                 {subEn}
