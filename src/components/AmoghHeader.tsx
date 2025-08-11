@@ -33,14 +33,14 @@ export default function AmoghHeader() {
         {/* Language toggle */}
         <div className="absolute right-4 top-2 sm:top-2 flex items-center gap-2 rounded-full bg-white/5 px-2 py-1 text-[10px] sm:text-xs text-white/80 ring-1 ring-white/10 backdrop-blur">
           <button
-            onClick={() => setLang("hi")}
+            onClick={() => { setLang("hi"); navigate('/hi/finance') }}
             className={`${isHindi ? "bg-white/15 text-white" : "text-white/70 hover:text-white"} rounded-full px-2 py-0.5`}
           >
             हिन्दी
           </button>
           <span className="text-white/30">/</span>
           <button
-            onClick={() => setLang("en")}
+            onClick={() => { setLang("en"); navigate('/en/finance') }}
             className={`${!isHindi ? "bg-white/15 text-white" : "text-white/70 hover:text-white"} rounded-full px-2 py-0.5`}
           >
             EN
