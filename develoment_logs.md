@@ -8,3 +8,4 @@
 - 2025-08-11 14:14:12 UTC: revert: restore backend directory (user continuing backend work)
 - 2025-08-11 14:17:33 UTC: chore: enhance post-commit to auto-commit dev log and push
 - 2025-08-11 14:17:33 UTC: docs(log): auto-update [auto-log]
+- 2025-08-11 14:47:05 UTC: feat(tabs): replace with visionOS-grade NavTabs (liquid pill, metallic sweep, optional Rive); a11y + reduced-motion; centered content-width
