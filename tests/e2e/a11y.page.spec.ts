@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test'
 
+const PATH = '/hi/finance'
+
 test('page has no axe violations (smoke)', async ({ page }) => {
-  await page.goto('/')
+  await page.goto(PATH)
   await page.waitForSelector('[role="tablist"]')
   // ensure we have an h1 for axe heading-one rule, place it inside a landmark
   await page.evaluate(() => {
