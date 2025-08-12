@@ -23,9 +23,23 @@ const start = async () => {
 
     app.get("/health", (_req, res) => res.json({ ok: true }));
 
-    app.get("/news", async (_req, res) => {
-      const articles = await NewsArticle.findAll(); // Using NewsArticle model from schema.js
-      res.json(articles);
+    app.get("/news", async (req, res) => {
+      const { scope, stateId, lang } = req.query;
+      let where = {};
+
+      if (scope === 'bharat') {
+        where.category = 'all-india';
+      } else if (scope === 'state' && stateId) {
+        where.category = 'state';
+        where.state = stateId;
+      }
+
+      if (lang) {
+        where.language = lang;
+      }
+
+      const articles = await NewsArticle.findAll({ where });
+      res.json({ articles, updatedAt: new Date().toISOString() });
     });
 
     // optional: await sequelize.sync();  // only if you want auto schema

@@ -51,6 +51,14 @@ const NewsArticle = sequelize.define('NewsArticle', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  category: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  language: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
 export default sequelize;

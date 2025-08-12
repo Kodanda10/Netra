@@ -62,6 +62,7 @@ export async function processorFactory(limits) {
     return {
       ...item,
       category,
+      language: 'en',
       confidence,
       summaryEn,
       summaryHi: textHi,

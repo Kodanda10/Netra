@@ -2,18 +2,15 @@ import React from 'react'
 import '../finance/finance.css'
 import { useParams, Navigate } from 'react-router-dom'
 import { BharatLongCard } from '@/finance/components/BharatLongCard'
-import { StateCard } from '@/finance/components/StateCard'
 import StatesGrid from '@/finance/components/StatesGrid'
 import { useFinanceData } from '@/finance/useFinanceData'
 import { t, Locale } from '@/finance/i18n'
-import { mockStatesEn, mockStatesHi } from '@/finance/mockData'
 
 const Finance: React.FC = () => {
   const { lang } = useParams<{ lang: 'hi' | 'en' }>()
   if (!lang || (lang !== 'hi' && lang !== 'en')) return <Navigate to="/hi/finance" replace />
 
   const bharat = useFinanceData('bharat', undefined, lang)
-  const chh = useFinanceData('state', 'chhattisgarh', lang)
   const dict = t[lang as Locale]
   const names: Record<string,string> = lang === 'hi' ? {
     'chhattisgarh':'छत्तीसगढ़', 'maharashtra':'महाराष्ट्र', 'uttar-pradesh':'उत्तर प्रदेश'
@@ -35,7 +32,7 @@ const Finance: React.FC = () => {
 }
 
 const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; sourcesLabelStr: string }>
-  = ({ lang }) => {
+  = ({ lang, names, sourcesLabelStr }) => {
   const ref = React.useRef<HTMLDivElement | null>(null)
   const [ready, setReady] = React.useState(false)
   React.useEffect(() => {
@@ -44,14 +41,29 @@ const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; sour
     return () => io.disconnect()
   }, [])
   if (!ready) return <div ref={ref} className="col-span-12 xl:col-span-8 2xl:col-span-7" />
+
+  const chhattisgarh = useFinanceData('state', 'chhattisgarh', lang);
+  const maharashtra = useFinanceData('state', 'maharashtra', lang);
+  const uttarPradesh = useFinanceData('state', 'uttar-pradesh', lang);
+
+  const itemsByState = {
+    chhattisgarh: chhattisgarh.items,
+    maharashtra: maharashtra.items,
+    'uttar-pradesh': uttarPradesh.items,
+  };
+
+  const isLoading = chhattisgarh.isLoading || maharashtra.isLoading || uttarPradesh.isLoading;
+  const error = chhattisgarh.error || maharashtra.error || uttarPradesh.error;
+
+  if (isLoading) return <div className="col-span-12 xl:col-span-8 2xl:col-span-7">Loading...</div>;
+  if (error) return <div className="col-span-12 xl:col-span-8 2xl:col-span-7">Error loading state data.</div>;
+
   return (
     <div className="col-span-12 xl:col-span-8 2xl:col-span-7">
-      <StatesGrid locale={lang} itemsByState={lang==='hi'? (mockStatesHi as any) : (mockStatesEn as any)} limit={4} />
+      <StatesGrid locale={lang} itemsByState={itemsByState} limit={4} />
     </div>
   )
 }
-
-// StateCardData no longer needed; StatesGrid composes cards dynamically
 
 export default Finance
 
