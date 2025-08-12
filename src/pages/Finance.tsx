@@ -19,7 +19,7 @@ const Finance: React.FC = () => {
   } : { 'chhattisgarh':'Chhattisgarh', 'maharashtra':'Maharashtra', 'uttar-pradesh':'Uttar Pradesh' }
 
   return (
-    <div className="grid grid-cols-12 gap-6" style={{ backgroundColor: '#121212' }}>
+    <div className="grid grid-cols-12 gap-4 sm:gap-6" style={{ backgroundColor: '#121212' }}>
       <div className="col-span-12 xl:col-span-4 2xl:col-span-5">
         <BharatLongCard
           title={dict.bharat}
