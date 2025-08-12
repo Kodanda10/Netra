@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import NavTabs from '../../src/components/NavTabs'
 
 describe('NavTabs behavior', () => {
@@ -14,7 +14,9 @@ describe('NavTabs behavior', () => {
       />
     )
     expect(screen.getByTestId('tab-stock-market')).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByText('शेयर बाजार')).toBeInTheDocument()
+    // Scope to the primary tablist to avoid compact duplicate
+    const mainTablist = screen.getByRole('tablist', { name: 'Amogh sections' })
+    expect(within(mainTablist).getByText('शेयर बाजार')).toBeInTheDocument()
   })
 
   it('changes active on click and calls onChange', () => {

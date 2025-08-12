@@ -26,13 +26,13 @@ export const BharatLongCard: React.FC<{
         <div className="flex items-center justify-between mb-3">
           <div className="text-xl font-bold card-title flex items-center gap-2">
             <img src="/flag-india-static.svg" alt="India" className="w-5 h-5" />
-            {title}
+            <span>{title}</span>
           </div>
         </div>
         <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{duration:.28}}>
           <NewsList items={items} height={520} />
         </motion.div>
-        <SourceTray total={sources.reduce((a,b)=>a+b.count,0)} label={sourcesLabel} onOpen={()=>setOpen(true)} />
+        <SourceTray total={new Set(sources.map(s=>s.source)).size} label={sourcesLabel} onOpen={()=>setOpen(true)} />
       </motion.div>
       {open && (
         <React.Suspense fallback={null}>

@@ -3,7 +3,8 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { springs } from '../finance.tokens'
 import { NewsList } from './NewsList'
 import { SourceTray } from './SourceTray'
-import { Landmark } from 'lucide-react'
+import { Factory, Landmark, Building2, Cpu, Gem, Wheat, Apple, Mountain, Ship, Coffee } from 'lucide-react'
+import { STATES } from '@/finance/states.config'
 import '../../finance/finance.css'
 const SourcesSidePanel = React.lazy(() => import('./SourcesSidePanel'))
 
@@ -12,7 +13,19 @@ export const StateCard: React.FC<{
   items: { id:string; title:string; summary:string; url:string }[]
   sources:{source:string;count:number}[]
   sourcesLabel: string
-}> = ({ title, items, sources, sourcesLabel }) => {
+  stateId?: string
+}> = ({ title, items, sources, sourcesLabel, stateId }) => {
+  const iconName = STATES.find(s => s.id === stateId)?.icon
+  const Icon = iconName === 'Building2' ? Building2
+    : iconName === 'Cpu' ? Cpu
+    : iconName === 'Gem' ? Gem
+    : iconName === 'Wheat' ? Wheat
+    : iconName === 'Apple' ? Apple
+    : iconName === 'Mountain' ? Mountain
+    : iconName === 'Ship' ? Ship
+    : iconName === 'Coffee' ? Coffee
+    : iconName === 'Landmark' ? Landmark
+    : Factory
   const reduce = useReducedMotion()
   const [open, setOpen] = React.useState(false)
   return (
@@ -25,10 +38,10 @@ export const StateCard: React.FC<{
         style={{ backgroundColor: '#121212' }}
       >
         <div className="flex items-center gap-2 mb-2 card-title font-semibold">
-          <Landmark className="w-5 h-5 text-white/80" /> {title}
+          <Icon className="w-5 h-5 text-white/80" /> {title}
         </div>
         <NewsList items={items.slice(0,3)} height={200} />
-        <SourceTray total={sources.reduce((a,b)=>a+b.count,0)} label={sourcesLabel} onOpen={()=>setOpen(true)} />
+        <SourceTray total={new Set(sources.map(s=>s.source)).size} label={sourcesLabel} onOpen={()=>setOpen(true)} />
       </motion.div>
       {open && (
         <React.Suspense fallback={null}>

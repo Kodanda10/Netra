@@ -23,6 +23,7 @@ export const NewsList: React.FC<{ items: { id:string; title:string; summary:stri
           >
             <div className="text-[15px] leading-tight news-headline">{it.title}</div>
             <div className="text-[13px] news-body mt-1 line-clamp-2">{it.summary}</div>
+            <div className="hairline mt-3" />
           </motion.a>
         )}
       />

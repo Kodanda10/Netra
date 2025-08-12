@@ -11,7 +11,8 @@ describe('AmoghHeader', () => {
       </MemoryRouter>
     )
     expect(screen.getByRole('img', { name: 'अमोघ' })).toBeInTheDocument()
-    expect(screen.getByRole('tablist', { name: /Amogh sections/i })).toBeInTheDocument()
+    // Exact name to avoid matching the compact variant
+    expect(screen.getByRole('tablist', { name: 'Amogh sections' })).toBeInTheDocument()
   })
 })
 

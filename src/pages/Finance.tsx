@@ -25,7 +25,7 @@ const Finance: React.FC = () => {
           title={dict.bharat}
           items={bharat.items as any}
           sources={bharat.sourcesOrdered}
-          sourcesLabel={dict.sources(bharat.items.length)}
+          sourcesLabel={dict.sourcesLabel}
         />
       </div>
       <LazyStates lang={lang} names={names} dictSources={dict.sources} otherStates={otherStates} />
@@ -56,7 +56,7 @@ const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; dict
 const StateCardData: React.FC<{ stateId: string; title: string; lang: 'hi'|'en'; dictSources: (n:number)=>string }>
   = ({ stateId, title, lang, dictSources }) => {
   const d = useFinanceData('state', stateId, lang)
-  return <StateCard title={title} items={d.items as any} sources={d.sourcesOrdered} sourcesLabel={dictSources(d.items.length)} />
+  return <StateCard stateId={stateId} title={title} items={d.items as any} sources={d.sourcesOrdered} sourcesLabel={dictSources(new Set(d.sourcesOrdered.map(s=>s.source)).size)} />
 }
 
 export default Finance
