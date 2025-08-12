@@ -92,3 +92,4 @@
 - 2025-08-12 07:59:59 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 08:06:51 UTC: fix(finance): state Sources shows single deduped total and state icons from config; glass cards non-frosted; route integration
 - 2025-08-12 08:06:51 UTC: docs(log): auto-update [auto-log]
+- 2025-08-12 09:11:53 UTC: fix(finance): correct prop usage in LazyStates to avoid runtime error; ensure sources label passed consistently
