@@ -72,3 +72,4 @@
 - 2025-08-11 21:17:40 UTC: docs(log): auto-update [auto-log]
 - 2025-08-11 21:21:44 UTC: feat(ui): enforce liquid glass styles, local preloaded Devanagari font; add states.config and StatesGrid wiring; prepare for deploy
 - 2025-08-11 21:21:44 UTC: docs(log): auto-update [auto-log]
+- 2025-08-12 07:33:35 UTC: tests(unit): fix selector collisions by scoping within main tablist; all green
