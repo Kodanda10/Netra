@@ -103,3 +103,4 @@
 - 2025-08-12 10:11:13 UTC: feat(market): restructure tabs to Overview/Heatmap/Watchlist; add timeframe OverviewChart, sortable TopList with volumes, Watchlist with search+alerts
 - 2025-08-12 10:11:13 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 10:17:26 UTC: feat(preview): add PreloaderSplash component and /preloader-preview route; expects /public/video/amogh_preloader.mp4
+- 2025-08-12 10:17:27 UTC: docs(log): auto-update [auto-log]
