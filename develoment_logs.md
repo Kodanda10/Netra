@@ -142,3 +142,4 @@
 - 2025-08-12 15:36:45 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 15:47:26 UTC: feat(social): implement exact 12-col dashboard grid and card shells; place X/Facebook/Instagram widgets per spec with toolbar and placeholders
 - 2025-08-12 15:47:26 UTC: docs(log): auto-update [auto-log]
+- 2025-08-12 15:55:55 UTC: fix(social): enforce grid auto-rows and row-span based on size to align 12-col layout; tidy card heights
