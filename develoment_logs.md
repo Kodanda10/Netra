@@ -147,3 +147,4 @@
 - 2025-08-12 19:21:12 UTC: memory-import: Added Next.js App Router scaffold (en/hi finance, SWR, i18n, Framer Motion, Rive)
 - 2025-08-12 19:21:12 UTC: memory-import: Migrated to Vite + React Router, preserved VisionOS glass and metallic gradients, animations
 - 2025-08-12 19:21:12 UTC: memory-import: Recharts treemap and tabbed market page (overview/gainers/losers/heatmap)
+- 2025-08-12 19:21:12 UTC: docs(log): import memory entries
