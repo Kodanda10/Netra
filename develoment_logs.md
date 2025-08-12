@@ -134,3 +134,4 @@
 - 2025-08-12 14:44:43 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 15:03:09 UTC: test: all tests green; NavTabs data-testids restored; proceed to push
 - 2025-08-12 15:03:10 UTC: docs(log): auto-update [auto-log]
+- 2025-08-12 15:05:41 UTC: feat(nav): wire Social tab route to /:lang/social; ensure tab navigates
