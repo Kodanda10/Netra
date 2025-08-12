@@ -18,7 +18,7 @@ export const Card: React.FC<{
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.28 }}
       className={`rounded-2xl bg-white/6 backdrop-blur-xl border border-white/10 shadow-[0_6px_30px_rgb(0_0_0/0.3)] overflow-hidden ${className}`}
-      style={{ height: `var(--card-h${size==='tall'?'-tall':''})` }}
+      style={{ gridRow: size==='tall'? 'span 2 / span 2' : 'span 1 / span 1' }}
       whileHover={{ y: -2 }}
     >
       {(title || toolbar) && (
