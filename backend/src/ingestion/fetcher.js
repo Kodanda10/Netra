@@ -60,7 +60,9 @@ export async function fetchGNews(query, limit = 20) {
   }));
 }
 
-export async function ingestCycle(stores, limits, processFn) {
+export async function ingestCycle(stores, limits, processFn, opts = {}) {
+  const rssSupplier = opts.rssSupplier ?? fetchRSS;
+
   const gate = await quotaGate(stores, limits);
   if (!gate.canFetch) return { usedCache: true, ingested: 0, from: [] };
 
@@ -71,66 +73,16 @@ export async function ingestCycle(stores, limits, processFn) {
 
   for (const url of RSS_FEEDS) {
     if (collected.length >= effective) break;
-    const items = await fetchRSS(url);
+    const items = await rssSupplier(url);
     collected.push(...items);
   }
 
-  // If less than min(50, effective) and allowed, get GNews fallback
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
-  console.log('ingestCycle articles.length', collected.length);
-  console.log('ingestCycle Math.min(50, gate.effectiveArticleQuota)', Math.min(50, gate.effectiveArticleQuota));
-  console.log('ingestCycle gate.canUseGnews', gate.canUseGnews);
   if (collected.length < Math.min(50, effective) && gate.canUseGnews) {
     const needed = Math.min(20, Math.min(50, effective) - collected.length);
-    const g = await fetchGNews("india finance investment -civic", needed);
-    collected.push(...g);
+    if (needed > 0) {
+      const g = await fetchGNews("india finance investment -civic", needed);
+      collected.push(...g);
+    }
   }
 
   // Process and record

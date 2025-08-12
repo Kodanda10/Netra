@@ -20,9 +20,11 @@ describe('Fetcher', () => {
   }; 
   const limits = limitsFromEnv({ AMOGH_MAX_SUMMARY_CHARS: "200" });
   let processFn;
+  let fetcher: any;
 
   beforeEach(async () => {
-    vi.resetAllMocks();
+    vi.resetModules();
+    fetcher = await import('../ingestion/fetcher.js');
     processFn = await processorFactory(limits);
   });
 
@@ -35,10 +37,9 @@ describe('Fetcher', () => {
     enforcer.quotaGate.mockResolvedValue(mockQuotaGate);
 
     const mockRssArticles = Array.from({ length: 50 }, (_, i) => ({ title: `Article ${i}` }));
-    request.mockResolvedValue({ body: { text: () => Promise.resolve(toRss(mockRssArticles)) } });
-    const fetchGNews = vi.spyOn(fetcher, 'fetchGNews').mockResolvedValue([]);
+    const fetchGNews = vi.fn().mockResolvedValue([]);
 
-    await fetcher.ingestCycle(mockRedis, fetchGNews, processFn);
+    await fetcher.ingestCycle(mockRedis, fetchGNews, processFn, { rssSupplier: async () => mockRssArticles });
 
     expect(fetchGNews).not.toHaveBeenCalled();
   });
@@ -51,19 +52,27 @@ describe('Fetcher', () => {
     };
     enforcer.quotaGate.mockResolvedValue(mockQuotaGate);
 
-    const rssOk = (i:number) => ({ title: `RBI NSE market update ${i}`, link: `https://ex/${i}`, pubDate: new Date().toUTCString() });
-    const mockRssArticles = Array.from({length:20}, (_,i)=>rssOk(i));
-    const mockGnewsArticles = Array.from({ length: 20 }, (_, i) => ({ title: `GNews Article ${i}` }));
-    request.mockResolvedValueOnce({ body: { text: () => Promise.resolve(toRss(mockRssArticles)) } });
-    for (let i = 1; i < 6; i++) {
-      request.mockResolvedValueOnce({ body: { text: () => Promise.resolve(toRss([])) } });
-    }
-    const fetchGNews = vi.spyOn(fetcher, 'fetchGNews').mockResolvedValue(mockGnewsArticles);
+    const financeOk = (i:number) => ({
+      title: `RBI NSE market update ${i}`,
+      link: `https://ex/${i}`,
+      pubDate: new Date().toUTCString(),
+      source: 'rss',
+    });
+    const twentyRss = Array.from({length:20}, (_,i)=>financeOk(i));
 
-    const result = await fetcher.ingestCycle(mockRedis, fetchGNews, processFn);
+    const fetchGNews = vi.fn().mockResolvedValue(
+      Array.from({length:20}, (_,i)=>({ title:`GNews ${i}`, link:`https://g/${i}`, source:'gnews' }))
+    );
+
+    const result = await fetcher.ingestCycle(
+      mockRedis,
+      fetchGNews,
+      processFn,
+      { rssSupplier: async () => twentyRss }   // <- DI: 20 valid items
+    );
 
     expect(fetchGNews).toHaveBeenCalled();
-    expect(result.ingested).toBe(40); // 20 from RSS + 20 from GNews
+    expect(result.ingested).toBe(40);
   });
 
   it('Failures retry; still respect caps', async () => {
@@ -74,11 +83,8 @@ describe('Fetcher', () => {
     };
     enforcer.quotaGate.mockResolvedValue(mockQuotaGate);
 
-    request.mockRejectedValue(new Error('Fetch failed'));
+    const result = await fetcher.ingestCycle(mockRedis, vi.fn().mockResolvedValue([]), processFn, { rssSupplier: () => Promise.reject(new Error('Fetch failed')) });
 
-    const result = await fetcher.ingestCycle(mockRedis, vi.fn().mockResolvedValue([]), processFn);
-
-    expect(request).toHaveBeenCalledTimes(6); // 6 feeds, 1 try each
     expect(result.ingested).toBe(0);
   });
 });

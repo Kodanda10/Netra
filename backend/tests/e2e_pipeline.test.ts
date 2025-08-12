@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
 import request from "supertest";
 import * as undici from "undici";
-import app from "../src/server.js";
+import app from "../src/app.js";
 import { Server } from "http";
 
 vi.mock('undici', () => {
@@ -10,8 +10,14 @@ vi.mock('undici', () => {
   };
 });
 
+import { resetMetrics } from "../src/cost/metrics.js";
+
 describe("E2E pipeline", () => {
   let server: Server;
+  beforeEach(() => {
+    resetMetrics();
+  });
+
   beforeAll(async () => {
     server = app.listen(0);
     // Mock a couple feeds with mixed quality
