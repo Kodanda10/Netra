@@ -137,3 +137,4 @@
 - 2025-08-12 15:05:41 UTC: feat(nav): wire Social tab route to /:lang/social; ensure tab navigates
 - 2025-08-12 15:05:41 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 15:23:18 UTC: feat(social): align layout to provided reference; brand logos from web; mock insights per platform; unified feed with icons
+- 2025-08-12 15:23:18 UTC: docs(log): auto-update [auto-log]

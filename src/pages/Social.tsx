@@ -4,6 +4,7 @@ import { useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 import { brandLogos, mockInsights, seriesByPlatform, unifiedFeed } from '@/social/mock'
+import PlatformRow from '@/social/PlatformRow'
 
 type Post = { id:string; platform:'fb'|'ig'|'x'; text:string; ts:string; likes:number; comments?:number; shares?:number }
 
@@ -32,7 +33,15 @@ const Social: React.FC = () => {
         <h1 className="card-title text-xl font-semibold">{t.title}</h1>
         <button className="px-3 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/85">{t.refresh}</button>
       </header>
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Three big rows like reference: X, Facebook, Instagram */}
+      <section className="space-y-4">
+        <PlatformRow platform="x" title="X" />
+        <PlatformRow platform="facebook" title="Facebook" />
+        <PlatformRow platform="instagram" title="Instagram" />
+      </section>
+
+      {/* Legacy compact insights retained below if needed */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
         <motion.div className="glass-liquid rounded-3xl p-4" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}}>
           <div className="text-sm text-white/70 mb-2">{t.followers}</div>
           <div className="text-2xl font-semibold">{totalFollowers.toLocaleString('en-IN')}</div>
