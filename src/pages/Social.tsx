@@ -4,7 +4,9 @@ import { useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 import { brandLogos, mockInsights, seriesByPlatform, unifiedFeed } from '@/social/mock'
-import PlatformRow from '@/social/PlatformRow'
+import DashboardGrid from '@/social/components/DashboardGrid'
+import Card from '@/social/components/Card'
+import { brandLogos } from '@/social/mock'
 
 type Post = { id:string; platform:'fb'|'ig'|'x'; text:string; ts:string; likes:number; comments?:number; shares?:number }
 
@@ -34,11 +36,93 @@ const Social: React.FC = () => {
         <button className="px-3 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/85">{t.refresh}</button>
       </header>
       {/* Three big rows like reference: X, Facebook, Instagram */}
-      <section className="space-y-4">
-        <PlatformRow platform="x" title="X" />
-        <PlatformRow platform="facebook" title="Facebook" />
-        <PlatformRow platform="instagram" title="Instagram" />
-      </section>
+      <DashboardGrid>
+        {/* X row */}
+        <Card className="col-span-12 md:col-span-2 row-span-2" size="tall" title="X" subtitle="Twitter">
+          <div className="h-full flex items-center justify-center">
+            <img src={brandLogos.x} alt="X" className="w-24 h-24" />
+          </div>
+        </Card>
+        <Card className="col-span-12 md:col-span-4" title="Overview" subtitle="Twitter" timeRangeText="May 11 – Jun 8">
+          <div className="grid grid-cols-3 gap-2">
+            {[{l:'Tweets',v:152},{l:'Following',v:185},{l:'Followers',v:94},{l:'Listed',v:0},{l:'Favorites',v:169},{l:'Mentions',v:9}].map((k)=>(
+              <div key={k.l} className="rounded-xl bg-white/5 border border-white/10 p-3">
+                <div className="text-white/60 text-[11px] uppercase">{k.l}</div>
+                <div className="text-white text-lg font-semibold">{k.v}</div>
+              </div>
+            ))}
+          </div>
+        </Card>
+        <Card className="col-span-12 md:col-span-3" title="Mentions" subtitle="Twitter">
+          <div className="h-[140px] bg-white/5 rounded-xl" />
+        </Card>
+        <Card className="col-span-12 md:col-span-3 row-span-2" size="tall" title="Top Tweets by Favorites" subtitle="Twitter">
+          <ul className="space-y-2">
+            {Array.from({length:6}).map((_,i)=>(
+              <li key={i} className="flex items-center gap-2">
+                <span className="text-white/60 text-xs w-4">{i+1}</span>
+                <span className="flex-1 line-clamp-1 text-white/85 text-sm">Sample tweet text {i+1}…</span>
+                <div className="w-28 h-2 bg-gradient-to-r from-orange-400 to-red-500 rounded-full" />
+                <span className="text-white/70 text-xs">{20+i}</span>
+              </li>
+            ))}
+          </ul>
+        </Card>
+
+        {/* Facebook row */}
+        <Card className="col-span-12 md:col-span-2 row-span-2" size="tall" title="Facebook" subtitle="Pages">
+          <div className="h-full flex items-center justify-center">
+            <img src={brandLogos.facebook} alt="Facebook" className="w-20 h-20" />
+          </div>
+        </Card>
+        <Card className="col-span-12 md:col-span-4" title="Facebook Pages" subtitle="Reach">
+          <div className="h-[140px] bg-white/5 rounded-xl" />
+          <div className="mt-2 flex flex-wrap gap-2 justify-end text-[12px] text-white/80">
+            {['Reach 390 ↑51%','Views 279 ↓5%','Engaged 52 ↑27%','Clicks 14 ↑250%','Likes 4 ↓33%'].map((t,i)=>(<span key={i} className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10">{t}</span>))}
+          </div>
+        </Card>
+        <Card className="col-span-12 md:col-span-3" title="Facebook Pages" subtitle="Engaged">
+          <div className="h-[140px] bg-white/5 rounded-xl" />
+        </Card>
+        <Card className="col-span-12 md:col-span-3 row-span-2" size="tall" title="Top Posts by Engaged Users" subtitle="Facebook">
+          <ul className="space-y-2">
+            {Array.from({length:6}).map((_,i)=>(
+              <li key={i} className="flex items-center gap-2">
+                <span className="text-white/60 text-xs w-4">{i+1}</span>
+                <span className="flex-1 line-clamp-1 text-white/85 text-sm">Top post text {i+1}…</span>
+                <div className="w-28 h-2 bg-purple-500/70 rounded-full" />
+                <span className="text-white/70 text-xs">{12+i}</span>
+              </li>
+            ))}
+          </ul>
+        </Card>
+
+        {/* Instagram row */}
+        <Card className="col-span-12 md:col-span-2" title="Instagram" subtitle="Summary">
+          <div className="h-full flex items-center justify-center">
+            <img src={brandLogos.instagram} alt="Instagram" className="w-20 h-20" />
+          </div>
+        </Card>
+        <Card className="col-span-12 md:col-span-4" title="Instagram" subtitle="Photos/Followers/Following">
+          <div className="grid grid-cols-3 gap-2">
+            {[{l:'Photos',v:14},{l:'Followers',v:82},{l:'Following',v:275}].map((k)=>(
+              <div key={k.l} className="rounded-xl bg-white/5 border border-white/10 p-3">
+                <div className="text-white/60 text-[11px] uppercase">{k.l}</div>
+                <div className="text-white text-lg font-semibold">{k.v}</div>
+              </div>
+            ))}
+          </div>
+        </Card>
+        <Card className="col-span-12 md:col-span-2" title="Followers" subtitle="Instagram">
+          <div className="h-[140px] bg-white/5 rounded-xl" />
+        </Card>
+        <Card className="col-span-12 md:col-span-2" title="Following" subtitle="Instagram">
+          <div className="h-[140px] bg-white/5 rounded-xl" />
+        </Card>
+        <Card className="col-span-12 md:col-span-2" title="Photos" subtitle="Instagram">
+          <div className="h-[140px] bg-white/5 rounded-xl" />
+        </Card>
+      </DashboardGrid>
 
       {/* Legacy compact insights retained below if needed */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
