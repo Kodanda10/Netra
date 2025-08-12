@@ -28,13 +28,13 @@ const Finance: React.FC = () => {
           sourcesLabel={dict.sourcesLabel}
         />
       </div>
-      <LazyStates lang={lang} names={names} dictSources={dict.sources} otherStates={otherStates} />
+      <LazyStates lang={lang} names={names} sourcesLabelStr={dict.sourcesLabel} otherStates={otherStates} />
     </div>
   )
 }
 
-const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; dictSources: (n:number)=>string; otherStates:readonly string[] }>
-  = ({ lang, names, dictSources, otherStates }) => {
+const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; sourcesLabelStr: string; otherStates:readonly string[] }>
+  = ({ lang, names, sourcesLabelStr, otherStates }) => {
   const ref = React.useRef<HTMLDivElement | null>(null)
   const [ready, setReady] = React.useState(false)
   React.useEffect(() => {
@@ -47,16 +47,16 @@ const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; dict
     <div className="col-span-12 xl:col-span-8 2xl:col-span-7 grid md:grid-cols-2 gap-6">
       <StateCardData stateId="chhattisgarh" title={names['chhattisgarh']} lang={lang} dictSources={dictSources} />
       {otherStates.map((s) => (
-        <StateCardData key={s} stateId={s} title={names[s]} lang={lang} dictSources={dictSources} />
+        <StateCardData key={s} stateId={s} title={names[s]} lang={lang} sourcesLabelStr={sourcesLabelStr} />
       ))}
     </div>
   )
 }
 
-const StateCardData: React.FC<{ stateId: string; title: string; lang: 'hi'|'en'; dictSources: (n:number)=>string }>
-  = ({ stateId, title, lang, dictSources }) => {
+const StateCardData: React.FC<{ stateId: string; title: string; lang: 'hi'|'en'; sourcesLabelStr: string }>
+  = ({ stateId, title, lang, sourcesLabelStr }) => {
   const d = useFinanceData('state', stateId, lang)
-  return <StateCard stateId={stateId} title={title} items={d.items as any} sources={d.sourcesOrdered} sourcesLabel={dictSources(new Set(d.sourcesOrdered.map(s=>s.source)).size)} />
+  return <StateCard stateId={stateId} title={title} items={d.items as any} sources={d.sourcesOrdered} sourcesLabel={sourcesLabelStr} />
 }
 
 export default Finance

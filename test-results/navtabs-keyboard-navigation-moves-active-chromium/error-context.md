@@ -6,7 +6,7 @@
   - text: /
   - button "EN"
   - img "अमोघ"
-  - paragraph: Intelligent Finance Dashboard
+  - paragraph: इंटेलिजेंट वित्तीय डैशबोर्ड
   - tablist "Amogh sections":
     - tab "वित्तीय समाचार" [selected]
     - tab "शेयर बाजार"

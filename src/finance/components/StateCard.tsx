@@ -35,7 +35,7 @@ export const StateCard: React.FC<{
         animate={reduce ? undefined : { opacity: 1, x: 0 }}
         transition={springs.state as any}
         className="glass-liquid rounded-3xl p-4 md:p-5"
-        style={{ backgroundColor: '#121212' }}
+        style={{ backgroundColor: 'transparent' }}
       >
         <div className="flex items-center gap-2 mb-2 card-title font-semibold">
           <Icon className="w-5 h-5 text-white/80" /> {title}
