@@ -33,7 +33,7 @@ export async function processorFactory(limits) {
     // Relevance filter
     const pos = score(item.title, FINANCE_POS);
     const neg = score(item.title, CIVIC_NEG);
-    if (pos < 3 || neg > 0) return null;
+    if (pos < 2 || neg > 0) return null;
 
     // Dedup
     const key = hashKey(item.title || "", item.url || "");

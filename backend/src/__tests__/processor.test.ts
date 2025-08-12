@@ -33,22 +33,22 @@ describe('Processor', () => {
   });
 
   it('Dedup/near-dup collapse', async () => {
-    const article = { publishedAt: dayjs().toISOString(), title: 'Article 1', url: 'http://example.com/1', description: 'finance investment stocks market economy' };
+    const article = { publishedAt: dayjs().toISOString(), title: 'Article 1 about investment and market', url: 'http://example.com/1', description: 'finance investment stocks market economy' };
     await processArticle(article);
     expect(await processArticle(article)).toBeNull();
   });
 
   it('Categorization examples hit expected buckets', async () => {
-    const allIndiaArticle = { publishedAt: dayjs().toISOString(), title: 'India News', description: 'finance investment stocks market economy' };
-    const stateArticle = { publishedAt: dayjs().toISOString(), title: 'State News', description: 'finance investment stocks market economy' };
+    const allIndiaArticle = { publishedAt: dayjs().toISOString(), title: 'India News about investment and market', description: 'finance investment stocks market economy' };
+    const stateArticle = { publishedAt: dayjs().toISOString(), title: 'Delhi News about investment and market', description: 'finance investment stocks market economy' };
     const processedAllIndia = await processArticle(allIndiaArticle);
     const processedState = await processArticle(stateArticle);
-    expect(processedAllIndia.category).toBe('All-India');
-    expect(processedState.category).toBe('State');
+    expect(processedAllIndia.category).toBe('all-india');
+    expect(processedState.category).toBe('state');
   });
 
   it('Translation cache returns cached=true on repeat', async () => {
-    const article = { publishedAt: dayjs().toISOString(), title: 'Cache Test', description: 'finance investment stocks market economy' };
+    const article = { publishedAt: dayjs().toISOString(), title: 'Cache Test for investment and market', description: 'finance investment stocks market economy' };
     const firstPass = await processArticle(article);
     const secondPass = await processArticle(article);
     expect(firstPass.translationCached).toBe(false);

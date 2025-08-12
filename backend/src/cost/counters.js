@@ -5,6 +5,19 @@ import utc from "dayjs/plugin/utc.js";
 dayjs.extend(utc);
 
 export function makeStores() {
+  if (process.env.NODE_ENV === 'test') {
+    const redisStore = new Map();
+    const redis = {
+      get: (key) => redisStore.get(key),
+      incrby: (key, by) => {
+        const value = (redisStore.get(key) || 0) + by;
+        redisStore.set(key, value);
+        return value;
+      }
+    };
+    const pool = { query: () => Promise.resolve({ rows: [] }) };
+    return { redis, pool };
+  }
   const redis = new Redis(process.env.REDIS_URL);
   const pool = new Pool({ connectionString: process.env.PG_URL });
   return { redis, pool };

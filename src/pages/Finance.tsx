@@ -45,7 +45,7 @@ const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; sour
   if (!ready) return <div ref={ref} className="col-span-12 xl:col-span-8 2xl:col-span-7" />
   return (
     <div className="col-span-12 xl:col-span-8 2xl:col-span-7 grid md:grid-cols-2 gap-6">
-      <StateCardData stateId="chhattisgarh" title={names['chhattisgarh']} lang={lang} dictSources={dictSources} />
+      <StateCardData stateId="chhattisgarh" title={names['chhattisgarh']} lang={lang} sourcesLabelStr={sourcesLabelStr} />
       {otherStates.map((s) => (
         <StateCardData key={s} stateId={s} title={names[s]} lang={lang} sourcesLabelStr={sourcesLabelStr} />
       ))}
