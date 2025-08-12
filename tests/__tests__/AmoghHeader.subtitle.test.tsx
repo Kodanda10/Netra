@@ -6,10 +6,13 @@ import { act } from 'react'
 // Simplify motion for this test to avoid AnimatePresence gating
 vi.mock('framer-motion', async (orig) => {
   const actual = await (orig as any)()
+  const motionProxy = new Proxy({}, {
+    get: (_target, tag: string) => (props: any) => React.createElement(tag, props),
+  })
   return {
     ...actual,
     AnimatePresence: ({ children }: any) => <>{children}</>,
-    motion: { p: (props: any) => <p {...props} /> },
+    motion: motionProxy,
   }
 })
 import { MemoryRouter } from 'react-router-dom'

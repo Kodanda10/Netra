@@ -79,3 +79,4 @@
 - 2025-08-12 07:35:00 UTC: tests(unit): subtitle rotation uses React.act and runOnlyPendingTimers; stabilize timing
 - 2025-08-12 07:35:00 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 07:36:41 UTC: tests(unit): mock framer-motion AnimatePresence in subtitle timing test; all unit tests pass
+- 2025-08-12 07:36:41 UTC: docs(log): auto-update [auto-log]
