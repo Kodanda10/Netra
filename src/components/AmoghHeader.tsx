@@ -118,6 +118,7 @@ export default function AmoghHeader() {
             onChange={(id) => {
               if (id === 'news') navigate(isHindi ? '/hi/finance' : '/en/finance')
               if (id === 'stocks') navigate(isHindi ? '/hi/market' : '/en/market')
+              if (id === 'social') navigate(isHindi ? '/hi/social' : '/en/social')
             }}
           />
         </div>
