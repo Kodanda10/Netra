@@ -75,3 +75,4 @@
 - 2025-08-12 07:33:35 UTC: tests(unit): fix selector collisions by scoping within main tablist; all green
 - 2025-08-12 07:33:35 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 07:34:16 UTC: tests(unit): wrap timer advance in act; async find for EN subtitle; stabilize rotation test
+- 2025-08-12 07:34:16 UTC: docs(log): auto-update [auto-log]
