@@ -183,3 +183,63 @@
 [2025-08-12 19:33:01 UTC]     [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
 [2025-08-12 19:33:01 UTC]     [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
 [2025-08-12 19:33:01 UTC]     [pixel-7] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]   ✘  4 [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (45.2s)
+[2025-08-12 20:59:24 UTC]   ✘  9 [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (10.7s)
+[2025-08-12 20:59:24 UTC]   ✘  7 [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (45.2s)
+[2025-08-12 20:59:24 UTC]   ✓  17 [iphone-14-pro] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (1.0s)
+[2025-08-12 20:59:24 UTC]   ✘  15 [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (11.3s)
+[2025-08-12 20:59:24 UTC]   ✓  25 [pixel-7] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (897ms)
+[2025-08-12 20:59:24 UTC]   ✘  24 [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (10.6s)
+[2025-08-12 20:59:24 UTC]   ✘  32 [pixel-7] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (10.4s)
+[2025-08-12 20:59:24 UTC]   1) [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ─────────────
+[2025-08-12 20:59:24 UTC]        5 | test('page has no axe violations (smoke)', async ({ page }) => {
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/video.webm
+[2025-08-12 20:59:24 UTC]     Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/error-context.md
+[2025-08-12 20:59:24 UTC]   7) [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 20:59:24 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 20:59:24 UTC]   8) [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ───────────────
+[2025-08-12 20:59:24 UTC]        5 | test('page has no axe violations (smoke)', async ({ page }) => {
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/video.webm
+[2025-08-12 20:59:24 UTC]     Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/error-context.md
+[2025-08-12 20:59:24 UTC]   14) [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 20:59:24 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 20:59:24 UTC]   16) [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 20:59:24 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 20:59:24 UTC]   18) [pixel-7] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 20:59:24 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 20:59:24 UTC]     [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ──────────────
+[2025-08-12 20:59:24 UTC]     [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ────────────────
+[2025-08-12 20:59:24 UTC]     [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [pixel-7] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]   ✘  1 [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (46.2s)
+[2025-08-12 20:59:24 UTC]   1) [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]   ✘  1 [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (827ms)
+[2025-08-12 20:59:24 UTC]   1) [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]   ✘  5 [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (46.5s)
+[2025-08-12 20:59:24 UTC]   ✘  9 [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (45.1s)
+[2025-08-12 20:59:24 UTC]   ✘  7 [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (46.8s)
+[2025-08-12 20:59:24 UTC]   ✘  16 [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (45.0s)
+[2025-08-12 20:59:24 UTC]   1) [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ─────────────
+[2025-08-12 20:59:24 UTC]        5 | test('page has no axe violations (smoke)', async ({ page }) => {
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/video.webm
+[2025-08-12 20:59:24 UTC]   8) [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]   9) [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ───────────────
+[2025-08-12 20:59:24 UTC]        5 | test('page has no axe violations (smoke)', async ({ page }) => {
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/video.webm
+[2025-08-12 20:59:24 UTC]   16) [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ──────────────
+[2025-08-12 20:59:24 UTC]     [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ────────────────
+[2025-08-12 20:59:24 UTC]     [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 

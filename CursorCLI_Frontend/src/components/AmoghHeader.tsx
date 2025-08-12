@@ -1,0 +1,159 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import NavTabs, { type TabItem } from "./NavTabs";
+import { useNavigate } from 'react-router-dom';
+import { Newspaper, TrendingUp, Share2, Banknote } from "lucide-react";
+
+export default function AmoghHeader() {
+  const navigate = useNavigate();
+  const [lang, setLang] = useState<"hi" | "en">("hi");
+  const [subtitleIndex, setSubtitleIndex] = useState<0 | 1>(0);
+  const [logoSrc, setLogoSrc] = useState<string>("/amogh-logo-header.png");
+  const assetVersion = useMemo(() => String(Date.now()), []);
+
+  const isHindi = lang === "hi";
+  const titleText = "अमोघ"; // Title is rendered via logo image; kept for alt text
+  const subHi = "इंटेलिजेंट वित्तीय डैशबोर्ड";
+  const subEn = "Intelligent Finance Dashboard";
+
+  // Rotate subtitles: HI -> EN -> HI ...
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSubtitleIndex((prev) => (prev === 0 ? 1 : 0));
+    }, 3600);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return (
+    <header className="sticky top-0 z-40 w-full overflow-hidden bg-[#121212]">
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+        {/* Language toggle */}
+        <div className="absolute right-4 top-2 sm:top-2 flex items-center gap-2 rounded-full bg-white/5 px-2 py-1 text-[10px] sm:text-xs text-white/80 ring-1 ring-white/10 backdrop-blur">
+          <button
+            onClick={() => { setLang("hi"); navigate('/hi/finance') }}
+            className={`${isHindi ? "bg-white/15 text-white" : "text-white/70 hover:text-white"} rounded-full px-2 py-0.5`}
+          >
+            हिन्दी
+          </button>
+          <span className="text-white/30">/</span>
+          <button
+            onClick={() => { setLang("en"); navigate('/en/finance') }}
+            className={`${!isHindi ? "bg-white/15 text-white" : "text-white/70 hover:text-white"} rounded-full px-2 py-0.5`}
+          >
+            EN
+          </button>
+        </div>
+
+        {/* Title (Cinematic logo image with arrow underline) */}
+        <div className="flex flex-col items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.99 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ type: "spring", stiffness: 140, damping: 18 }}
+            className="mx-auto select-none pointer-events-none"
+            style={{ width: "clamp(128px, 18vw, 240px)" }}
+          >
+            <img
+              src={`${logoSrc}?v=${assetVersion}`}
+              srcSet={`/amogh-logo-header.png?v=${assetVersion} 1x, /amogh-logo-header@2x.png?v=${assetVersion} 2x`}
+              alt={titleText}
+              loading="eager"
+              decoding="async"
+              style={{ width: "100%", height: "auto", filter: "drop-shadow(0 10px 24px rgba(255,140,0,0.14))" }}
+              onError={(e) => {
+                if (logoSrc !== "/amogh-logo.png") {
+                  setLogoSrc("/amogh-logo.png");
+                  e.currentTarget.removeAttribute("srcset");
+                  e.currentTarget.src = `/amogh-logo.png?v=${assetVersion}`;
+                }
+              }}
+            />
+          </motion.div>
+        </div>
+
+        {/* Subtitle (centered, below arrow) – rotates HI/EN */}
+        <div className="relative min-h-[22px] sm:min-h-[26px]">
+          <AnimatePresence mode="wait">
+            {subtitleIndex === 0 ? (
+              <motion.p
+                key="hi"
+                initial={{ opacity: 0, y: 3 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -3 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="mx-auto max-w-[720px] text-balance text-center text-[15.5px] sm:text-[16.5px] leading-[1.45] font-noto-dev font-medium"
+                style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)', marginTop: 8 }}
+              >
+                {subHi}
+              </motion.p>
+            ) : (
+              <motion.p
+                key="en"
+                initial={{ opacity: 0, y: 3 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -3 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="mx-auto max-w-[720px] text-balance text-center text-[15.5px] sm:text-[16.5px] leading-[1.45] font-inter font-medium"
+                style={{ color: '#F5F5F5', textShadow: '0 2px 8px rgba(0,0,0,0.55)', marginTop: 8 }}
+              >
+                {subEn}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Tabs: centered just below header (HI/EN switch) */}
+        <div className="mt-2 sm:mt-3 flex justify-center px-4">
+          <NavTabs
+            tabs={[
+              { id: 'news',   icon: <Newspaper size={20} />, labelHi: 'वित्तीय समाचार', labelEn: 'Finance News' } as TabItem,
+              { id: 'stocks', icon: <TrendingUp size={20} />, labelHi: 'शेयर बाजार',   labelEn: 'Stock Market' } as TabItem,
+              { id: 'social', icon: <Share2 size={20} />,    labelHi: 'सोशल मीडिया',   labelEn: 'Social Media' } as TabItem,
+              { id: 'fdi',    icon: <Banknote size={20} />,  labelHi: 'एफडीआई',        labelEn: 'FDI' } as TabItem,
+            ]}
+            lang={isHindi ? 'hi' : 'en'}
+            onChange={(id) => {
+              if (id === 'news') navigate(isHindi ? '/hi/finance' : '/en/finance')
+              if (id === 'stocks') navigate(isHindi ? '/hi/market' : '/en/market')
+              if (id === 'social') navigate(isHindi ? '/hi/social' : '/en/social')
+            }}
+          />
+        </div>
+
+      </div>
+    </header>
+  );
+}
+
+/* Grid background pattern */
+function GridPattern() {
+  return (
+    <svg
+      className="absolute inset-0 h-full w-full"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+    >
+      <defs>
+        <pattern
+          id="grid"
+          width="40"
+          height="40"
+          patternUnits="userSpaceOnUse"
+        >
+          <path
+            d="M 40 0 L 0 0 0 40"
+            fill="none"
+            stroke="rgba(255,255,255,0.03)"
+            strokeWidth="1"
+          />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+  );
+} 
+
+// Removed cinematic particles to match a clean oil-black header background

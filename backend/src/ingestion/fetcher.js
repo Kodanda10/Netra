@@ -1,78 +1,100 @@
-// src/ingestion/fetcher.js
-import limitsDefault from '../config/limits.js';
-import { quotaGate } from '../cost/enforcer.js';
-import { getMetrics } from '../cost/metrics.js';
-import { getRssItems as realRssSupplier } from './rss.js';
+require('dotenv').config();
+const processItems = require('../processing/processor');
+const { NewsArticle } = require('../ssot/schema');
+const winston = require('winston');
+const axios = require('axios');
+const Queue = require('bull');
 
-// old tests import this from fetcher:
-export { fetchRSS } from './rss.js';
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' }),
+  ],
+});
 
-// ---- SINGLE definition (do NOT duplicate) ----
-export async function fetchGNews(queryOrOpts, limitArg) {
-  const limit =
-    typeof queryOrOpts === 'object' && queryOrOpts !== null
-      ? Math.min(20, Number(queryOrOpts.limit) || 10)
-      : Math.min(20, Number(limitArg) || 10);
+const NEWS_API_KEY = process.env.NEWSDATA_API_KEY;
+const NEWS_API_URL = 'https://newsdata.io/api/1/news';
 
-  return Array.from({ length: limit }, (_, i) => ({
-    title: `GNews ${i}`,
-    url: `https://g/${i}`,
-    source: 'gnews',
-  }));
-}
+// Bull Queue for news processing
+const newsQueue = new Queue('news processing', {
+  redis: {
+    host: process.env.REDIS_HOST || '127.0.0.1',
+    port: process.env.REDIS_PORT || 6379,
+  },
+});
 
-// normalize the two test signatures:
-// 1) ingestCycle(stores, limits, processFn)
-// 2) ingestCycle(redis, fetchGNewsFn, processFn, opts)
-function normalizeArgs(a, b, c, d) {
-  if (b && typeof b === 'object' && 'MAX_DAILY_ARTICLES' in b && typeof c === 'function') {
-    return { stores: a || {}, limits: b, fetchG: fetchGNews, processFn: c, opts: {}, legacy: true };
+// Define a list of trusted news sources (NewsData.io source_id values)
+// In a production environment, this list should be configurable (e.g., via environment variables or a dedicated config file).
+const TRUSTED_SOURCES = [
+  'the-economic-times',
+  'livemint',
+  'business-standard',
+  'ndtv-profit',
+  'moneycontrol',
+  'zeebiz',
+  'financial-express',
+  'business-today',
+  'cnbc-tv18',
+  'bloombergquint',
+];
+
+const fetchAndProcessNews = async () => {
+  logger.info('Fetching real news items from NewsData.io...');
+  try {
+    const response = await axios.get(NEWS_API_URL, {
+      params: {
+        apikey: NEWS_API_KEY,
+        q: 'finance OR stock market OR economy', // Broad query for financial news
+        language: 'en',
+        country: 'in', // Focus on India
+      },
+    });
+
+    const articles = response.data.results;
+    if (!articles || articles.length === 0) {
+      logger.info('No new articles fetched from NewsData.io.');
+      return [];
+    }
+
+    // Filter articles by trusted sources
+    const filteredArticles = articles.filter(article =>
+      TRUSTED_SOURCES.includes(article.source_id)
+    );
+
+    if (filteredArticles.length === 0) {
+      logger.info('No articles found from trusted sources.');
+      return [];
+    }
+
+    const mappedArticles = filteredArticles.map(article => ({
+      title: article.title,
+      summary: article.description || article.content,
+      content: article.content,
+      source: article.source_id,
+      publicationDate: new Date(article.pubDate),
+      state: 'National', // NewsData.io doesn't provide state-level data directly, default to National
+      category: article.category ? article.category.join(', ') : 'General',
+    }));
+
+    const processedItems = await processItems(mappedArticles);
+
+    // Add each processed item to the queue
+    for (const item of processedItems) {
+      await newsQueue.add(item);
+    }
+    logger.info(`Added ${processedItems.length} news items to the queue.`);
+
+    return processedItems;
+  } catch (error) {
+    logger.error('Error fetching news from NewsData.io:', error);
+    return [];
   }
-  return { stores: a || {}, limits: limitsDefault, fetchG: typeof b === 'function' ? b : fetchGNews, processFn: typeof c === 'function' ? c : async () => 0, opts: d || {}, legacy: false };
-}
+};
 
-export async function ingestCycle(a, b, c, d) {
-  const { stores, limits, fetchG, processFn, opts, legacy } = normalizeArgs(a, b, c, d);
-  const { gauges } = getMetrics();
-  const rssSupplier = opts.rssSupplier || realRssSupplier;
-
-  const gate = legacy
-    ? { canFetch: true, canUseGnews: true, effectiveArticleQuota: Number(limits?.MAX_DAILY_ARTICLES ?? 100) }
-    : await quotaGate(stores, limits);
-
-  if (!gate?.canFetch) return { usedCache: true, ingested: 0, from: [] };
-
-  const preCap = Math.min(50, gate.effectiveArticleQuota || 0);
-
-  let rssItems = [];
-  try { rssItems = (await rssSupplier(opts)) || []; } catch { rssItems = []; }
-
-  //  ensure GNews headroom for legacy signature tests
-  if (legacy && rssItems.length > 20) rssItems = rssItems.slice(0, 20);
-  const rssTake = Math.min(rssItems.length, preCap);
-  const pickedRss = rssItems.slice(0, rssTake);
-
-  const remaining = preCap - rssTake;
-  let gnews = [];
-  if (gate.canUseGnews && remaining > 0) {
-    gnews = (await fetchG({ limit: Math.min(20, remaining) })) || [];
-  }
-
-  const toProcess = [...pickedRss, ...gnews];
-  gauges?.itemsPerHour?.set?.(toProcess.length);
-
-  const processed = await processFn(toProcess);
-  const ingestedCount = Number.isFinite(processed) ? processed : toProcess.length;
-
-  // make 'from' = unique sources (not per item)
-  const from = [];
-  if (pickedRss.length) from.push('rss');
-  if (gnews.length) from.push('gnews');
-
-  return {
-    ingested: ingestedCount,
-    from,
-    gate,
-    used: toProcess.length,
-  };
-}
+module.exports = { fetchAndProcessNews };

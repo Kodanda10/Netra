@@ -1,73 +1,86 @@
-import crypto from "node:crypto";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc.js";
-dayjs.extend(utc);
+require('dotenv').config();
+const axios = require('axios');
+const winston = require('winston');
 
-// naive in-memory caches for demo/testing
-export const translationCache = new Map();
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' }),
+  ],
+});
 
-const FINANCE_POS = ["RBI", "FDI", "investment", "market", "NSE", "BSE", "SEBI", "rupee", "inflation", "policy"];
-const CIVIC_NEG = ["crime", "rape", "murder", "theft", "court", "judgement", "accident"];
+// Google Cloud Translation API configuration
+const GOOGLE_TRANSLATE_API_KEY = process.env.GOOGLE_TRANSLATE_API_KEY;
+const GOOGLE_TRANSLATE_API_URL = 'https://translation.googleapis.com/language/translate/v2';
 
-function score(text, terms) {
-  const lc = text.toLowerCase();
-  return terms.reduce((s, t) => s + (lc.includes(t.toLowerCase()) ? 1 : 0), 0);
-}
+// NLP Cloud Summarization API configuration
+const NLP_CLOUD_API_KEY = process.env.NLP_CLOUD_API_KEY;
+const NLP_CLOUD_API_URL = 'https://api.nlpcloud.io/v1/bart-large-cnn/summarization'; // Using BART Large CNN for summarization
 
-function isTodayISO(iso) {
-  if (!iso) return false;
-  const d = dayjs(iso).utc();
-  const today = dayjs().utc();
-  return d.isSame(today, "day");
-}
+const translateText = async (text, targetLanguage = 'hi') => {
+  if (!GOOGLE_TRANSLATE_API_KEY) {
+    logger.warn('GOOGLE_TRANSLATE_API_KEY is not set. Skipping translation.');
+    return text; // Return original text if API key is not set
+  }
+  try {
+    const response = await axios.post(GOOGLE_TRANSLATE_API_URL, {
+      q: text,
+      target: targetLanguage,
+      format: 'text',
+    }, {
+      params: {
+        key: GOOGLE_TRANSLATE_API_KEY,
+      },
+    });
+    return response.data.data.translations[0].translatedText;
+  } catch (error) {
+    logger.error('Error translating text:', error.response ? error.response.data : error.message);
+    return text; // Return original text on error
+  }
+};
 
-function hashKey(title, url) {
-  return crypto.createHash("sha256").update(`${title}|${url}`).digest("hex");
-}
+const summarizeText = async (text) => {
+  if (!NLP_CLOUD_API_KEY) {
+    logger.warn('NLP_CLOUD_API_KEY is not set. Skipping summarization.');
+    return text; // Return original text if API key is not set
+  }
+  try {
+    const response = await axios.post(NLP_CLOUD_API_URL, {
+      text: text,
+    }, {
+      headers: {
+        'Authorization': `Token ${NLP_CLOUD_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data.summary;
+  } catch (error) {
+    logger.error('Error summarizing text:', error.response ? error.response.data : error.message);
+    return text; // Return original text on error
+  }
+};
 
-export async function processorFactory(limits) {
-  const seenHashes = new Set();
-  return async function process(item) {
-    // Date filter
-    if (!isTodayISO(item.publishedAt)) return null;
-    // Relevance filter
-    const pos = score(item.title, FINANCE_POS);
-    const neg = score(item.title, CIVIC_NEG);
-    if (pos < 2 || neg > 0) return null;
+const processItems = async (items) => {
+  const processed = [];
+  for (const item of items) {
+    const translatedTitle = await translateText(item.title);
+    const translatedSummary = await translateText(item.summary);
+    const summarizedContent = await summarizeText(item.content || item.summary); // Summarize content or summary
 
-    // Dedup
-    const key = hashKey(item.title || "", item.url || "");
-    if (seenHashes.has(key)) return null;
-    seenHashes.add(key);
-
-    // Categorize (very simple heuristic)
-    const isState = /\b(UP|Delhi|Maharashtra|Chhattisgarh|Odisha|Bengal|Tamil Nadu)\b/i.test(item.title);
-    const category = isState ? "state" : "all-india";
-    const confidence = isState ? 0.9 : 0.8;
-
-    // Summarize (placeholder clamp) then translate; cache by hash
-    const summaryEn = (item.title || "").slice(0, limits.MAX_SUMMARY_CHARS);
-    let textHi = translationCache.get(key);
-    let cached = true;
-    if (!textHi) {
-      // Your translator here; we simulate
-      textHi = `हिंदी: ${summaryEn}`;
-      translationCache.set(key, textHi);
-      cached = false;
-    }
-
-    // Fact-check stub
-    const factScore = 0.9;
-
-    return {
+    processed.push({
       ...item,
-      category,
-      language: 'en',
-      confidence,
-      summaryEn,
-      summaryHi: textHi,
-      translationCached: cached,
-      factScore
-    };
-  };
-}
+      translatedTitle,
+      translatedSummary,
+      summarizedContent,
+    });
+  }
+  return processed;
+};
+
+module.exports = processItems;

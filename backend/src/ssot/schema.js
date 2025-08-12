@@ -1,32 +1,23 @@
-import { Sequelize, DataTypes } from 'sequelize';
-import 'dotenv/config'; // make sure dotenv is installed and loaded
+const { Sequelize, DataTypes, Op } = require('sequelize');
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '..', '.env') });
 
-const sequelize = process.env.PG_URL
-  ? new Sequelize(process.env.PG_URL, {
-      dialect: 'postgres',
-      logging: false,
-      dialectOptions: { ssl: false },
-    })
-  : new Sequelize(
-      process.env.PG_DATABASE || 'amogh',
-      process.env.PG_USER || 'abhijita',
-      process.env.PG_PASSWORD || '',
-      {
-        host: process.env.PG_HOST || 'localhost',
-        port: Number(process.env.PG_PORT) || 5432,
-        dialect: 'postgres',
-        logging: false,
-        dialectOptions: { ssl: false },
-      }
-    );
+// Initialize Sequelize with PostgreSQL
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  dialect: 'postgres',
+  logging: false, // Suppress logging
+  dialectOptions: {}
+});
 
-// example model
-export const Item = sequelize.define('Item', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, allowNull: false },
-}, { tableName: 'items', timestamps: true });
-
+// Define NewsArticle Model
 const NewsArticle = sequelize.define('NewsArticle', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   title: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -43,9 +34,9 @@ const NewsArticle = sequelize.define('NewsArticle', {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  published_at: {
+  publicationDate: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
   },
   state: {
     type: DataTypes.STRING,
@@ -55,11 +46,78 @@ const NewsArticle = sequelize.define('NewsArticle', {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  language: {
+  translatedTitle: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  translatedSummary: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  summarizedContent: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+});
+
+// Define other models (StockData, FDIMetric, SocialMetric) as needed
+const StockData = sequelize.define('StockData', {
+  symbol: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  price: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  change: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+  },
+  exchange: {
     type: DataTypes.STRING,
     allowNull: true,
   },
 });
 
-export default sequelize;
-export { NewsArticle };
+const FDIMetric = sequelize.define('FDIMetric', {
+  sector: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  value: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  growth: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+});
+
+const SocialMetric = sequelize.define('SocialMetric', {
+  platform: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  sentiment: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  mentions: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+});
+
+module.exports = {
+  sequelize,
+  NewsArticle,
+  StockData,
+  FDIMetric,
+  SocialMetric,
+  Op, // Export Op for use in queries
+};
