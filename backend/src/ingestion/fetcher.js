@@ -1,101 +1,44 @@
-import { request } from "undici";
-import { XMLParser } from "fast-xml-parser";
-import axios from "axios";
-import * as rax from "retry-axios";
-import pRetry from "p-retry";
-import dayjs from "dayjs";
-import { counters, gauges } from "../cost/metrics.js";
-import { quotaGate, recordArticleIngest } from "../cost/enforcer.js";
+// src/ingestion/fetcher.js
+import limits from '../config/limits.js';
+import { getGate } from './gate.js';
+import { getMetrics } from '../cost/metrics.js';
+import { getRssItems as realRssSupplier } from './rss.js';
 
-rax.attach();
+export async function ingestCycle(redis, fetchGNews, processFn, opts = {}) {
+  const { gauges } = getMetrics();                 // metrics singleton
+  const rssSupplier = opts.rssSupplier || realRssSupplier;
 
-const RSS_FEEDS = [
-  "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
-  "https://www.livemint.com/rss/markets",
-  "https://www.financialexpress.com/market/feed/",
-  "https://www.business-standard.com/rss/markets.xml",
-  "https://www.bhaskar.com/rss?category=business",
-  "https://www.anandabazar.com/rss/business"
-]; // :contentReference[oaicite:4]{index=4}
-
-export async function fetchRSS(url) {
-  counters.fetchReq.inc();
-  try {
-    const res = await pRetry(async () => {
-      const { body, statusCode } = await request(url, { method: "GET" });
-      if (statusCode >= 400) throw new Error("Bad status " + statusCode);
-      const text = await body.text();
-      const parser = new XMLParser({ ignoreAttributes: false, parseTagValue: true });
-      const xml = parser.parse(text);
-      const items = xml?.rss?.channel?.item || xml?.feed?.entry || [];
-      return Array.isArray(items) ? items : [items];
-    }, { retries: 2 });
-
-    return res.map((it) => {
-      const title = it.title?._text || it.title || "";
-      const link = it.link?._text || it.link?.["@_href"] || it.link || "";
-      const pub = it.pubDate || it.published || it.updated || "";
-      return {
-        title: String(title).trim(),
-        url: String(link).trim(),
-        publishedAt: pub ? dayjs(pub).toISOString() : null,
-        source: "rss"
-      };
-    });
-  } catch (e) {
-    counters.fetchErr.inc();
-    return [];
-  }
-}
-
-// Provider stub for GNews (strict fallback)
-export async function fetchGNews(query, limit = 20) {
-  // Put your provider here. We simulate deterministic items:
-  const now = dayjs().toISOString();
-  return Array.from({ length: limit }).map((_, i) => ({
-    title: `Finance ${i} — ${query}`,
-    url: `https://news.example/${i}`,
-    publishedAt: now,
-    source: "gnews"
-  }));
-}
-
-export async function ingestCycle(stores, limits, processFn, opts = {}) {
-  const rssSupplier = opts.rssSupplier ?? fetchRSS;
-
-  const gate = await quotaGate(stores, limits);
-  if (!gate.canFetch) return { usedCache: true, ingested: 0, from: [] };
-
-  gauges.itemsPerHour.set(0);
-  const effective = gate.effectiveArticleQuota;
-
-  let collected = [];
-
-  for (const url of RSS_FEEDS) {
-    if (collected.length >= effective) break;
-    const items = await rssSupplier(url);
-    collected.push(...items);
+  const gate = await getGate(redis);
+  if (!gate || gate.canFetch === false) {
+    return { usedCache: true, ingested: 0, from: [] };
   }
 
-  if (collected.length < Math.min(50, effective) && gate.canUseGnews) {
-    const needed = Math.min(20, Math.min(50, effective) - collected.length);
-    if (needed > 0) {
-      const g = await fetchGNews("india finance investment -civic", needed);
-      collected.push(...g);
+  const preCap = Math.min(50, gate.effectiveArticleQuota || 0);
+
+  const rssItems = (await rssSupplier(opts)) || [];
+  const rssTake = Math.min(rssItems.length, preCap);
+  const pickedRss = rssItems.slice(0, rssTake);
+
+  let gnews = [];
+  if (gate.canUseGnews && rssTake < preCap) {
+    const remaining = Math.min(20, preCap - rssTake);
+    if (remaining > 0) {
+      gnews = (await fetchGNews({ limit: remaining })) || [];
     }
   }
 
-  // Process and record
-  let ingested = 0;
-  const from = [];
-  for (const item of collected.slice(0, effective)) {
-    const enriched = processFn ? await processFn(item) : item;
-    if (!enriched) continue;
-    await recordArticleIngest(stores, { source: enriched.source }, limits);
-    gauges.sourceToday.set({ source: enriched.source }, 1);
-    from.push(enriched.source);
-    ingested++;
+  const toProcess = [...pickedRss, ...gnews];
+  if (gauges && gauges.itemsPerHour && typeof gauges.itemsPerHour.set === 'function') {
+    gauges.itemsPerHour.set(toProcess.length);
   }
 
-  return { usedCache: false, ingested, from };
+  const ingested = await processFn(toProcess);
+  return {
+    ingested: Number(ingested) || 0,
+    gate,
+    used: toProcess.length,
+    from: { rss: pickedRss.length, gnews: gnews.length },
+  };
 }
+
+export default { ingestCycle };

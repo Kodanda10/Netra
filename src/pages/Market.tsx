@@ -9,6 +9,8 @@ import { Heatmap } from '@/market/components/Heatmap'
 import { TopList } from '@/market/components/TopList'
 import { TreemapHeat } from '@/market/components/Treemap'
 import { MarketTabs } from '@/market/components/Tabs'
+import { OverviewChart } from '@/market/components/OverviewChart'
+import { Watchlist } from '@/market/components/Watchlist'
 
 const Market: React.FC = () => {
   const { lang } = useParams<{ lang: 'hi' | 'en' }>()
@@ -16,7 +18,7 @@ const Market: React.FC = () => {
   const dict = tMarket[lang as MarketLocale]
   const live = useLiveCards(lang)
   const stocks = useMockStocks()
-  const [tab, setTab] = React.useState<'overview'|'gainers'|'losers'|'heatmap'>('overview')
+  const [tab, setTab] = React.useState<'overview'|'heatmap'|'watchlist'>('overview')
   const treedata = stocks.slice(0,50).map(s => ({ name: s.symbol, size: Math.abs(s.price*s.changePct)+50, changePct: s.changePct }))
   return (
     <div className="space-y-6">
@@ -27,34 +29,35 @@ const Market: React.FC = () => {
       </div>
       <div className="flex justify-center">
         <MarketTabs
-          tabs={[{id:'overview',labelHi:'सारांश',labelEn:'Overview'},{id:'gainers',labelHi:'शीर्ष बढ़त',labelEn:'Top Gainers'},{id:'losers',labelHi:'शीर्ष गिरावट',labelEn:'Top Losers'},{id:'heatmap',labelHi:'हीटमैप',labelEn:'Heatmap'}]}
+          tabs={[{id:'overview',labelHi:'सारांश',labelEn:'Overview'},{id:'heatmap',labelHi:'हीटमैप',labelEn:'Heatmap'},{id:'watchlist',labelHi:'वॉचलिस्ट',labelEn:'Watchlist'}]}
           lang={lang}
           active={tab}
           onChange={(id)=>setTab(id as any)}
         />
       </div>
       {tab==='overview' && (
-        <section className="space-y-4">
-          <h2 className="card-title text-lg">{lang==='hi' ? 'निफ्टी-50 हीटमैप' : 'Nifty-50 Heatmap'}</h2>
-          <TreemapHeat data={treedata} />
-        </section>
-      )}
-      {tab==='gainers' && (
-        <section className="space-y-4">
-          <h2 className="card-title text-lg">{lang==='hi' ? 'शीर्ष बढ़त' : 'Top Gainers'}</h2>
-          <TopList items={[...stocks].sort((a,b)=>b.changePct-a.changePct)} />
-        </section>
-      )}
-      {tab==='losers' && (
-        <section className="space-y-4">
-          <h2 className="card-title text-lg">{lang==='hi' ? 'शीर्ष गिरावट' : 'Top Losers'}</h2>
-          <TopList items={[...stocks].sort((a,b)=>a.changePct-b.changePct)} />
+        <section className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <OverviewChart index={lang==='hi'?'BSE':'BSE'} />
+            <OverviewChart index={lang==='hi'?'NSE':'NSE'} />
+            <OverviewChart index={lang==='hi'?'USDINR':'USDINR'} />
+          </div>
+          <div className="space-y-4">
+            <h2 className="card-title text-lg">{lang==='hi' ? 'शीर्ष बढ़त / गिरावट' : 'Top Gainers / Losers'}</h2>
+            <TopList items={[...stocks].sort((a,b)=>b.changePct-a.changePct)} />
+            <TopList items={[...stocks].sort((a,b)=>a.changePct-b.changePct)} />
+          </div>
         </section>
       )}
       {tab==='heatmap' && (
         <section className="space-y-4">
           <h2 className="card-title text-lg">{lang==='hi' ? 'हीटमैप' : 'Heatmap'}</h2>
-          <Heatmap items={stocks.map(s=>({symbol:s.symbol, changePct:s.changePct}))} />
+          <TreemapHeat data={treedata} />
+        </section>
+      )}
+      {tab==='watchlist' && (
+        <section className="space-y-4">
+          <Watchlist universe={stocks} />
         </section>
       )}
     </div>

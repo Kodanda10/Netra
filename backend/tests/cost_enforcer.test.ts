@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { setBurstActive, evaluateBurstAuto, quotaGate } from "../src/cost/enforcer.js";
 import limits from "../src/config/limits.js";
-import { makeStores, incDailyCounter } from "../src/cost/counters.js";
+import { incDailyCounter } from "../src/cost/counters.js";
+import stores from '../src/stores';
 
 vi.mock("pg", () => ({
   Pool: vi.fn(() => ({
@@ -9,17 +10,9 @@ vi.mock("pg", () => ({
   })),
 }));
 
-import limits from "../src/config/limits.js";
-
-import { resetRedis } from "../src/test-utils/resetRedis.js";
-
-// ... other imports
-
 describe("Cost enforcer", () => {
-  const stores = makeStores();
-
   beforeEach(async () => {
-    await resetRedis(stores.redis);
+    await stores.redis.flushall();
     setBurstActive(false);
   });
 

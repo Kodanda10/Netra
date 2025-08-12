@@ -1,15 +1,15 @@
 import express from 'express';
-import client from 'prom-client';
+import { getMetrics } from './cost/metrics.js';
 
 export const app = express();
 
-// Prometheus metrics
-const register = client.register;
+// seed metrics so /metrics isn't empty
+getMetrics();
+
 app.get('/metrics', async (_req, res) => {
+  const { register } = getMetrics();
   res.set('Content-Type', register.contentType);
   res.end(await register.metrics());
 });
-
-// ...other routes
 
 export default app;

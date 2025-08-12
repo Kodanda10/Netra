@@ -1,8 +1,12 @@
-import { defineConfig } from "vitest/config";
-
+import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
-    environment: "node",
+    globals: true,
+    environment: 'node',
+    setupFiles: ['tests/setup.ts'],
+    clearMocks: true,
+    restoreMocks: true,
+    mockReset: true,
     coverage: {
       reporter: ["text", "lcov"],
       statements: 90,
@@ -10,5 +14,5 @@ export default defineConfig({
       functions: 90,
       lines: 90
     }
-  }
+  },
 });

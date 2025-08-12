@@ -6,18 +6,12 @@ vi.mock("undici", () => ({
 import { XMLParser } from "fast-xml-parser";
 import { ingestCycle, fetchRSS, fetchGNews } from "../src/ingestion/fetcher.js";
 import { processorFactory } from "../src/processing/processor.js";
-import { makeStores } from "../src/cost/counters.js";
+import stores from '../src/stores';
 import limits from "../src/config/limits.js";
 
-import { resetRedis } from "../src/test-utils/resetRedis.js";
-
-// ... other imports
-
 describe("Fetcher", () => {
-  const stores = makeStores();
-
   beforeEach(async () => {
-    await resetRedis(stores.redis);
+    await stores.redis.flushall();
   });
 
   it("parses a simple RSS feed", async () => {
