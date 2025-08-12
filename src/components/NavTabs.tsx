@@ -79,7 +79,6 @@ export const NavTabs: React.FC<{
           return (
             <button
               key={t.id}
-              data-testid={`tab-${t.id}`}
               role="tab"
               aria-selected={String(selected)}
               tabIndex={selected ? 0 : -1}

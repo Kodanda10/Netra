@@ -19,14 +19,31 @@ export function setNearCap(active) {
   gauges?.nearCap?.set?.(active ? 1 : 0);
 }
 
-/** tests spy on this */
-export async function quotaGate(_stores, limits) {
+import { getDailyCounter } from './counters.js';
+import { getMetrics } from './metrics.js';
+
+export async function quotaGate(stores, limits) {
   const base = Number(limits?.MAX_DAILY_ARTICLES ?? 100);
-  const eff = Math.round(base * (isBurstActive() ? 1.2 : 1.0));
+  const gnewsCap = Number(limits?.GNEWS_MAX_DAILY ?? 50);
+  const burst = isBurstActive() ? 1.2 : 1.0;
+  const effective = Math.round(base * burst);
+
+  let usedArticles = 0, usedGnews = 0;
+  try { usedArticles = await getDailyCounter(stores?.redis, 'articles'); } catch {}
+  try { usedGnews = await getDailyCounter(stores?.redis, 'gnews'); } catch {}
+
+  const nearCap = usedArticles >= Math.floor(0.8 * base);
+  const canUseGnews = usedGnews < gnewsCap;   // ✅ flip to false at cap
+
+  const { gauges } = getMetrics();
+  gauges?.nearCap?.set?.(nearCap ? 1 : 0);
+  gauges?.gnewsRemaining?.set?.(Math.max(gnewsCap - usedGnews, 0));
+
   return {
     canFetch: true,
-    canUseGnews: true,
-    effectiveArticleQuota: eff,
+    canUseGnews,
+    effectiveArticleQuota: effective,
+    nearCap,
   };
 }
 

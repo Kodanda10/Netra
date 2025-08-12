@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/44</span>
+                <span class='fraction'>0/52</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/44</span>
+                <span class='fraction'>0/52</span>
             </div>
         
             
@@ -117,7 +117,15 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -155,7 +163,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -176,7 +192,7 @@
 <span class="cstat-no" title="statement not covered" >import { springs } from '../finance.tokens'</span>
 <span class="cstat-no" title="statement not covered" >import { NewsList } from './NewsList'</span>
 <span class="cstat-no" title="statement not covered" >import { SourceTray } from './SourceTray'</span>
-<span class="cstat-no" title="statement not covered" >import { Factory, Landmark, Building2, Cpu, Gem, Wheat, Apple, Mountain, Ship, Coffee } from 'lucide-react'</span>
+<span class="cstat-no" title="statement not covered" >import { Factory, Landmark, Building2, Cpu, Gem, Wheat, Apple, Mountain, Ship, Coffee, Hammer, Castle, Shield, CloudRain, Trees, Music, Umbrella } from 'lucide-react'</span>
 <span class="cstat-no" title="statement not covered" >import { STATES } from '@/finance/states.config'</span>
 <span class="cstat-no" title="statement not covered" >import '../../finance/finance.css'</span>
 <span class="cstat-no" title="statement not covered" >const SourcesSidePanel = React.lazy(() =&gt; import('./SourcesSidePanel'))</span>
@@ -198,6 +214,13 @@
 <span class="cstat-no" title="statement not covered" >    : iconName === 'Ship' ? Ship</span>
 <span class="cstat-no" title="statement not covered" >    : iconName === 'Coffee' ? Coffee</span>
 <span class="cstat-no" title="statement not covered" >    : iconName === 'Landmark' ? Landmark</span>
+<span class="cstat-no" title="statement not covered" >    : iconName === 'Hammer' ? Hammer</span>
+<span class="cstat-no" title="statement not covered" >    : iconName === 'Castle' ? Castle</span>
+<span class="cstat-no" title="statement not covered" >    : iconName === 'Shield' ? Shield</span>
+<span class="cstat-no" title="statement not covered" >    : iconName === 'CloudRain' ? CloudRain</span>
+<span class="cstat-no" title="statement not covered" >    : iconName === 'Trees' ? Trees</span>
+<span class="cstat-no" title="statement not covered" >    : iconName === 'Music' ? Music</span>
+<span class="cstat-no" title="statement not covered" >    : iconName === 'Umbrella' ? Umbrella</span>
 <span class="cstat-no" title="statement not covered" >    : Factory</span>
 <span class="cstat-no" title="statement not covered" >  const reduce = useReducedMotion()</span>
 <span class="cstat-no" title="statement not covered" >  const [open, setOpen] = React.useState(false)</span>
@@ -211,9 +234,10 @@
 <span class="cstat-no" title="statement not covered" >        style={{ backgroundColor: 'transparent' }}</span>
       &gt;
 <span class="cstat-no" title="statement not covered" >        &lt;div className="flex items-center gap-2 mb-2 card-title font-semibold"&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;Icon className="w-5 h-5 text-white/80" /&gt; {title}</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Icon className="w-5 h-5 text-white/80 shrink-0" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;span className="truncate"&gt;{title}&lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;NewsList items={items.slice(0,3)} height={200} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;NewsList items={items.slice(0,3)} height={220} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;SourceTray total={new Set(sources.map(s=&gt;s.source)).size} label={sourcesLabel} onOpen={()=&gt;setOpen(true)} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/motion.div&gt;</span>
 <span class="cstat-no" title="statement not covered" >      {open &amp;&amp; (</span>
@@ -232,7 +256,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-12T10:19:22.983Z
+                at 2025-08-12T15:03:01.305Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -32,22 +32,23 @@ export async function ensureDailyTables(pool) {
   `);
 }
 
-const keyFor = (k, d) => `${k}:${d}`;
+const keyFor = (k) => `dc:${dayjs().format('YYYY-MM-DD')}:${k}`;
 
-export async function incDailyCounter(redis, pool, key, by = 1, d = dayjs().utc().format("YYYY-MM-DD")) {
-  const rkey = keyFor(key, d);
+export async function incDailyCounter(redis, pool, key, by = 1) {
+  const rkey = keyFor(key);
   await redis.incrby(rkey, by);
   const val = Number(await redis.get(rkey));
   if (typeof pool?.query === 'function') {
     await pool.query(`
       INSERT INTO daily_counters(day,key,value) VALUES($1,$2,$3)
       ON CONFLICT (day,key) DO UPDATE SET value=EXCLUDED.value
-    `, [d, key, val]);
+    `, [dayjs().format('YYYY-MM-DD'), key, val]);
   }
-  return val;
 }
 
-export async function getDailyCounter(redis, key, d = dayjs().utc().format("YYYY-MM-DD")) {
-  const val = await redis.get(keyFor(key, d));
-  return Number(val || 0);
+// ✅ add this:
+export async function getDailyCounter(redis, key) {
+  const rkey = keyFor(key);
+  const v = await redis.get(rkey);
+  return Number(v) || 0;
 }

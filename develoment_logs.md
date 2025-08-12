@@ -131,3 +131,4 @@
 - 2025-08-12 14:39:18 UTC: ux(app tabs): measured animated indicator for main NavTabs to match iOS segmented control; tuned spring
 - 2025-08-12 14:39:18 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 14:44:43 UTC: feat(social): add Social Media tab with glass insights (followers/engagement/growth) and unified timeline; route /:lang/social; mock data placeholders
+- 2025-08-12 14:44:43 UTC: docs(log): auto-update [auto-log]
