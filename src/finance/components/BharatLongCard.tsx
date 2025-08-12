@@ -21,7 +21,7 @@ export const BharatLongCard: React.FC<{
         animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
         transition={springs.bharat as any}
         className="glass-liquid rounded-3xl p-4 md:p-6"
-        style={{ backgroundColor: '#121212' }}
+        style={{ backgroundColor: 'transparent' }}
       >
         <div className="flex items-center justify-between mb-3">
           <div className="text-xl font-bold card-title flex items-center gap-2">

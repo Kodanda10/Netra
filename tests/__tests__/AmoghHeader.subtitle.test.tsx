@@ -1,6 +1,17 @@
+import React from 'react'
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { act } from 'react'
+
+// Simplify motion for this test to avoid AnimatePresence gating
+vi.mock('framer-motion', async (orig) => {
+  const actual = await (orig as any)()
+  return {
+    ...actual,
+    AnimatePresence: ({ children }: any) => <>{children}</>,
+    motion: { p: (props: any) => <p {...props} /> },
+  }
+})
 import { MemoryRouter } from 'react-router-dom'
 import AmoghHeader from '../../src/components/AmoghHeader'
 
