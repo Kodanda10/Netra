@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { springs } from '../finance.tokens'
 import { NewsList } from './NewsList'
 import { SourceTray } from './SourceTray'
-import { Factory, Landmark, Building2, Cpu, Gem, Wheat, Apple, Mountain, Ship, Coffee } from 'lucide-react'
+import { Factory, Landmark, Building2, Cpu, Gem, Wheat, Apple, Mountain, Ship, Coffee, Hammer, Castle, Shield, CloudRain, Trees, Music, Umbrella } from 'lucide-react'
 import { STATES } from '@/finance/states.config'
 import '../../finance/finance.css'
 const SourcesSidePanel = React.lazy(() => import('./SourcesSidePanel'))
@@ -25,6 +25,13 @@ export const StateCard: React.FC<{
     : iconName === 'Ship' ? Ship
     : iconName === 'Coffee' ? Coffee
     : iconName === 'Landmark' ? Landmark
+    : iconName === 'Hammer' ? Hammer
+    : iconName === 'Castle' ? Castle
+    : iconName === 'Shield' ? Shield
+    : iconName === 'CloudRain' ? CloudRain
+    : iconName === 'Trees' ? Trees
+    : iconName === 'Music' ? Music
+    : iconName === 'Umbrella' ? Umbrella
     : Factory
   const reduce = useReducedMotion()
   const [open, setOpen] = React.useState(false)
@@ -38,9 +45,10 @@ export const StateCard: React.FC<{
         style={{ backgroundColor: 'transparent' }}
       >
         <div className="flex items-center gap-2 mb-2 card-title font-semibold">
-          <Icon className="w-5 h-5 text-white/80" /> {title}
+          <Icon className="w-5 h-5 text-white/80 shrink-0" />
+          <span className="truncate">{title}</span>
         </div>
-        <NewsList items={items.slice(0,3)} height={200} />
+        <NewsList items={items.slice(0,3)} height={220} />
         <SourceTray total={new Set(sources.map(s=>s.source)).size} label={sourcesLabel} onOpen={()=>setOpen(true)} />
       </motion.div>
       {open && (

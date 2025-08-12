@@ -9,7 +9,7 @@ export const NewsList: React.FC<{ items: { id:string; title:string; summary:stri
   return (
     <div className="rounded-2xl overflow-hidden">
       <Virtuoso
-        style={{ height }}
+        style={{ height: Math.min(height, 420) }}
         data={items}
         itemContent={(idx, it) => (
           <motion.a

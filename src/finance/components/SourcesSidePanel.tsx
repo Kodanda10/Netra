@@ -38,3 +38,5 @@ export const SourcesSidePanel: React.FC<{ open:boolean; onClose:()=>void; source
   )
 }
 
+export default SourcesSidePanel
+

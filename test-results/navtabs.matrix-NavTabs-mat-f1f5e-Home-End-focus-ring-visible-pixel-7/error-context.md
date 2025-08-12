@@ -1,0 +1,283 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button "हिन्दी"
+  - text: /
+  - button "EN"
+  - img "अमोघ"
+  - paragraph: इंटेलिजेंट वित्तीय डैशबोर्ड
+  - tablist "Amogh sections (compact)":
+    - tab "वित्तीय समाचार"
+    - tab "शेयर बाजार"
+    - tab "सोशल मीडिया"
+    - tab "एफडीआई" [selected]
+- main:
+  - heading "बीएसई सेंसेक्स" [level=3]
+  - text: Live 75,012.30 +0.52%
+  - heading "एनएसई निफ्टी" [level=3]
+  - text: Live 22,845.10 -0.18%
+  - heading "यूएसडी / भारतीय रुपया" [level=3]
+  - text: Live ₹83.50 +0.06%
+  - button "सारांश"
+  - button "हीटमैप"
+  - button "वॉचलिस्ट"
+  - text: BSE
+  - button "1D"
+  - button "5D"
+  - button "1W"
+  - button "1M"
+  - button "3M"
+  - list:
+    - listitem:
+      - img "v legend icon"
+      - text: v
+  - application: 1 5 9 15 21 28 35 41 48 55 61 68 75 81 88 95 0 20000 40000 60000 80000
+  - text: NSE
+  - button "1D"
+  - button "5D"
+  - button "1W"
+  - button "1M"
+  - button "3M"
+  - list:
+    - listitem:
+      - img "v legend icon"
+      - text: v
+  - application: 1 5 9 15 21 28 35 41 48 55 61 68 75 81 88 95 0 6000 12000 18000 24000
+  - text: USDINR
+  - button "1D"
+  - button "5D"
+  - button "1W"
+  - button "1M"
+  - button "3M"
+  - list:
+    - listitem:
+      - img "v legend icon"
+      - text: v
+  - application: 1 5 9 15 21 28 35 41 48 55 61 68 75 81 88 95 0 25 50 75 100
+  - heading "शीर्ष बढ़त / गिरावट" [level=2]
+  - table:
+    - rowgroup:
+      - row "Symbol Price Change % ▼ Volume":
+        - cell "Symbol":
+          - button "Symbol"
+        - cell "Price":
+          - button "Price"
+        - cell "Change % ▼":
+          - button "Change % ▼"
+        - cell "Volume":
+          - button "Volume"
+    - rowgroup:
+      - row "STK36 ₹200.39 +1.94% 5,19,254":
+        - cell "STK36"
+        - cell "₹200.39"
+        - cell "+1.94%"
+        - cell "5,19,254"
+      - row "STK23 ₹281.39 +1.93% 2,01,755":
+        - cell "STK23"
+        - cell "₹281.39"
+        - cell "+1.93%"
+        - cell "2,01,755"
+      - row "STK13 ₹268.56 +1.79% 4,32,352":
+        - cell "STK13"
+        - cell "₹268.56"
+        - cell "+1.79%"
+        - cell "4,32,352"
+      - row "STK28 ₹369.60 +1.72% 3,45,994":
+        - cell "STK28"
+        - cell "₹369.60"
+        - cell "+1.72%"
+        - cell "3,45,994"
+      - row "STK41 ₹294.05 +1.55% 5,98,433":
+        - cell "STK41"
+        - cell "₹294.05"
+        - cell "+1.55%"
+        - cell "5,98,433"
+      - row "STK22 ₹278.66 +1.48% 3,47,420":
+        - cell "STK22"
+        - cell "₹278.66"
+        - cell "+1.48%"
+        - cell "3,47,420"
+      - row "STK14 ₹321.30 +1.45% 2,57,657":
+        - cell "STK14"
+        - cell "₹321.30"
+        - cell "+1.45%"
+        - cell "2,57,657"
+      - row "STK07 ₹291.20 +1.43% 4,36,696":
+        - cell "STK07"
+        - cell "₹291.20"
+        - cell "+1.43%"
+        - cell "4,36,696"
+      - row "STK10 ₹230.26 +1.42% 1,04,588":
+        - cell "STK10"
+        - cell "₹230.26"
+        - cell "+1.42%"
+        - cell "1,04,588"
+      - row "STK08 ₹139.97 +1.27% 1,62,895":
+        - cell "STK08"
+        - cell "₹139.97"
+        - cell "+1.27%"
+        - cell "1,62,895"
+      - row "STK05 ₹251.34 +1.00% 2,89,303":
+        - cell "STK05"
+        - cell "₹251.34"
+        - cell "+1.00%"
+        - cell "2,89,303"
+      - row "STK17 ₹397.70 +0.81% 5,55,219":
+        - cell "STK17"
+        - cell "₹397.70"
+        - cell "+0.81%"
+        - cell "5,55,219"
+      - row "STK34 ₹437.53 +0.53% 4,06,475":
+        - cell "STK34"
+        - cell "₹437.53"
+        - cell "+0.53%"
+        - cell "4,06,475"
+      - row "STK33 ₹374.88 +0.49% 4,88,305":
+        - cell "STK33"
+        - cell "₹374.88"
+        - cell "+0.49%"
+        - cell "4,88,305"
+      - row "STK38 ₹240.18 +0.37% 1,41,021":
+        - cell "STK38"
+        - cell "₹240.18"
+        - cell "+0.37%"
+        - cell "1,41,021"
+      - row "STK30 ₹342.45 +0.31% 5,28,212":
+        - cell "STK30"
+        - cell "₹342.45"
+        - cell "+0.31%"
+        - cell "5,28,212"
+      - row "STK19 ₹458.84 +0.28% 3,37,009":
+        - cell "STK19"
+        - cell "₹458.84"
+        - cell "+0.28%"
+        - cell "3,37,009"
+      - row "STK01 ₹327.49 +0.11% 1,12,571":
+        - cell "STK01"
+        - cell "₹327.49"
+        - cell "+0.11%"
+        - cell "1,12,571"
+      - row "STK44 ₹220.11 +0.06% 1,22,122":
+        - cell "STK44"
+        - cell "₹220.11"
+        - cell "+0.06%"
+        - cell "1,22,122"
+      - row "STK42 ₹361.23 -0.04% 5,28,964":
+        - cell "STK42"
+        - cell "₹361.23"
+        - cell "-0.04%"
+        - cell "5,28,964"
+  - table:
+    - rowgroup:
+      - row "Symbol Price Change % ▼ Volume":
+        - cell "Symbol":
+          - button "Symbol"
+        - cell "Price":
+          - button "Price"
+        - cell "Change % ▼":
+          - button "Change % ▼"
+        - cell "Volume":
+          - button "Volume"
+    - rowgroup:
+      - row "STK36 ₹200.39 +1.94% 5,19,254":
+        - cell "STK36"
+        - cell "₹200.39"
+        - cell "+1.94%"
+        - cell "5,19,254"
+      - row "STK23 ₹281.39 +1.93% 2,01,755":
+        - cell "STK23"
+        - cell "₹281.39"
+        - cell "+1.93%"
+        - cell "2,01,755"
+      - row "STK13 ₹268.56 +1.79% 4,32,352":
+        - cell "STK13"
+        - cell "₹268.56"
+        - cell "+1.79%"
+        - cell "4,32,352"
+      - row "STK28 ₹369.60 +1.72% 3,45,994":
+        - cell "STK28"
+        - cell "₹369.60"
+        - cell "+1.72%"
+        - cell "3,45,994"
+      - row "STK41 ₹294.05 +1.55% 5,98,433":
+        - cell "STK41"
+        - cell "₹294.05"
+        - cell "+1.55%"
+        - cell "5,98,433"
+      - row "STK22 ₹278.66 +1.48% 3,47,420":
+        - cell "STK22"
+        - cell "₹278.66"
+        - cell "+1.48%"
+        - cell "3,47,420"
+      - row "STK14 ₹321.30 +1.45% 2,57,657":
+        - cell "STK14"
+        - cell "₹321.30"
+        - cell "+1.45%"
+        - cell "2,57,657"
+      - row "STK07 ₹291.20 +1.43% 4,36,696":
+        - cell "STK07"
+        - cell "₹291.20"
+        - cell "+1.43%"
+        - cell "4,36,696"
+      - row "STK10 ₹230.26 +1.42% 1,04,588":
+        - cell "STK10"
+        - cell "₹230.26"
+        - cell "+1.42%"
+        - cell "1,04,588"
+      - row "STK08 ₹139.97 +1.27% 1,62,895":
+        - cell "STK08"
+        - cell "₹139.97"
+        - cell "+1.27%"
+        - cell "1,62,895"
+      - row "STK05 ₹251.34 +1.00% 2,89,303":
+        - cell "STK05"
+        - cell "₹251.34"
+        - cell "+1.00%"
+        - cell "2,89,303"
+      - row "STK17 ₹397.70 +0.81% 5,55,219":
+        - cell "STK17"
+        - cell "₹397.70"
+        - cell "+0.81%"
+        - cell "5,55,219"
+      - row "STK34 ₹437.53 +0.53% 4,06,475":
+        - cell "STK34"
+        - cell "₹437.53"
+        - cell "+0.53%"
+        - cell "4,06,475"
+      - row "STK33 ₹374.88 +0.49% 4,88,305":
+        - cell "STK33"
+        - cell "₹374.88"
+        - cell "+0.49%"
+        - cell "4,88,305"
+      - row "STK38 ₹240.18 +0.37% 1,41,021":
+        - cell "STK38"
+        - cell "₹240.18"
+        - cell "+0.37%"
+        - cell "1,41,021"
+      - row "STK30 ₹342.45 +0.31% 5,28,212":
+        - cell "STK30"
+        - cell "₹342.45"
+        - cell "+0.31%"
+        - cell "5,28,212"
+      - row "STK19 ₹458.84 +0.28% 3,37,009":
+        - cell "STK19"
+        - cell "₹458.84"
+        - cell "+0.28%"
+        - cell "3,37,009"
+      - row "STK01 ₹327.49 +0.11% 1,12,571":
+        - cell "STK01"
+        - cell "₹327.49"
+        - cell "+0.11%"
+        - cell "1,12,571"
+      - row "STK44 ₹220.11 +0.06% 1,22,122":
+        - cell "STK44"
+        - cell "₹220.11"
+        - cell "+0.06%"
+        - cell "1,22,122"
+      - row "STK42 ₹361.23 -0.04% 5,28,964":
+        - cell "STK42"
+        - cell "₹361.23"
+        - cell "-0.04%"
+        - cell "5,28,964"
+```

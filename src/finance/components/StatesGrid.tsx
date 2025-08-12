@@ -18,14 +18,15 @@ export default function StatesGrid({ locale, itemsByState, limit = 4 }: Props) {
   const toShow = pickDisplayStates(newsCounts, limit)
 
   return (
-    <div className="grid md:grid-cols-2 gap-6">
+    <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
       {toShow.map((meta) => (
         <StateCard
           key={meta.id}
           title={locale === 'hi' ? meta.hi : meta.en}
           items={(itemsByState[meta.id] ?? []) as any}
-          sources={[]}
+          sources={((itemsByState[meta.id] ?? []) as any).length? Array.from(new Set(((itemsByState[meta.id] ?? []) as any).map((i:any)=>i.source))).map((s:any)=>({source:s,count:((itemsByState[meta.id] ?? []) as any).filter((i:any)=>i.source===s).length})): []}
           sourcesLabel={locale === 'hi' ? 'स्रोत' : 'Sources'}
+          stateId={meta.id}
         />
       ))}
     </div>
