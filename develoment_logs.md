@@ -108,3 +108,4 @@
 - 2025-08-12 10:19:41 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 13:48:51 UTC: fix(finance): wire SourcesSidePanel default export; pass ordered sources; responsive tweaks for mobile; map full state icon set; compact card/list heights
 - 2025-08-12 13:48:51 UTC: docs(log): auto-update [auto-log]
+- 2025-08-12 13:53:03 UTC: tests(e2e): wait for visible tablist; assert selected tab instead of indicator; device-variant snapshots; adjust size-limit
