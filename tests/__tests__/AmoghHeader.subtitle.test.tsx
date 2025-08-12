@@ -19,22 +19,22 @@ import { MemoryRouter } from 'react-router-dom'
 import AmoghHeader from '../../src/components/AmoghHeader'
 
 describe('AmoghHeader subtitle rotation', () => {
-  it('toggles subtitle after interval', async () => {
+  it('toggles subtitle after interval', () => {
     vi.useFakeTimers()
-    render(
-      <MemoryRouter>
-        <AmoghHeader />
-      </MemoryRouter>
-    )
-    // initial Hindi visible
-    expect(screen.getByText(/इंटेलिजेंट वित्तीय डैशबोर्ड/)).toBeInTheDocument()
-    // advance 3600ms wrapped in act and await appearance
-    await act(async () => {
-      vi.advanceTimersByTime(3610)
-      vi.runOnlyPendingTimers()
-    })
-    await screen.findByText(/Intelligent Finance Dashboard/)
-    vi.useRealTimers()
+    try {
+      render(
+        <MemoryRouter>
+          <AmoghHeader />
+        </MemoryRouter>
+      )
+      expect(screen.getByText(/इंटेलिजेंट वित्तीय डैशबोर्ड/)).toBeInTheDocument()
+      act(() => {
+        vi.advanceTimersByTime(3600)
+      })
+      expect(screen.getByText(/Intelligent Finance Dashboard/)).toBeInTheDocument()
+    } finally {
+      vi.useRealTimers()
+    }
   })
 })
 
