@@ -84,3 +84,4 @@
 - 2025-08-12 07:39:43 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 07:40:34 UTC: tests(unit): make subtitle rotation test synchronous with fake timers; suite green
 - 2025-08-12 07:40:34 UTC: docs(log): auto-update [auto-log]
+- 2025-08-12 07:55:33 UTC: feat(market): add Share Market page with live glass cards (BSE/NSE/USD-INR), hooks and i18n; integrate tab routing
