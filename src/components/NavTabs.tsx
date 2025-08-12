@@ -61,11 +61,20 @@ export const NavTabs: React.FC<{
         {tabs.map((t) => {
           const selected = t.id === active
           return (
-            <button key={t.id} role="tab" aria-selected={String(selected)} tabIndex={selected ? 0 : -1}
+            <button
+              key={t.id}
+              data-testid={`tab-${t.id}`}
+              role="tab"
+              aria-selected={String(selected)}
+              tabIndex={selected ? 0 : -1}
               onClick={() => handle(t.id)}
-              className={clsx('h-9 text-[12px] px-0 min-w-0 truncate flex items-center justify-center gap-1 rounded-full',
-                selected ? 'bg-white/10 text-metallic' : 'text-white/85 hover:bg-white/5')}
+              className={clsx(
+                'h-9 text-[12px] px-2 min-w-0 truncate flex items-center justify-center gap-1 rounded-full',
+                selected ? 'bg-white/10 text-metallic' : 'text-white/85 hover:bg-white/5'
+              )}
             >
+              {/* icon (small) if provided */}
+              {t.icon ? <span className="inline-flex items-center justify-center" aria-hidden>{t.icon}</span> : null}
               <span className={clsx('font-medium tracking-tight', lang === 'hi' ? 'leading-[1.15] pt-[2px]' : undefined)}>
                 {lang === 'hi' ? t.labelHi : t.labelEn}
               </span>
