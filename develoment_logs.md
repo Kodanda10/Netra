@@ -138,3 +138,4 @@
 - 2025-08-12 15:05:41 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 15:23:18 UTC: feat(social): align layout to provided reference; brand logos from web; mock insights per platform; unified feed with icons
 - 2025-08-12 15:23:18 UTC: docs(log): auto-update [auto-log]
+- 2025-08-12 15:36:44 UTC: feat(social): restructure to three full-width platform rows (X, Facebook, Instagram) with logo, overview, trend, quick cards; matches reference layout
