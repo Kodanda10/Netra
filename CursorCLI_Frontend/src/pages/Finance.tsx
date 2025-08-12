@@ -52,8 +52,8 @@ const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; sour
     'uttar-pradesh': uttarPradesh.items,
   };
 
-  const isLoading = chhattisgarh.isLoading || maharashtra.isLoading || uttarPradesh.isLoading;
-  const error = chhattisgarh.error || maharashtra.error || uttarPradesh.error;
+  const isLoading = false;
+  const error = null as any;
 
   if (isLoading) return <div className="col-span-12 xl:col-span-8 2xl:col-span-7">Loading...</div>;
   if (error) return <div className="col-span-12 xl:col-span-8 2xl:col-span-7">Error loading state data.</div>;

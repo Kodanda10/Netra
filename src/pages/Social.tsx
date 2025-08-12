@@ -9,7 +9,6 @@ import GlassCard from '@/social/components/ui/GlassCard'
 import { Sparkline, AreaMini } from '@/social/components/ui/ChartTheme'
 import KPIOverview from '@/social/components/KPIOverview'
 import BarList from '@/social/components/BarList'
-import { brandLogos } from '@/social/mock'
 
 type Post = { id:string; platform:'fb'|'ig'|'x'; text:string; ts:string; likes:number; comments?:number; shares?:number }
 

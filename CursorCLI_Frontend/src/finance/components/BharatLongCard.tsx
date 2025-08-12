@@ -8,7 +8,7 @@ const SourcesSidePanel = React.lazy(() => import('./SourcesSidePanel'))
 
 export const BharatLongCard: React.FC<{
   title: string
-  items: { id:string; title:string; summary:string; url:string }[]
+  items: { id?:string; title:string; summary?:string; url?:string }[]
   sources:{source:string;count:number}[]
   sourcesLabel: string
 }> = ({ title, items, sources, sourcesLabel }) => {

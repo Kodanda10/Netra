@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes, Op } = require('sequelize');
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '..', '.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
 
 // Initialize Sequelize with PostgreSQL
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
@@ -8,7 +8,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   port: process.env.DB_PORT,
   dialect: 'postgres',
   logging: false, // Suppress logging
-  dialectOptions: {}
+  dialectOptions: {},
 });
 
 // Define NewsArticle Model
@@ -60,55 +60,55 @@ const NewsArticle = sequelize.define('NewsArticle', {
   },
 });
 
-// Define other models (StockData, FDIMetric, SocialMetric) as needed
-const StockData = sequelize.define('StockData', {
-  symbol: {
+// Define DailyCounter Model
+const DailyCounter = sequelize.define('DailyCounter', {
+  day: {
+    type: DataTypes.DATEONLY,
+    primaryKey: true,
+  },
+  key: {
     type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  price: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
-  },
-  change: {
-    type: DataTypes.FLOAT,
-    allowNull: true,
-  },
-  exchange: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-});
-
-const FDIMetric = sequelize.define('FDIMetric', {
-  sector: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
+    primaryKey: true,
   },
   value: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  growth: {
-    type: DataTypes.STRING,
-    allowNull: true,
+    type: DataTypes.BIGINT,
+    defaultValue: 0,
   },
 });
 
-const SocialMetric = sequelize.define('SocialMetric', {
-  platform: {
+// Define TranslationCache Model
+const TranslationCache = sequelize.define('TranslationCache', {
+  hash: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+  },
+  text_hi: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  expires_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+});
+
+// Define CostLog Model
+const CostLog = sequelize.define('CostLog', {
+  id: {
+    type: DataTypes.BIGINT,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  day: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  metric: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
-  sentiment: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  mentions: {
-    type: DataTypes.INTEGER,
+  value_inr: {
+    type: DataTypes.DECIMAL(12, 2),
     allowNull: false,
   },
 });
@@ -116,8 +116,8 @@ const SocialMetric = sequelize.define('SocialMetric', {
 module.exports = {
   sequelize,
   NewsArticle,
-  StockData,
-  FDIMetric,
-  SocialMetric,
+  DailyCounter,
+  TranslationCache,
+  CostLog,
   Op, // Export Op for use in queries
 };

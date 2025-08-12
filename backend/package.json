@@ -2,11 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "Backend services for Amogh Financial Intelligence Dashboard",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "worker": "node src/workers/newsProcessor.js"
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
