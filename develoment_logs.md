@@ -117,3 +117,4 @@
 - 2025-08-12 14:06:01 UTC: tests(e2e): scope icon check to visible bar; stabilize mobile visual by forcing viewport
 - 2025-08-12 14:06:01 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 14:17:30 UTC: tests(e2e-mobile): update visual baselines for compact/main navtabs on iPhone 14 Pro and Pixel 7
+- 2025-08-12 14:17:30 UTC: docs(log): auto-update [auto-log]

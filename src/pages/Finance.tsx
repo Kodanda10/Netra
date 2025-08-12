@@ -3,8 +3,10 @@ import '../finance/finance.css'
 import { useParams, Navigate } from 'react-router-dom'
 import { BharatLongCard } from '@/finance/components/BharatLongCard'
 import { StateCard } from '@/finance/components/StateCard'
+import StatesGrid from '@/finance/components/StatesGrid'
 import { useFinanceData } from '@/finance/useFinanceData'
 import { t, Locale } from '@/finance/i18n'
+import { mockStatesEn, mockStatesHi } from '@/finance/mockData'
 
 const Finance: React.FC = () => {
   const { lang } = useParams<{ lang: 'hi' | 'en' }>()
@@ -12,7 +14,6 @@ const Finance: React.FC = () => {
 
   const bharat = useFinanceData('bharat', undefined, lang)
   const chh = useFinanceData('state', 'chhattisgarh', lang)
-  const otherStates = ['maharashtra','uttar-pradesh'] as const
   const dict = t[lang as Locale]
   const names: Record<string,string> = lang === 'hi' ? {
     'chhattisgarh':'छत्तीसगढ़', 'maharashtra':'महाराष्ट्र', 'uttar-pradesh':'उत्तर प्रदेश'
@@ -28,13 +29,13 @@ const Finance: React.FC = () => {
           sourcesLabel={dict.sourcesLabel}
         />
       </div>
-      <LazyStates lang={lang} names={names} sourcesLabelStr={dict.sourcesLabel} otherStates={otherStates} />
+      <LazyStates lang={lang} names={names} sourcesLabelStr={dict.sourcesLabel} />
     </div>
   )
 }
 
-const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; sourcesLabelStr: string; otherStates:readonly string[] }>
-  = ({ lang, names, sourcesLabelStr, otherStates }) => {
+const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; sourcesLabelStr: string }>
+  = ({ lang }) => {
   const ref = React.useRef<HTMLDivElement | null>(null)
   const [ready, setReady] = React.useState(false)
   React.useEffect(() => {
@@ -44,20 +45,13 @@ const LazyStates: React.FC<{ lang: 'hi'|'en'; names: Record<string,string>; sour
   }, [])
   if (!ready) return <div ref={ref} className="col-span-12 xl:col-span-8 2xl:col-span-7" />
   return (
-    <div className="col-span-12 xl:col-span-8 2xl:col-span-7 grid md:grid-cols-2 gap-6">
-      <StateCardData stateId="chhattisgarh" title={names['chhattisgarh']} lang={lang} sourcesLabelStr={sourcesLabelStr} />
-      {otherStates.map((s) => (
-        <StateCardData key={s} stateId={s} title={names[s]} lang={lang} sourcesLabelStr={sourcesLabelStr} />
-      ))}
+    <div className="col-span-12 xl:col-span-8 2xl:col-span-7">
+      <StatesGrid locale={lang} itemsByState={lang==='hi'? (mockStatesHi as any) : (mockStatesEn as any)} limit={4} />
     </div>
   )
 }
 
-const StateCardData: React.FC<{ stateId: string; title: string; lang: 'hi'|'en'; sourcesLabelStr: string }>
-  = ({ stateId, title, lang, sourcesLabelStr }) => {
-  const d = useFinanceData('state', stateId, lang)
-  return <StateCard stateId={stateId} title={title} items={d.items as any} sources={d.sourcesOrdered} sourcesLabel={sourcesLabelStr} />
-}
+// StateCardData no longer needed; StatesGrid composes cards dynamically
 
 export default Finance
 
