@@ -5,8 +5,8 @@ const PATH = '/hi/finance'
 const mainTablist = (page: any) => page.locator('[role="tablist"][aria-label="Amogh sections"]')
 const compactTablist = (page: any) => page.locator('[role="tablist"][aria-label="Amogh sections (compact)"]')
 async function getVisibleTablist(page: any) {
-  // ensure both are resolved
-  await page.waitForSelector('[role="tablist"]')
+  // wait for any visible tablist (avoids hidden first match)
+  await page.locator('[role="tablist"]:visible').first().waitFor()
   if (await mainTablist(page).isVisible()) return mainTablist(page)
   return compactTablist(page)
 }

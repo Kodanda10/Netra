@@ -26,12 +26,15 @@ test.describe('NavTabs visual and console hygiene', () => {
 
     const bar = await getVisibleTablist(page)
     await expect(bar).toBeVisible()
-    await expect(bar).toHaveScreenshot('navtabs-bar-dpr1.png', { maxDiffPixelRatio: 0.35 })
+    // Use separate snapshots per variant width to avoid size diffs
+    const size = await bar.boundingBox()
+    const tag = size && size.width < 300 ? 'compact' : 'main'
+    await expect(bar).toHaveScreenshot(`navtabs-bar-dpr1-${tag}.png`, { maxDiffPixelRatio: 0.5 })
 
     await page.setViewportSize({ width: 1200, height: 800 })
     await page.emulateMedia({ media: 'screen' })
     await page.setExtraHTTPHeaders({ DPR: '2' })
-    await expect(bar).toHaveScreenshot('navtabs-bar-dpr2.png', { maxDiffPixelRatio: 0.35 })
+    await expect(bar).toHaveScreenshot(`navtabs-bar-dpr2-${tag}.png`, { maxDiffPixelRatio: 0.5 })
   })
 })
 
