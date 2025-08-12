@@ -3,6 +3,7 @@ import AmoghHeader from './components/AmoghHeader'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Finance from './pages/Finance'
 import Market from './pages/Market'
+const Social = React.lazy(() => import('./pages/Social'))
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Navigate to="/hi/finance" replace />} />
             <Route path= "/:lang/finance" element={<Finance />} />
             <Route path= "/:lang/market" element={<Market />} />
+            <Route path= "/:lang/social" element={<Social />} />
           </Routes>
         </Suspense>
       </main>

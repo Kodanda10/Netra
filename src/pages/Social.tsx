@@ -1,0 +1,86 @@
+import React from 'react'
+import '../finance/finance.css'
+import { useParams, Navigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
+
+type Post = { id:string; platform:'fb'|'ig'|'x'; text:string; ts:string; likes:number; comments?:number; shares?:number }
+
+const COLORS = ['#60a5fa', '#34d399', '#f472b6']
+
+function useMockSocial(){
+  const [followers] = React.useState({ fb: 12450, ig: 28900, x: 17540 })
+  const [engagement] = React.useState({ likes: 1243, comments: 334, shares: 208 })
+  const [series] = React.useState(Array.from({length:20}).map((_,i)=>({ t:i, v: 100 + Math.round(Math.sin(i/3)*12 + Math.random()*4) })))
+  const [feed] = React.useState<Post[]>(Array.from({length:24}).map((_,i)=>({ id:String(i), platform: (['fb','ig','x'] as const)[i%3], text:`Mock post ${i+1} with finance context`, ts:new Date(Date.now()-i*3600_000).toISOString(), likes: 20+Math.floor(Math.random()*120), comments: 2+Math.floor(Math.random()*20), shares: 1+Math.floor(Math.random()*10) })))
+  return { followers, engagement, series, feed }
+}
+
+const Social: React.FC = () => {
+  const { lang } = useParams<{ lang:'hi'|'en' }>()
+  if (!lang || (lang!=='hi' && lang!=='en')) return <Navigate to="/hi/finance" replace />
+  const t = lang==='hi'
+    ? { title:'सोशल मीडिया', overview:'समेकित अवलोकन', timelines:'टाइमलाइन', followers:'कुल फॉलोअर्स', engagement:'एंगेजमेंट', refresh:'रिफ्रेश' }
+    : { title:'Social Media', overview:'Overview', timelines:'Timelines', followers:'Total Followers', engagement:'Engagement', refresh:'Refresh' }
+  const { followers, engagement, series, feed } = useMockSocial()
+  const totalFollowers = followers.fb + followers.ig + followers.x
+  const pieData = [ { name:'Likes', value: engagement.likes }, { name:'Comments', value: engagement.comments }, { name:'Shares', value: engagement.shares } ]
+  return (
+    <div className="space-y-6">
+      <header className="flex items-center justify-between">
+        <h1 className="card-title text-xl font-semibold">{t.title}</h1>
+        <button className="px-3 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/85">{t.refresh}</button>
+      </header>
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <motion.div className="glass-liquid rounded-3xl p-4" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}}>
+          <div className="text-sm text-white/70 mb-2">{t.followers}</div>
+          <div className="text-2xl font-semibold">{totalFollowers.toLocaleString('en-IN')}</div>
+          <div className="mt-3 text-white/70 text-sm">FB {followers.fb.toLocaleString('en-IN')} · IG {followers.ig.toLocaleString('en-IN')} · X {followers.x.toLocaleString('en-IN')}</div>
+        </motion.div>
+        <motion.div className="glass-liquid rounded-3xl p-4" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}}>
+          <div className="text-sm text-white/70 mb-2">{t.engagement}</div>
+          <div className="h-[180px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie data={pieData} dataKey="value" innerRadius={50} outerRadius={70} paddingAngle={2}>
+                  {pieData.map((entry, index) => (<Cell key={`c-${index}`} fill={COLORS[index % COLORS.length]} />))}
+                </Pie>
+                <Tooltip contentStyle={{ background:'rgba(0,0,0,.8)', border:'1px solid rgba(255,255,255,.1)', color:'#fff' }} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </motion.div>
+        <motion.div className="glass-liquid rounded-3xl p-4" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}}>
+          <div className="text-sm text-white/70 mb-2">Growth</div>
+          <div className="h-[180px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={series}>
+                <CartesianGrid stroke="#ffffff22" vertical={false} />
+                <XAxis dataKey="t" tick={{ fill: '#ffffff8a', fontSize: 10 }} tickLine={false} axisLine={{ stroke: '#ffffff22' }} />
+                <YAxis tick={{ fill: '#ffffff8a', fontSize: 10 }} tickLine={false} axisLine={{ stroke: '#ffffff22' }} />
+                <Tooltip contentStyle={{ background:'rgba(0,0,0,.8)', border:'1px solid rgba(255,255,255,.1)', color:'#fff' }} />
+                <Line type="monotone" dataKey="v" stroke="#34d399" dot={false} strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </motion.div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="card-title text-lg">{t.timelines}</h2>
+        <div className="grid gap-3">
+          {feed.map(p => (
+            <motion.article key={p.id} initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} className="glass-liquid rounded-2xl p-3">
+              <div className="text-xs text-white/70 mb-1">{p.platform.toUpperCase()} · {new Date(p.ts).toLocaleString()}</div>
+              <div className="news-headline">{p.text}</div>
+              <div className="text-white/70 text-xs mt-1">❤ {p.likes} · 💬 {p.comments} · ↗ {p.shares}</div>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+    </div>
+  )
+}
+
+export default Social
+
