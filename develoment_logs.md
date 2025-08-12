@@ -128,3 +128,4 @@
 - 2025-08-12 14:22:20 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 14:24:21 UTC: ux(market tabs): iOS-style segmented control with measured animated indicator and stronger spring
 - 2025-08-12 14:24:21 UTC: docs(log): auto-update [auto-log]
+- 2025-08-12 14:39:18 UTC: ux(app tabs): measured animated indicator for main NavTabs to match iOS segmented control; tuned spring
