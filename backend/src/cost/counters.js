@@ -38,10 +38,12 @@ export async function incDailyCounter(redis, pool, key, by = 1, d = dayjs().utc(
   const rkey = keyFor(key, d);
   await redis.incrby(rkey, by);
   const val = Number(await redis.get(rkey));
-  await pool.query(`
-    INSERT INTO daily_counters(day,key,value) VALUES($1,$2,$3)
-    ON CONFLICT (day,key) DO UPDATE SET value=EXCLUDED.value
-  `, [d, key, val]);
+  if (typeof pool?.query === 'function') {
+    await pool.query(`
+      INSERT INTO daily_counters(day,key,value) VALUES($1,$2,$3)
+      ON CONFLICT (day,key) DO UPDATE SET value=EXCLUDED.value
+    `, [d, key, val]);
+  }
   return val;
 }
 
