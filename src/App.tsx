@@ -2,6 +2,7 @@ import React, { Suspense } from 'react'
 import AmoghHeader from './components/AmoghHeader'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Finance from './pages/Finance'
+import Market from './pages/Market'
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/hi/finance" replace />} />
             <Route path= "/:lang/finance" element={<Finance />} />
+            <Route path= "/:lang/market" element={<Market />} />
           </Routes>
         </Suspense>
       </main>
