@@ -56,7 +56,8 @@ test.describe('NavTabs matrix', () => {
   })
 
   test('icons crisp present; FDI uses Banknote', async ({ page }) => {
-    const fdi = page.getByTestId('tab-fdi')
+    const bar = await getVisibleTablist(page)
+    const fdi = bar.getByTestId('tab-fdi')
     await expect(fdi).toBeVisible()
     // smoke check on SVG presence
     const svgCount = await fdi.locator('svg').count()

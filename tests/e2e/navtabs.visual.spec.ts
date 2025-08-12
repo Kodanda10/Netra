@@ -20,6 +20,8 @@ test.describe('NavTabs visual and console hygiene', () => {
 
     await page.addStyleTag({ content: '*,*::before,*::after{animation:none!important;transition:none!important}' })
     await page.goto(PATH)
+    // ensure the chosen variant is actually visible on mobile
+    await page.setViewportSize({ width: 390, height: 844 })
     await page.waitForSelector('[role="tablist"]')
 
     expect(messages, `Console should be clean on ${browserName}`).toEqual([])
