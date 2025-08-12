@@ -96,3 +96,4 @@
 - 2025-08-12 09:11:53 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 09:12:58 UTC: tests(e2e): target visible tablist (compact or main); robust selectors; relax visuals
 - 2025-08-12 09:12:58 UTC: docs(log): auto-update [auto-log]
+- 2025-08-12 09:27:03 UTC: feat(sources): side panel preserves source order as shown in card (top→down) for Bharat and State cards
