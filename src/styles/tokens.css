@@ -1,0 +1,28 @@
+:root{
+  --bg:#0B0F1A;
+  --card:rgba(20,24,32,.58);
+  --border:#202833;
+  --txt:#DCE6FF;
+  --sub:#93A4BD;
+  --green:#00C49F; /* success */
+  --yellow:#FFBB28; /* warning */
+  --danger:#FF5B5B; /* danger */
+  --purple:#B57BFF;
+  --blue:#5B8CFF;
+  --teal:#4FC3F7;
+  --hair:rgba(255,255,255,.08);
+}
+
+.glass{background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);
+  box-shadow:inset 0 1px rgba(255,255,255,.06), 0 12px 28px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.04);
+}
+.chip{border:1px solid var(--border);border-radius:9999px;padding:2px 8px;background:rgba(255,255,255,.06)}
+.delta-up{color:var(--green)}
+.delta-down{color:var(--danger)}
+.focus-glow:focus-visible{outline:none; box-shadow:0 0 0 2px var(--teal)}
+
+/* Skeleton */
+.skel{position:relative;overflow:hidden;background:rgba(255,255,255,.06)}
+.skel:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:translateX(-100%);animation:sk 1.8s infinite}
+@keyframes sk{to{transform:translateX(100%)}}
+
