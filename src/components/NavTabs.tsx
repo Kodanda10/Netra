@@ -9,7 +9,7 @@ export type Lang = 'hi' | 'en'
 
 export type RiveAsset = { src: string; artboard?: string; stateMachine?: string }
 
-const spring = { type: 'spring', stiffness: 420, damping: 42, mass: 0.6 } as const
+const spring = { type: 'spring', stiffness: 650, damping: 44, mass: 0.6 } as const
 
 export const NavTabs: React.FC<{
   tabs: TabItem[]
@@ -21,6 +21,9 @@ export const NavTabs: React.FC<{
 }> = ({ tabs, lang, onChange, initialActiveId, className, riveAssets }) => {
   const shouldReduce = useReducedMotion()
   const [active, setActive] = React.useState<string>(initialActiveId ?? (tabs[0]?.id || ''))
+  const barRef = React.useRef<HTMLDivElement|null>(null)
+  const btnRefs = React.useRef<Record<string, HTMLButtonElement|null>>({})
+  const [rect, setRect] = React.useState<{left:number;width:number;height:number}|null>(null)
 
   // Rive is heavy; keep lazily loaded via React.lazy to split into a separate chunk
 
@@ -53,6 +56,19 @@ export const NavTabs: React.FC<{
       onChange?.(active)
     }
   }
+
+  const measure = React.useCallback(() => {
+    const el = btnRefs.current[active]
+    const wrap = barRef.current
+    if (el && wrap) {
+      const r = el.getBoundingClientRect()
+      const w = wrap.getBoundingClientRect()
+      setRect({ left: r.left - w.left, width: r.width, height: r.height })
+    }
+  }, [active])
+
+  React.useEffect(() => { measure() }, [measure, active, tabs.length])
+  React.useEffect(() => { const on=()=>measure(); window.addEventListener('resize', on); return ()=>window.removeEventListener('resize', on) }, [measure])
 
   return (
     <div className={clsx('w-full flex justify-center px-4', className)}>
@@ -95,13 +111,24 @@ export const NavTabs: React.FC<{
           'px-2 py-2 rounded-full',
           'overflow-x-auto whitespace-nowrap max-w-full'
         )}
+        ref={barRef}
       >
+        {!shouldReduce && rect && (
+          <motion.span
+            aria-hidden
+            className="absolute top-2 bottom-2 rounded-full bg-white/10 shadow-[0_0_18px_rgba(255,184,77,0.22)]"
+            style={{ left: 0, width: rect.width }}
+            animate={{ x: rect.left }}
+            transition={spring}
+          />
+        )}
         {tabs.map((t) => {
           const selected = t.id === active
           const rive = riveAssets?.[t.id]
           return (
             <button
               key={t.id}
+              ref={n => { btnRefs.current[t.id] = n }}
               data-testid={`tab-${t.id}`}
               role="tab"
               aria-selected={String(selected)}
@@ -116,16 +143,7 @@ export const NavTabs: React.FC<{
                 selected ? 'opacity-100' : 'opacity-85 hover:opacity-100 hover:scale-[1.03]'
               )}
             >
-              {selected && (
-                <motion.span
-                  data-testid="active-indicator"
-                  layoutId="activeTabPill"
-                  className={clsx('absolute inset-0 -z-10 rounded-full',
-                    'bg-[radial-gradient(120%_100%_at_50%_0%,rgba(30,30,30,0.95),rgba(0,0,0,0.9))]',
-                    'shadow-[0_0_24px_rgba(255,184,77,0.28)]')}
-                  transition={{ type: 'spring', stiffness: 480, damping: 42, mass: 0.6 }}
-                />
-              )}
+              {/* measured indicator above replaces layoutId pill for seamless slide */}
 
               <motion.span
                 aria-hidden
