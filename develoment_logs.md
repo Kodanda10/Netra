@@ -90,3 +90,4 @@
 - 2025-08-12 07:59:47 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 07:59:59 UTC: tests(e2e): run against live /hi/finance; scope to main tablist; relax mobile height; relax visual diff
 - 2025-08-12 07:59:59 UTC: docs(log): auto-update [auto-log]
+- 2025-08-12 08:06:51 UTC: fix(finance): state Sources shows single deduped total and state icons from config; glass cards non-frosted; route integration
