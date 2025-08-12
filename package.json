@@ -16,10 +16,11 @@
     "preview": "vite preview --host",
     "test": "vitest",
     "test:ci": "vitest run --coverage",
-    "e2e": "playwright test",
-    "e2e:update": "playwright test --update-snapshots",
-    "lh": "lhci autorun",
-    "lint:perf": "size-limit"
+    "e2e": "playwright test && node scripts/updateDevLog.mjs",
+    "e2e:update": "playwright test --update-snapshots && node scripts/updateDevLog.mjs",
+    "lh": "lhci autorun && node scripts/updateDevLog.mjs",
+    "lint:perf": "size-limit && node scripts/updateDevLog.mjs",
+    "log:update": "node scripts/updateDevLog.mjs"
   },
   "dependencies": {
     "@fontsource/amita": "^5.1.0",
