@@ -7,15 +7,17 @@ import { XMLParser } from "fast-xml-parser";
 import { ingestCycle, fetchRSS, fetchGNews } from "../src/ingestion/fetcher.js";
 import { processorFactory } from "../src/processing/processor.js";
 import { makeStores } from "../src/cost/counters.js";
-import { limitsFromEnv } from "../src/cost/limits.js";
+import limits from "../src/config/limits.js";
 
-const limits = limitsFromEnv({ AMOGH_MAX_DAILY_ARTICLES: "100", AMOGH_GNEWS_MAX_DAILY: "50" });
+import { resetRedis } from "../src/test-utils/resetRedis.js";
+
+// ... other imports
 
 describe("Fetcher", () => {
   const stores = makeStores();
 
   beforeEach(async () => {
-    await stores.redis.flushall();
+    await resetRedis(stores.redis);
   });
 
   it("parses a simple RSS feed", async () => {

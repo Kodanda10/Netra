@@ -95,3 +95,4 @@
 - 2025-08-12 09:11:53 UTC: fix(finance): correct prop usage in LazyStates to avoid runtime error; ensure sources label passed consistently
 - 2025-08-12 09:11:53 UTC: docs(log): auto-update [auto-log]
 - 2025-08-12 09:12:58 UTC: tests(e2e): target visible tablist (compact or main); robust selectors; relax visuals
+- 2025-08-12 09:12:58 UTC: docs(log): auto-update [auto-log]

@@ -4,7 +4,7 @@ import * as fetcher from '../ingestion/fetcher.js';
 import * as enforcer from '../cost/enforcer.js';
 import { request } from 'undici';
 import { processorFactory } from '../processing/processor.js';
-import { limitsFromEnv } from '../cost/limits.js';
+import { limitsFromEnv } from '../config/limits.js';
 
 vi.mock('p-retry', () => ({ default: (fn) => fn() }));
 
@@ -51,8 +51,9 @@ describe('Fetcher', () => {
     };
     enforcer.quotaGate.mockResolvedValue(mockQuotaGate);
 
-    const mockRssArticles = Array.from({ length: 20 }, (_, i) => ({ title: `RSS Article ${i}` }));
-    const mockGnewsArticles = Array.from({ length: 30 }, (_, i) => ({ title: `GNews Article ${i}` }));
+    const rssOk = (i:number) => ({ title: `RBI NSE market update ${i}`, link: `https://ex/${i}`, pubDate: new Date().toUTCString() });
+    const mockRssArticles = Array.from({length:20}, (_,i)=>rssOk(i));
+    const mockGnewsArticles = Array.from({ length: 20 }, (_, i) => ({ title: `GNews Article ${i}` }));
     request.mockResolvedValueOnce({ body: { text: () => Promise.resolve(toRss(mockRssArticles)) } });
     for (let i = 1; i < 6; i++) {
       request.mockResolvedValueOnce({ body: { text: () => Promise.resolve(toRss([])) } });

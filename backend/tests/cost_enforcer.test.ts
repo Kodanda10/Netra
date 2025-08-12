@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { setBurstActive, evaluateBurstAuto, quotaGate } from "../src/cost/enforcer.js";
-import { limitsFromEnv } from "../src/cost/limits.js";
+import limits from "../src/config/limits.js";
 import { makeStores, incDailyCounter } from "../src/cost/counters.js";
 
 vi.mock("pg", () => ({
@@ -9,13 +9,17 @@ vi.mock("pg", () => ({
   })),
 }));
 
-const limits = limitsFromEnv({ AMOGH_MAX_DAILY_ARTICLES: "100", AMOGH_BURST_PERCENT: "20", AMOGH_GNEWS_MAX_DAILY: "50", AMOGH_COOLDOWN_AT_PCT: "0.9", AMOGH_QUOTA_WARN_PCT: "0.8" });
+import limits from "../src/config/limits.js";
+
+import { resetRedis } from "../src/test-utils/resetRedis.js";
+
+// ... other imports
 
 describe("Cost enforcer", () => {
   const stores = makeStores();
 
   beforeEach(async () => {
-    await stores.redis.flushall();
+    await resetRedis(stores.redis);
     setBurstActive(false);
   });
 

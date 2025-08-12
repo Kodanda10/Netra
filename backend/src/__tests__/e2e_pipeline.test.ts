@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import * as fetcher from '../ingestion/fetcher.js';
 import { processorFactory } from '../processing/processor.js';
 import * as enforcer from '../cost/enforcer.js';
-import * as limits from '../cost/limits.js';
+import limits from '../config/limits.js';
 import dayjs from 'dayjs';
 import { request } from 'undici';
 

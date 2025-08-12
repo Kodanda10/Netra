@@ -36,7 +36,7 @@ export const BharatLongCard: React.FC<{
       </motion.div>
       {open && (
         <React.Suspense fallback={null}>
-          <SourcesSidePanel open={open} onClose={()=>setOpen(false)} sources={sources} />
+          <SourcesSidePanel open={open} onClose={()=>setOpen(false)} sources={sources} order={Array.from(new Set(items.map(i=>i.source)))} />
         </React.Suspense>
       )}
     </>

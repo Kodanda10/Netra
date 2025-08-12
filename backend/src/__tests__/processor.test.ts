@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { processorFactory, translationCache } from '../processing/processor.js';
-import { limitsFromEnv } from '../cost/limits.js';
+import { limitsFromEnv } from '../config/limits.js';
 import dayjs from 'dayjs';
 
 const limits = limitsFromEnv({ AMOGH_MAX_SUMMARY_CHARS: "200" });
