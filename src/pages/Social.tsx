@@ -3,16 +3,17 @@ import '../finance/finance.css'
 import { useParams, Navigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
+import { brandLogos, mockInsights, seriesByPlatform, unifiedFeed } from '@/social/mock'
 
 type Post = { id:string; platform:'fb'|'ig'|'x'; text:string; ts:string; likes:number; comments?:number; shares?:number }
 
 const COLORS = ['#60a5fa', '#34d399', '#f472b6']
 
 function useMockSocial(){
-  const [followers] = React.useState({ fb: 12450, ig: 28900, x: 17540 })
-  const [engagement] = React.useState({ likes: 1243, comments: 334, shares: 208 })
-  const [series] = React.useState(Array.from({length:20}).map((_,i)=>({ t:i, v: 100 + Math.round(Math.sin(i/3)*12 + Math.random()*4) })))
-  const [feed] = React.useState<Post[]>(Array.from({length:24}).map((_,i)=>({ id:String(i), platform: (['fb','ig','x'] as const)[i%3], text:`Mock post ${i+1} with finance context`, ts:new Date(Date.now()-i*3600_000).toISOString(), likes: 20+Math.floor(Math.random()*120), comments: 2+Math.floor(Math.random()*20), shares: 1+Math.floor(Math.random()*10) })))
+  const followers = { fb: 12450, ig: 28900, x: mockInsights.x.followers }
+  const engagement = { likes: 1243, comments: 334, shares: 208 }
+  const series = seriesByPlatform
+  const feed = unifiedFeed
   return { followers, engagement, series, feed }
 }
 
@@ -54,7 +55,7 @@ const Social: React.FC = () => {
           <div className="text-sm text-white/70 mb-2">Growth</div>
           <div className="h-[180px]">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={series}>
+              <LineChart data={series.x}>
                 <CartesianGrid stroke="#ffffff22" vertical={false} />
                 <XAxis dataKey="t" tick={{ fill: '#ffffff8a', fontSize: 10 }} tickLine={false} axisLine={{ stroke: '#ffffff22' }} />
                 <YAxis tick={{ fill: '#ffffff8a', fontSize: 10 }} tickLine={false} axisLine={{ stroke: '#ffffff22' }} />
@@ -71,7 +72,10 @@ const Social: React.FC = () => {
         <div className="grid gap-3">
           {feed.map(p => (
             <motion.article key={p.id} initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} className="glass-liquid rounded-2xl p-3">
-              <div className="text-xs text-white/70 mb-1">{p.platform.toUpperCase()} · {new Date(p.ts).toLocaleString()}</div>
+              <div className="text-xs text-white/70 mb-1 flex items-center gap-2">
+                <img src={brandLogos[p.platform]} alt={p.platform} className="w-4 h-4" />
+                <span>{p.platform.toUpperCase()} · {new Date(p.ts).toLocaleString()}</span>
+              </div>
               <div className="news-headline">{p.text}</div>
               <div className="text-white/70 text-xs mt-1">❤ {p.likes} · 💬 {p.comments} · ↗ {p.shares}</div>
             </motion.article>
