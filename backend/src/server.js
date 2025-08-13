@@ -11,6 +11,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { authenticateToken, authorizeRoles } = require('./middleware/auth');
 const { logAuditEvent } = require('./utils/auditLogger');
+const { validate } = require('./middleware/validation');
+const { registerSchema } = require('./schemas/user.schema');
 
 const winston = require('winston');
 
@@ -50,7 +52,7 @@ app.get('/metrics', async (req, res) => {
 });
 
 // Route for stock data
-app.get('/stocks', authenticateToken, (req, res) => {
+app.get('/stocks', authenticateToken, authorizeRoles(['user', 'admin']), (req, res) => {
   // Dummy stock data for now
   const dummyStocks = [
     { symbol: 'TCS', price: 3500, change: +50, exchange: 'NSE' },
@@ -94,7 +96,7 @@ app.post('/ai/translate', (req, res) => {
 });
 
 // Route for FDI data
-app.get('/fdi', authenticateToken, (req, res) => {
+app.get('/fdi', authenticateToken, authorizeRoles(['user', 'admin']), (req, res) => {
   // Dummy FDI data for now
   const dummyFdiData = {
     totalFDI: 'USD 80 Billion',
@@ -106,7 +108,7 @@ app.get('/fdi', authenticateToken, (req, res) => {
 });
 
 // Route for Social Media data
-app.get('/social', authenticateToken, (req, res) => {
+app.get('/social', authenticateToken, authorizeRoles(['user', 'admin']), (req, res) => {
   // Dummy Social Media data for now
   const dummySocialData = {
     platform: 'X',
@@ -119,7 +121,7 @@ app.get('/social', authenticateToken, (req, res) => {
 });
 
 // User registration endpoint
-app.post('/register', authenticateToken, authorizeRoles(['admin']), async (req, res) => {
+app.post('/register', validate(registerSchema), authenticateToken, authorizeRoles(['admin']), async (req, res) => {
   const { username, password, role } = req.body;
 
   if (!username || !password) {

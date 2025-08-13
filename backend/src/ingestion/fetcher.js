@@ -166,6 +166,16 @@ const ingestCycle = async () => {
     await recordArticleIngest(item.source === 'gnews' ? 'gnews' : 'rss');
   }
 
+  // Fetch other data
+  const stockData = await fetchStockData('RELIANCE', 'NSE');
+  logger.info('Fetched stock data:', stockData);
+
+  const socialData = await fetchSocialMediaData('Twitter', 'elonmusk');
+  logger.info('Fetched social media data:', socialData);
+
+  const fdiData = await fetchFDIData();
+  logger.info('Fetched FDI data:', fdiData);
+
   return { usedCache: false, ingested: processedItems.length };
 };
 

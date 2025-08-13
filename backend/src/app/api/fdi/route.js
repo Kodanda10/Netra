@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
+import { fdi } from '../../../lib/mock-data';
 
 export async function GET(request) {
-  return NextResponse.json({ message: 'Hello from the fdi API!' });
+  return NextResponse.json(fdi);
 }

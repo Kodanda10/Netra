@@ -1,5 +1,20 @@
 import { NextResponse } from 'next/server';
+import { news } from '../../../lib/mock-data';
 
 export async function GET(request) {
-  return NextResponse.json({ message: 'Hello from the news API!' });
+  const { searchParams } = new URL(request.url);
+  const state = searchParams.get('state');
+  const date = searchParams.get('date');
+
+  let filteredNews = news;
+
+  if (state) {
+    filteredNews = filteredNews.filter((article) => article.state === state);
+  }
+
+  if (date) {
+    filteredNews = filteredNews.filter((article) => article.publishedAt.startsWith(date));
+  }
+
+  return NextResponse.json(filteredNews);
 }
