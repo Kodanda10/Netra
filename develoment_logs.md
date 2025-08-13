@@ -187,3 +187,4 @@
 - 2025-08-13 07:47:32 UTC: docs(log): auto-update [auto-log]
 - 2025-08-13 08:04:13 UTC: feat(social): three equal-height rows with internal partitions; standardized row height
 - 2025-08-13 08:04:13 UTC: docs(log): auto-update [auto-log]
+- 2025-08-13 08:16:37 UTC: feat(social): single full-width container per platform row; removed timelines; internal grid partitions
