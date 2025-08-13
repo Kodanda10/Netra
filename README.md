@@ -1,12 +1,95 @@
-# React + Vite
+# Project Netra (Amogh Financial News and Investment Dashboard)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a financial news and investment dashboard. It provides a benchmark-level test plan and supporting artifacts that meet or exceed the standards of Apple and Google projects.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Prerequisites
 
-## Expanding the ESLint configuration
+Make sure you have Node.js version 18 or higher installed.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone <repository-url>
+    ```
+2.  Install the dependencies:
+    ```bash
+    npm ci
+    ```
+
+### Environment Variables
+
+Create a `.env` file in the `backend` directory and add the following environment variables:
+
+```
+RABBITMQ_URL=amqp://localhost
+JWT_SECRET=supersecretjwtkey
+```
+
+### Running the Application
+
+To run the application in development mode, use the following command:
+
+```bash
+npm run dev
+```
+
+This will start the Vite development server.
+
+### Running the Next.js Application
+
+To run the Next.js application, use the following commands:
+
+```bash
+npm run dev:next
+```
+
+This will start the Next.js development server on port 3030.
+
+## Testing
+
+### Unit Tests
+
+To run the unit tests, use the following command:
+
+```bash
+npm run test
+```
+
+This will run the tests using Vitest.
+
+### Test Coverage
+
+To run the tests and see the coverage report, use the following command:
+
+```bash
+npm run test:ci
+```
+
+### End-to-End Tests
+
+To run the end-to-end tests, use the following command:
+
+```bash
+npm run e2e
+```
+
+This will run the Playwright tests.
+
+## Linting
+
+To lint the code, use the following command:
+
+```bash
+npm run lint
+```
+
+## Building for Production
+
+To build the application for production, use the following command:
+
+```bash
+npm run build
+```

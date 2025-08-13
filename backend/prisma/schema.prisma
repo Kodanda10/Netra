@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model NewsArticle {
+  id                      String    @id @default(cuid())
+  title                   String
+  summary                 String
+  content                 String
+  url                     String    @unique
+  source                  String
+  state                   String?
+  publishedAt             DateTime
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+  factCheckScore          Float?
+  verifiedLinks           String[]
+  isDuplicate             Boolean   @default(false)
+  fingerprint             String?
+  relevanceScore          Float?
+  rejectedAt              DateTime?
+  rejectionReason         String?
+  socialMediaMentions     SocialMedia[]
+}
+
+model StockData {
+  id          String    @id @default(cuid())
+  symbol      String    @unique
+  exchange    String
+  price       Float
+  change      Float
+  changePercent Float
+  timestamp   DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model SocialMedia {
+  id            String      @id @default(cuid())
+  platform      String // e.g., '''Twitter''', '''Facebook'''
+  url           String      @unique
+  content       String
+  author        String
+  likes         Int
+  retweets      Int
+  comments      Int
+  timestamp     DateTime
+  newsArticleId String?
+  newsArticle   NewsArticle? @relation(fields: [newsArticleId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Fdi {
+  id        String   @id @default(cuid())
+  sector    String
+  inflow    Float
+  period    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserData {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  watchlist     String[]
+  preferences   Json
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model EventLog {
+  id          String   @id @default(cuid())
+  timestamp   DateTime
+  eventType   String
+  payload     Json
+  createdAt   DateTime @default(now())
+}
+
+model WriteAheadLog {
+  id          String   @id @default(cuid())
+  timestamp   DateTime
+  operation   String
+  data        Json
+  isProcessed Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
