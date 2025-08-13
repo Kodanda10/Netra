@@ -191,3 +191,4 @@
 - 2025-08-13 08:16:37 UTC: docs(log): auto-update [auto-log]
 - 2025-08-13 14:00:50 UTC: style(nav): iOS26 rounded metallic glass bar; unify Market tabs with main nav; feat(finance): use provided state icons with graceful fallback
 - 2025-08-13 14:00:51 UTC: docs(log): auto-update [auto-log]
+- 2025-08-13 16:52:01 UTC: fix(market-tabs): align design to main glass-bar and lift text above indicator; matched spacing/height; prevent masking
