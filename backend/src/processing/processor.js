@@ -96,12 +96,41 @@ const llmGate = (text) => {
 };
 
 const factCheck = (text) => {
-  // Stub for Google Fact Check Tools
-  logger.info(`Fact Check stub for: ${text}`);
-  return 0.9; // Assume high confidence for now
+  // Simulate calls to multiple fact-checking services
+  const service1Score = Math.random() * 0.5 + 0.5; // Score between 0.5 and 1.0
+  const service2Score = Math.random() * 0.5 + 0.5; // Score between 0.5 and 1.0
+  const service3Score = Math.random() * 0.5 + 0.5; // Score between 0.5 and 1.0
+
+  const averageScore = (service1Score + service2Score + service3Score) / 3;
+  logger.info(`Fact Check simulated for: ${text.substring(0, 50)}... Average Score: ${averageScore.toFixed(2)}`);
+  return averageScore;
+};
+
+const sourceValidation = (sourceUrl) => {
+  // Layer 1: Source Validation - Cross-check against a whitelist of official media
+  // For now, a simple placeholder. In a real scenario, this would involve a database lookup
+  // or a comprehensive list of trusted sources.
+  const trustedSources = [
+    'economictimes.indiatimes.com',
+    'livemint.com',
+    'financialexpress.com',
+    'business-standard.com',
+    'gnews.io',
+  ];
+  const isValid = trustedSources.some(domain => sourceUrl.includes(domain));
+  if (!isValid) {
+    logger.warn(`Source validation failed for: ${sourceUrl}`);
+  }
+  return isValid;
 };
 
 const processArticle = async (article) => {
+  // Layer 1: Source Validation
+  if (!sourceValidation(article.source)) {
+    logger.info(`Rejecting article (source validation failed): ${article.title}`);
+    return null;
+  }
+
   // 1. Date filter: only UTC “today”; future/missing → reject.
   if (!article.publicationDate || !dayjs(article.publicationDate).utc().isSame(dayjs().utc(), 'day')) {
     logger.info(`Rejecting article (date filter): ${article.title}`);

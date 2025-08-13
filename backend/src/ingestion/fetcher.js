@@ -12,6 +12,7 @@ const { amogh_fetch_requests_total, amogh_fetch_errors_total } = require('../cos
 const processItems = require('../processing/processor');
 const winston = require('winston');
 const { sendToQueue } = require('../../src/queue/producer');
+const { createCircuitBreaker } = require('../utils/circuitBreaker');
 
 const logger = winston.createLogger({
   level: 'info',
@@ -35,9 +36,8 @@ const RSS_FEEDS = [
   'https://www.livemint.com/rss/markets',
   'https://www.financialexpress.com/market/feed/',
   'https://www.business-standard.com/rss/markets.xml',
-  // Note: Bhaskar and Anandabazar RSS feeds might require specific parsing or might not be directly accessible.
-  // 'https://www.bhaskar.com/rss?category=business',
-  // 'https://www.anandabazar.com/rss/business',
+  'https://www.bhaskar.com/rss?category=business',
+  'https://www.anandabazar.com/rss/business',
 ];
 
 const xmlParser = new XMLParser({
@@ -46,6 +46,7 @@ const xmlParser = new XMLParser({
 });
 
 const fetchRSS = async (url) => {
+  const startTime = process.hrtime.bigint();
   amogh_fetch_requests_total.labels({ namespace: 'default', service: 'ingestion', source_type: 'rss' }).inc();
   try {
     const response = await pRetry(async () => {
@@ -59,13 +60,17 @@ const fetchRSS = async (url) => {
     const jsonObj = xmlParser.parse(response.data);
     const items = jsonObj.rss.channel.item || [];
 
+    const endTime = process.hrtime.bigint();
+    const durationMs = Number(endTime - startTime) / 1_000_000;
+    logger.info(`Fetched RSS from ${url} in ${durationMs.toFixed(2)} ms.`);
+
     return items.map(item => ({
       title: item.title,
       summary: item.description,
       content: item.content || item.description,
       source: item.source || item.link, // Use source if available, otherwise link
       publicationDate: new Date(item.pubDate || item.pubdate || dayjs().utc().toDate()),
-      state: 'National', // RSS feeds typically don't provide state
+      state: item.state || (item.title.includes('Chhattisgarh') ? 'Chhattisgarh' : 'National'), // Simulate state inference
       category: 'Business', // Assuming business category for these feeds
     }));
   } catch (error) {
@@ -74,6 +79,8 @@ const fetchRSS = async (url) => {
     return [];
   }
 };
+
+const fetchRSSBreaker = createCircuitBreaker(fetchRSS, { name: 'fetchRSS' });
 
 const fetchGNews = async (query) => {
   amogh_fetch_requests_total.labels({ namespace: 'default', service: 'ingestion', source_type: 'gnews' }).inc();
@@ -105,7 +112,7 @@ const fetchGNews = async (query) => {
       content: article.content || article.description,
       source: article.source.name,
       publicationDate: new Date(article.publishedAt),
-      state: 'National', // GNews doesn't provide state-level data directly, default to National
+      state: article.state || (article.title.includes('Chhattisgarh') ? 'Chhattisgarh' : 'National'), // Simulate state inference
       category: 'Business', // GNews topic is business
     }));
   } catch (error) {
@@ -114,6 +121,8 @@ const fetchGNews = async (query) => {
     return [];
   }
 };
+
+const fetchGNewsBreaker = createCircuitBreaker(fetchGNews, { name: 'fetchGNews' });
 
 const ingestCycle = async () => {
   const { canFetch, canUseGnews, effectiveArticleQuota } = await quotaGate();
@@ -129,7 +138,7 @@ const ingestCycle = async () => {
   // RSS first
   for (const feedUrl of RSS_FEEDS) {
     if (ingestedCount >= effectiveArticleQuota) break; // Stop if quota reached
-    const rssArticles = await fetchRSS(feedUrl);
+    const rssArticles = await fetchRSSBreaker.fire(feedUrl);
     // Apply basic filtering here before processing to avoid unnecessary work
     const newRssArticles = rssArticles.filter(art => {
       // Simple check to avoid processing articles that are too old or already processed
@@ -142,7 +151,7 @@ const ingestCycle = async () => {
   // GNews fallback if RSS didn't yield enough articles and GNews quota allows
   if (ingestedCount < effectiveArticleQuota * 0.5 && canUseGnews) { // If RSS < 50% of quota
     const gnewsQuery = 'finance OR stock market OR economy';
-    const gnewsArticles = await fetchGNews(gnewsQuery);
+    const gnewsArticles = await fetchGNewsBreaker.fire(gnewsQuery);
     const newGnewsArticles = gnewsArticles.filter(art => {
       return dayjs(art.publicationDate).utc().isSame(dayjs().utc(), 'day');
     });
@@ -160,4 +169,45 @@ const ingestCycle = async () => {
   return { usedCache: false, ingested: processedItems.length };
 };
 
-module.exports = { ingestCycle };
+const fetchStockData = async (symbol, exchange) => {
+  logger.info(`Fetching dummy stock data for ${symbol} from ${exchange}`);
+  // In a real scenario, this would call an external stock API
+  return {
+    symbol: symbol,
+    exchange: exchange,
+    price: Math.random() * 1000 + 100, // Random price
+    change: Math.random() * 10 - 5, // Random change
+    timestamp: new Date(),
+  };
+};
+
+const fetchSocialMediaData = async (platform, username) => {
+  logger.info(`Fetching dummy social media data for ${username} on ${platform}`);
+  // In a real scenario, this would call an external social media API
+  return {
+    platform: platform,
+    username: username,
+    followers: Math.floor(Math.random() * 100000) + 1000,
+    postsToday: Math.floor(Math.random() * 5),
+    engagementRate: (Math.random() * 0.1).toFixed(4),
+    timestamp: new Date(),
+  };
+};
+
+const fetchFDIData = async () => {
+  logger.info(`Fetching dummy FDI data`);
+  // In a real scenario, this would call an external API or scrape data
+  return {
+    totalFDI: `USD ${(Math.random() * 100 + 50).toFixed(2)} Billion`,
+    imports: `USD ${(Math.random() * 800 + 400).toFixed(2)} Billion`,
+    exports: `USD ${(Math.random() * 600 + 300).toFixed(2)} Billion`,
+    trends: [
+      { year: 2022, value: (Math.random() * 30 + 50).toFixed(2) },
+      { year: 2023, value: (Math.random() * 30 + 50).toFixed(2) },
+      { year: 2024, value: (Math.random() * 30 + 50).toFixed(2) },
+    ],
+    timestamp: new Date(),
+  };
+};
+
+module.exports = { ingestCycle, fetchStockData, fetchSocialMediaData, fetchFDIData };

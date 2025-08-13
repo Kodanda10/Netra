@@ -5,16 +5,26 @@ const pino = require('pino');
 const { register } = require('./cost/metrics');
 const { ingestCycle } = require('./ingestion/fetcher');
 const { evaluateBurstAuto } = require('./cost/enforcer');
-const { sequelize, NewsArticle } = require('./ssot/schema');
+const { sequelize, NewsArticle, User } = require('./ssot/schema');
+const { startConsumer } = require('./queue/consumer');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { authenticateToken, authorizeRoles } = require('./middleware/auth');
+const { logAuditEvent } = require('./utils/auditLogger');
 
-const logger = pino({
+const winston = require('winston');
+
+const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || 'info',
-  transport: {
-    target: 'pino-pretty',
-    options: {
-      colorize: true,
-    },
-  },
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json()
+  ),
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' }),
+  ],
 });
 
 const app = express();
@@ -40,7 +50,7 @@ app.get('/metrics', async (req, res) => {
 });
 
 // Route for stock data
-app.get('/stocks', (req, res) => {
+app.get('/stocks', authenticateToken, (req, res) => {
   // Dummy stock data for now
   const dummyStocks = [
     { symbol: 'TCS', price: 3500, change: +50, exchange: 'NSE' },
@@ -83,6 +93,85 @@ app.post('/ai/translate', (req, res) => {
   res.status(200).json({ translation: translatedText });
 });
 
+// Route for FDI data
+app.get('/fdi', authenticateToken, (req, res) => {
+  // Dummy FDI data for now
+  const dummyFdiData = {
+    totalFDI: 'USD 80 Billion',
+    imports: 'USD 600 Billion',
+    exports: 'USD 450 Billion',
+    trends: [ { year: 2022, value: 70 }, { year: 2023, value: 75 }, { year: 2024, value: 80 } ]
+  };
+  res.status(200).json(dummyFdiData);
+});
+
+// Route for Social Media data
+app.get('/social', authenticateToken, (req, res) => {
+  // Dummy Social Media data for now
+  const dummySocialData = {
+    platform: 'X',
+    followers: 150000,
+    engagementRate: 0.05,
+    latestPost: { text: 'Market update is live!', likes: 1200, shares: 300 },
+    sentiment: 'positive',
+  };
+  res.status(200).json(dummySocialData);
+});
+
+// User registration endpoint
+app.post('/register', authenticateToken, authorizeRoles(['admin']), async (req, res) => {
+  const { username, password, role } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required.' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({ username, password: hashedPassword, role });
+    logAuditEvent('user_registered', user.id, { username: user.username, role: user.role });
+    res.status(201).json({ message: 'User registered successfully.', userId: user.id });
+  } catch (error) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(409).json({ message: 'Username already exists.' });
+    }
+    logger.error('Error during user registration:', error);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+});
+
+// User login endpoint
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required.' });
+  }
+
+  try {
+    const user = await User.findOne({ where: { username } });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials.' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid credentials.' });
+    }
+
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+      process.env.JWT_SECRET || 'supersecretjwtkey',
+      { expiresIn: '1h' }
+    );
+
+    res.status(200).json({ message: 'Logged in successfully.', token });
+  } catch (error) {
+    logger.error('Error during user login:', error);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+});
+
 // Cron job for hourly ingestion
 // Runs every hour
 cron.schedule('0 * * * *', async () => {
@@ -100,6 +189,8 @@ const startServer = async () => {
   try {
     await sequelize.sync({ force: false }); // Do not force sync here, worker handles it
     logger.info('Database synchronized for server.');
+    logger.info('Attempting to connect to database...'); // Log database connection attempt
+    startConsumer(); // Start the RabbitMQ consumer
     app.listen(PORT, () => {
       logger.info(`Server listening on port ${PORT}`);
     });
