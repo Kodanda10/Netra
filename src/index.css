@@ -109,12 +109,33 @@ body { background-color: var(--bg); color: var(--fg); }
 }
 @keyframes metallicSweep { 0% { background-position: 0% 0 } 100% { background-position: 300% 0 } }
 .glass-bar {
-  background: rgba(12,12,12,0.28);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  position: relative;
+  background: linear-gradient(180deg, rgba(10,10,10,0.6), rgba(16,16,16,0.42));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.04) inset;
-  border-radius: 1.25rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 -1px 0 rgba(0,0,0,0.35),
+    0 10px 28px rgba(0,0,0,0.35),
+    0 0 30px rgba(255,184,77,0.06);
+  border-radius: 9999px;
+}
+.glass-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: radial-gradient(120% 180% at 50% -40%, rgba(255,215,0,0.12), rgba(255,255,255,0.02) 40%, transparent 60%);
+  pointer-events: none;
+}
+.glass-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), inset 0 0 22px rgba(255,215,0,0.08);
+  pointer-events: none;
 }
 
 /* Ensure glass cards are visible even if tokens.css fails */

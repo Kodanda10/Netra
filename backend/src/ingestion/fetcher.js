@@ -9,7 +9,7 @@ dayjs.extend(utc);
 
 const { quotaGate, recordArticleIngest } = require('../cost/enforcer');
 const { amogh_fetch_requests_total, amogh_fetch_errors_total } = require('../cost/metrics');
-const { processItemsV2 } = require('../processing/processor.v2');
+const { processArticlePipeline } = require('../processing/pipeline');
 const winston = require('winston');
 const { sendToQueue } = require('../../src/queue/producer');
 const { createCircuitBreaker } = require('../utils/circuitBreaker');
@@ -160,10 +160,12 @@ const ingestCycle = async () => {
   }
 
   // Process and add to queue
-  const processedItems = await processItemsV2(articles);
-  for (const item of processedItems) {
-    await sendToQueue(item); // Send item to RabbitMQ
-    await recordArticleIngest(item.source === 'gnews' ? 'gnews' : 'rss');
+  for (const article of articles) {
+    const processedArticle = await processArticlePipeline(article);
+    if (processedArticle) {
+      await sendToQueue(processedArticle); // Send item to RabbitMQ
+      await recordArticleIngest(processedArticle.source === 'gnews' ? 'gnews' : 'rss');
+    }
   }
 
   // Fetch other data
@@ -176,7 +178,7 @@ const ingestCycle = async () => {
   const fdiData = await fetchFDIData();
   logger.info('Fetched FDI data:', fdiData);
 
-  return { usedCache: false, ingested: processedItems.length };
+  return { usedCache: false, ingested: articles.length };
 };
 
 const fetchStockData = async (symbol, exchange) => {

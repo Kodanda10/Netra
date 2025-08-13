@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { getIcon } from '../finance.config'
+import { getIcon, states as stateConfigs } from '../finance.config'
+import StateIcon from './StateIcon'
 import { NewsList } from './NewsList'
 import { SourceTray } from './SourceTray'
 import { useSidePanel } from './useSidePanel'
@@ -15,6 +16,7 @@ export const StateCard: React.FC<{
 }>
   = ({ title, iconName, items, sources, viewAllLabel }) => {
   const Icon = getIcon(iconName)
+  const state = stateConfigs.find(s => s.nameHi === title || s.nameEn === title)
   const reduce = useReducedMotion()
   const panel = useSidePanel()
   return (
@@ -27,7 +29,11 @@ export const StateCard: React.FC<{
         className="glass-card p-4 md:p-5"
       >
         <div className="flex items-center gap-2 mb-2">
-          <Icon className="w-5 h-5 text-white/80" />
+          {state ? (
+            <StateIcon stateId={state.id} fallback={iconName} className="w-5 h-5" />
+          ) : (
+            <Icon className="w-5 h-5 text-white/80" />
+          )}
           <div className="font-semibold text-white/90">{title}</div>
         </div>
         <NewsList items={items.slice(0, 10)} height={240} />

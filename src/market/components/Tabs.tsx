@@ -23,16 +23,31 @@ export const MarketTabs: React.FC<{ tabs: { id:string; labelHi:string; labelEn:s
   React.useEffect(() => { const on=()=>measure(); window.addEventListener('resize', on); return ()=>window.removeEventListener('resize', on) }, [measure])
 
   return (
-    <div ref={containerRef} className="relative glass-liquid rounded-full p-1 inline-flex gap-1">
+    <div
+      ref={containerRef}
+      role="tablist"
+      aria-label={lang==='hi'?'शेयर बाजार टैब्स':'Market tabs'}
+      className="relative glass-bar rounded-full p-1 inline-flex gap-1"
+    >
       {!reduce && rect && (
-        <motion.span aria-hidden className="absolute top-1 bottom-1 rounded-full bg-white/10 shadow-[0_0_18px_rgba(255,184,77,0.22)]"
-          style={{ left: 0, width: rect.width }} animate={{ x: rect.left }} transition={spring} />
+        <motion.span
+          aria-hidden
+          className="absolute top-1 bottom-1 rounded-full bg-white/10 shadow-[0_0_18px_rgba(255,184,77,0.22)]"
+          style={{ left: 0, width: rect.width }}
+          animate={{ x: rect.left }}
+          transition={spring}
+        />
       )}
       {tabs.map(t => {
         const selected = active===t.id
         return (
-          <button key={t.id} ref={n=>{btnRefs.current[t.id]=n}} onClick={()=>onChange(t.id)}
-            className={`relative px-4 py-1.5 rounded-full text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(255,184,77,0.45)] ${selected?'text-white':'text-white/85 hover:text-white'}`}
+          <button
+            key={t.id}
+            ref={n=>{btnRefs.current[t.id]=n}}
+            role="tab"
+            aria-selected={String(selected)}
+            onClick={()=>onChange(t.id)}
+            className={`relative h-10 px-4 rounded-full text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(255,184,77,0.45)] ${selected?'text-metallic':'text-white/85 hover:text-white'}`}
           >
             <span className="relative z-10">{lang==='hi'? t.labelHi : t.labelEn}</span>
           </button>

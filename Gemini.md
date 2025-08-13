@@ -42,6 +42,17 @@
     *   Created a `Dockerfile.websocket` for the WebSocket server.
     *   Created a `docker-compose.yml` file to orchestrate the different services.
 
+## 2025-08-14
+
+*   **New Pipeline Definition:**
+    *   Defined a new, detailed article processing pipeline based on the user's specifications.
+    *   The new pipeline includes:
+        *   **Fact-Checking:** Google Fact Check API.
+        *   **Summarization:** Grok (X.ai) API with OpenAI and Gemini as fallbacks.
+        *   **AI Chat:** Best model for finance queries.
+        *   **Detailed Processing Steps:** Fetching, fact-checking, categorization, summarization, translation, and final checks.
+    *   Updated the `ArticleFetchLogic.md` file with the new pipeline definition.
+
 ## Project Status Summary
 
 ### Project Overview
