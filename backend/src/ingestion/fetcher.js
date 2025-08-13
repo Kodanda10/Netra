@@ -11,6 +11,7 @@ const { quotaGate, recordArticleIngest } = require('../cost/enforcer');
 const { amogh_fetch_requests_total, amogh_fetch_errors_total } = require('../cost/metrics');
 const processItems = require('../processing/processor');
 const winston = require('winston');
+const { sendToQueue } = require('../../src/queue/producer');
 
 const logger = winston.createLogger({
   level: 'info',
@@ -152,10 +153,7 @@ const ingestCycle = async () => {
   // Process and add to queue
   const processedItems = await processItems(articles);
   for (const item of processedItems) {
-    // This is where the item would be added to a Bull queue for processing by the worker
-    // For now, we'll just log it as the queue setup is in the worker file
-    // await newsQueue.add(item);
-    logger.info(`Simulating adding item to queue: ${item.title}`);
+    await sendToQueue(item); // Send item to RabbitMQ
     await recordArticleIngest(item.source === 'gnews' ? 'gnews' : 'rss');
   }
 

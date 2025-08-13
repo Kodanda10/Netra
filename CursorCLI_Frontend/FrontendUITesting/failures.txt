@@ -1,0 +1,245 @@
+    test-results/navtabs-bar-is-centered-content-width-chromium/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: locator.focus: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-chromium/test-failed-1.png
+    test-results/navtabs-bar-is-centered-content-width-webkit/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: locator.focus: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-webkit/test-failed-1.png
+  4 failed
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-chromium/test-failed-1.png
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-chromium/test-failed-1.png
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-webkit/test-failed-1.png
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-webkit/test-failed-1.png
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--iphone-14-pro/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-iphone-14-pro/test-failed-1.png
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-iphone-14-pro/test-failed-1.png
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--pixel-7/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    test-results/navtabs.matrix-NavTabs-mat-24a2c-nd-y-lift-indicator-instant-pixel-7/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-pixel-7/test-failed-1.png
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-pixel-7/test-failed-1.png
+  13 failed
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-chromium/test-failed-1.png
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-webkit/test-failed-1.png
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--iphone-14-pro/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-iphone-14-pro/test-failed-1.png
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--pixel-7/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    test-results/navtabs.matrix-NavTabs-mat-24a2c-nd-y-lift-indicator-instant-pixel-7/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-pixel-7/test-failed-1.png
+  9 failed
+  Package size limit has exceeded by 116.71 kB
+--- FAILURES SUMMARY ---
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-chromium/test-failed-1.png
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-chromium/test-failed-1.png
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-webkit/test-failed-1.png
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-webkit/test-failed-1.png
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--iphone-14-pro/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-iphone-14-pro/test-failed-1.png
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-iphone-14-pro/test-failed-1.png
+    [31m+         "failureSummary": "Fix all of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--pixel-7/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    test-results/navtabs.matrix-NavTabs-mat-24a2c-nd-y-lift-indicator-instant-pixel-7/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    Error: page.waitForSelector: Test timeout of 45000ms exceeded.
+    test-results/navtabs-keyboard-navigation-moves-active-pixel-7/test-failed-1.png
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-pixel-7/test-failed-1.png
+  13 failed
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--iphone-14-pro/test-failed-1.png
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--pixel-7/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    test-results/navtabs.matrix-NavTabs-mat-24a2c-nd-y-lift-indicator-instant-pixel-7/test-failed-1.png
+  5 failed
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    [31m+         "failureSummary": "Fix any of the following:[39m
+    test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+  1 failed
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-chromium/test-failed-1.png
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-webkit/test-failed-1.png
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-iphone-14-pro/test-failed-1.png
+    [31mTest timeout of 45000ms exceeded.[39m
+    test-results/navtabs.matrix-NavTabs-mat-24a2c-nd-y-lift-indicator-instant-pixel-7/test-failed-1.png
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    [31m+   "error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",[39m
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-pixel-7/test-failed-1.png
+  5 failed
+  Package size limit has exceeded by 149.16 kB
+--- FAILURES -> FrontendUITesting/failures.txt ---
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-chromium/test-failed-1.png
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-webkit/test-failed-1.png
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-iphone-14-pro/test-failed-1.png
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-pixel-7/test-failed-1.png
+  4 failed
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-chromium/test-failed-1.png
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-webkit/test-failed-1.png
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-iphone-14-pro/test-failed-1.png
+    test-results/navtabs.visual-NavTabs-vis-72905-and-visual-snapshot-DPR-1-2-pixel-7/test-failed-1.png
+  4 failed
+--- SUMMARIZE FAILURES AGAIN ---
+[2025-08-12 19:33:01 UTC] stderr | tests/__tests__/NavTabs.a11y.test.tsx > NavTabs accessibility > has no axe violations
+[2025-08-12 19:33:01 UTC]   ✘  4 [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (45.2s)
+[2025-08-12 19:33:01 UTC]   ✘  9 [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (10.7s)
+[2025-08-12 19:33:01 UTC]   ✘  7 [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (45.2s)
+[2025-08-12 19:33:01 UTC]   ✓  17 [iphone-14-pro] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (1.0s)
+[2025-08-12 19:33:01 UTC]   ✘  15 [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (11.3s)
+[2025-08-12 19:33:01 UTC]   ✓  25 [pixel-7] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (897ms)
+[2025-08-12 19:33:01 UTC]   ✘  24 [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (10.6s)
+[2025-08-12 19:33:01 UTC]   ✘  32 [pixel-7] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (10.4s)
+[2025-08-12 19:33:01 UTC]   1) [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ─────────────
+[2025-08-12 19:33:01 UTC]        5 | test('page has no axe violations (smoke)', async ({ page }) => {
+[2025-08-12 19:33:01 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+[2025-08-12 19:33:01 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/video.webm
+[2025-08-12 19:33:01 UTC]     Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/error-context.md
+[2025-08-12 19:33:01 UTC]   7) [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 19:33:01 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 19:33:01 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 19:33:01 UTC]   8) [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ───────────────
+[2025-08-12 19:33:01 UTC]        5 | test('page has no axe violations (smoke)', async ({ page }) => {
+[2025-08-12 19:33:01 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+[2025-08-12 19:33:01 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/video.webm
+[2025-08-12 19:33:01 UTC]     Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/error-context.md
+[2025-08-12 19:33:01 UTC]   14) [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 19:33:01 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 19:33:01 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 19:33:01 UTC]   16) [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 19:33:01 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 19:33:01 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 19:33:01 UTC]   18) [pixel-7] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 19:33:01 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 19:33:01 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 19:33:01 UTC]     [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ──────────────
+[2025-08-12 19:33:01 UTC]     [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 19:33:01 UTC]     [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ────────────────
+[2025-08-12 19:33:01 UTC]     [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 19:33:01 UTC]     [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 19:33:01 UTC]     [pixel-7] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]   ✘  4 [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (45.2s)
+[2025-08-12 20:59:24 UTC]   ✘  9 [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (10.7s)
+[2025-08-12 20:59:24 UTC]   ✘  7 [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (45.2s)
+[2025-08-12 20:59:24 UTC]   ✓  17 [iphone-14-pro] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (1.0s)
+[2025-08-12 20:59:24 UTC]   ✘  15 [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (11.3s)
+[2025-08-12 20:59:24 UTC]   ✓  25 [pixel-7] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (897ms)
+[2025-08-12 20:59:24 UTC]   ✘  24 [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (10.6s)
+[2025-08-12 20:59:24 UTC]   ✘  32 [pixel-7] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (10.4s)
+[2025-08-12 20:59:24 UTC]   1) [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ─────────────
+[2025-08-12 20:59:24 UTC]        5 | test('page has no axe violations (smoke)', async ({ page }) => {
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/video.webm
+[2025-08-12 20:59:24 UTC]     Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/error-context.md
+[2025-08-12 20:59:24 UTC]   7) [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 20:59:24 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 20:59:24 UTC]   8) [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ───────────────
+[2025-08-12 20:59:24 UTC]        5 | test('page has no axe violations (smoke)', async ({ page }) => {
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/video.webm
+[2025-08-12 20:59:24 UTC]     Error Context: test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/error-context.md
+[2025-08-12 20:59:24 UTC]   14) [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 20:59:24 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 20:59:24 UTC]   16) [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 20:59:24 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 20:59:24 UTC]   18) [pixel-7] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]       Timeout 10000ms exceeded.
+[2025-08-12 20:59:24 UTC]     [2m  - Timeout 10000ms exceeded.[22m
+[2025-08-12 20:59:24 UTC]     [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ──────────────
+[2025-08-12 20:59:24 UTC]     [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ────────────────
+[2025-08-12 20:59:24 UTC]     [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [iphone-14-pro] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [pixel-7] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]   ✘  1 [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (46.2s)
+[2025-08-12 20:59:24 UTC]   1) [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]   ✘  1 [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (827ms)
+[2025-08-12 20:59:24 UTC]   1) [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]   ✘  5 [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (46.5s)
+[2025-08-12 20:59:24 UTC]   ✘  9 [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) (45.1s)
+[2025-08-12 20:59:24 UTC]   ✘  7 [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (46.8s)
+[2025-08-12 20:59:24 UTC]   ✘  16 [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 (45.0s)
+[2025-08-12 20:59:24 UTC]   1) [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ─────────────
+[2025-08-12 20:59:24 UTC]        5 | test('page has no axe violations (smoke)', async ({ page }) => {
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/test-failed-1.png
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--chromium/video.webm
+[2025-08-12 20:59:24 UTC]   8) [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]   9) [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ───────────────
+[2025-08-12 20:59:24 UTC]        5 | test('page has no axe violations (smoke)', async ({ page }) => {
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/test-failed-1.png
+[2025-08-12 20:59:24 UTC]     test-results/a11y.page-page-has-no-axe-violations-smoke--webkit/video.webm
+[2025-08-12 20:59:24 UTC]   16) [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [chromium] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ──────────────
+[2025-08-12 20:59:24 UTC]     [chromium] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 
+[2025-08-12 20:59:24 UTC]     [webkit] › tests/e2e/a11y.page.spec.ts:5:1 › page has no axe violations (smoke) ────────────────
+[2025-08-12 20:59:24 UTC]     [webkit] › tests/e2e/navtabs.visual.spec.ts:13:3 › NavTabs visual and console hygiene › no console errors/warnings and visual snapshot DPR 1/2 

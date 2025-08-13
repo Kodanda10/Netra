@@ -106,6 +106,7 @@ export const NavTabs: React.FC<{
         className={clsx(
           'seg-hide',
           'glass-bar',
+          'relative',
           'inline-flex items-center justify-center gap-2',
           'px-2 py-2 rounded-full',
           'overflow-x-auto whitespace-nowrap max-w-full'
