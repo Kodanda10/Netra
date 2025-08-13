@@ -30,7 +30,7 @@ export const GlassCard: React.FC<{
           {timeRange && <span className="ml-2 inline-flex items-center gap-1 text-[11px] text-[var(--sub)]"><Calendar size={12}/>{timeRange}</span>}
         </div>
       </div>
-      <div className="p-3 h-[calc(100%-42px)] overflow-hidden">{children}</div>
+      <div className="p-3 h-[calc(100%-42px)] overflow-y-auto">{children}</div>
     </motion.section>
   )
 }

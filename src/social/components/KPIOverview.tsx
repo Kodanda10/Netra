@@ -4,7 +4,7 @@ export type KPI = { label:string; value:number; deltaPct?:number }
 
 export const KPIOverview: React.FC<{ items: KPI[] }>
   = ({ items }) => (
-  <div className="grid grid-cols-3 gap-2">
+  <div className="grid grid-cols-3 gap-2 md:gap-3">
     {items.map((k)=> (
       <div key={k.label} className="rounded-xl bg-white/5 border border-[var(--border)] p-3 focus-glow">
         <div className="text-[11px] uppercase tracking-wide text-[var(--sub)]">{k.label}</div>
