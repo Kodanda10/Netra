@@ -1,40 +1,25 @@
-import useSWR from 'swr';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
-
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  if (!res.ok) {
-    const error = new Error('An error occurred while fetching data.');
-    // Attach extra info to the error object.
-    // error.info = await res.json();
-    // error.status = res.status;
-    throw error;
-  }
-  return res.json();
-};
+import { useMemo } from 'react'
+import { mockBharatEn, mockBharatHi, mockStatesEn, mockStatesHi } from './mockData'
 
 export function useFinanceData(scope: 'bharat' | 'state', stateId?: string, lang: 'hi' | 'en' = 'en') {
-  const url = `${API_BASE_URL}/news?scope=${scope}&stateId=${stateId || ''}&lang=${lang}`;
-  const { data, error, isLoading } = useSWR(url, fetcher);
-
-  if (error) console.error("Error fetching finance data:", error);
-
-  // Adapt the backend response to the frontend format
-  const items = data?.articles || [];
-  const sourcesOrdered: { source: string; count: number }[] = [];
-  for (const it of items) {
-    if (!sourcesOrdered.some(s => s.source === it.source)) {
-      sourcesOrdered.push({ source: it.source, count: items.filter(i => i.source === it.source).length });
+  const data = useMemo(() => {
+    const items = scope === 'bharat'
+      ? (lang === 'hi' ? mockBharatHi : mockBharatEn)
+      : ((lang === 'hi' ? mockStatesHi : mockStatesEn)[stateId ?? 'chhattisgarh'] || [])
+    const sourcesOrdered: { source: string; count: number }[] = []
+    for (const it of items as any[]) {
+      if (!sourcesOrdered.find(s => s.source === (it as any).source)) {
+        const count = (items as any[]).filter(i => i.source === (it as any).source).length
+        sourcesOrdered.push({ source: (it as any).source, count })
+      }
     }
-  }
+    return {
+      items: items as any[],
+      sourcesOrdered,
+      updatedAt: new Date().toISOString(),
+    }
+  }, [scope, stateId, lang])
 
-  return {
-    items,
-    sourcesOrdered,
-    updatedAt: data?.updatedAt || new Date().toISOString(),
-    isLoading,
-    error,
-  };
+  return { ...data, isLoading: false, error: undefined as undefined | Error }
 }
 

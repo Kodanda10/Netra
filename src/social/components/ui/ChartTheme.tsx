@@ -35,3 +35,4 @@ export const AreaMini: React.FC<{ data:{t:number|string;v:number}[]; from?:strin
 )
 
 
+

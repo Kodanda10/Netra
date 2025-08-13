@@ -4,7 +4,10 @@
   "description": "Backend services for Amogh Financial Intelligence Dashboard",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "test": "npx vitest run --reporter=verbose",
+    "db:prepare": "psql < sql/ssot_cost_tables.sql",
+    "ci:cost-check": "node scripts/cost_projector_ci.mjs"
   },
   "keywords": [],
   "author": "",

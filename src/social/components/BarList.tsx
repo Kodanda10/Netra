@@ -18,3 +18,4 @@ export const BarList: React.FC<{ items: BarItem[] }>
 
 export default BarList
 
+

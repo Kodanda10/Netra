@@ -26,3 +26,4 @@
 .skel:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:translateX(-100%);animation:sk 1.8s infinite}
 @keyframes sk{to{transform:translateX(100%)}}
 
+
