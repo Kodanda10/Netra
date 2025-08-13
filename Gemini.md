@@ -29,11 +29,18 @@
     *   Updated the `/api/stocks` endpoint to use the `fetchStockData` function.
     *   Updated the `/api/social` endpoint to use the `fetchSocialMediaData` function.
     *   Updated the `/api/fdi` endpoint to use the `fetchFDIData` function.
+    *   Created the `/api/weather` endpoint and the `fetchWeatherData` function to fetch real weather data from the OpenWeatherMap API.
+    *   Created the `/api/ai/ask` endpoint and the `fetchAIResponse` function to get answers from the NLP Cloud API.
 *   **Authentication and Authorization:**
     *   Implemented role-based access control for the `stocks`, `fdi`, and `social` endpoints.
     *   Added validation to the `/register` and `/login` endpoints.
     *   Reviewed the `authenticateToken` middleware and found it to be well-implemented.
     *   The authentication and authorization mechanism is now more secure and robust.
+*   **Production Deployment:**
+    *   Created a `Dockerfile` for the main backend service.
+    *   Created a `Dockerfile.ingestion` for the ingestion engine.
+    *   Created a `Dockerfile.websocket` for the WebSocket server.
+    *   Created a `docker-compose.yml` file to orchestrate the different services.
 
 ## Project Status Summary
 

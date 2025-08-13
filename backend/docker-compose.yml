@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DATABASE_URL=postgres://amogh_user:amogh_password@db:5432/amogh_db
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - GNEWS_API_KEY=${GNEWS_API_KEY}
+      - GOOGLE_TRANSLATE_API_KEY=${GOOGLE_TRANSLATE_API_KEY}
+      - NLP_CLOUD_API_KEY=${NLP_CLOUD_API_KEY}
+      - WEATHER_API_KEY=${WEATHER_API_KEY}
+
+  ingestion:
+    build:
+      context: .
+      dockerfile: Dockerfile.ingestion
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DATABASE_URL=postgres://amogh_user:amogh_password@db:5432/amogh_db
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - GNEWS_API_KEY=${GNEWS_API_KEY}
+
+  websocket:
+    build:
+      context: .
+      dockerfile: Dockerfile.websocket
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=amogh_user
+      - POSTGRES_PASSWORD=amogh_password
+      - POSTGRES_DB=amogh_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6.2-alpine
+
+volumes:
+  postgres_data:

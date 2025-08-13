@@ -38,128 +38,84 @@ const Social: React.FC = () => {
         <button className="px-3 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/85">{t.refresh}</button>
       </header>
       {/* Three equal-height rows: X, Facebook, Instagram */}
-      <div className="grid grid-cols-12 gap-6 px-6 pb-2 auto-rows-[var(--row-h)] [--row-h:280px]">
-        {/* Row 1: X */}
-        <GlassCard className="col-span-12 lg:col-span-2" title="X" subtitle="Twitter">
-          <div className="h-full flex items-center justify-center">
-            <img src={brandLogos.x} alt="X" className="w-24 h-24" />
+      <div className="grid grid-cols-12 gap-6 px-6 pb-2 [--card-h:300px]">
+        {/* Row 1: X single container */}
+        <GlassCard className="col-span-12" title="Twitter" subtitle="X" timeRange="May 11 – Jun 8">
+          <div className="grid grid-cols-12 gap-4 h-full">
+            <div className="col-span-12 lg:col-span-2 flex items-center justify-center">
+              <img src={brandLogos.x} alt="X" className="w-24 h-24" />
+            </div>
+            <div className="col-span-12 lg:col-span-4">
+              <KPIOverview items={[
+                {label:'Tweets',value:152,deltaPct:2},
+                {label:'Following',value:185,deltaPct:1},
+                {label:'Followers',value:94,deltaPct:-1},
+                {label:'Listed',value:0},
+                {label:'Favorites',value:169,deltaPct:3},
+                {label:'Mentions',value:9}
+              ]} />
+            </div>
+            <div className="col-span-12 lg:col-span-3">
+              <Sparkline data={seriesByPlatform.x} />
+            </div>
+            <div className="col-span-12 lg:col-span-3">
+              <BarList items={Array.from({length:6}).map((_,i)=>({id:String(i),text:`Sample tweet ${i+1}`,value:20+i}))} />
+            </div>
           </div>
-        </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-4" title="Overview" subtitle="Twitter" timeRange="May 11 – Jun 8">
-          <KPIOverview items={[
-            {label:'Tweets',value:152,deltaPct:2},
-            {label:'Following',value:185,deltaPct:1},
-            {label:'Followers',value:94,deltaPct:-1},
-            {label:'Listed',value:0},
-            {label:'Favorites',value:169,deltaPct:3},
-            {label:'Mentions',value:9}
-          ]} />
-        </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-3" title="Mentions" subtitle="Twitter">
-          <Sparkline data={seriesByPlatform.x} />
-        </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-3" title="Top Tweets by Favorites" subtitle="Twitter">
-          <BarList items={Array.from({length:6}).map((_,i)=>({id:String(i),text:`Sample tweet ${i+1}`,value:20+i}))} />
         </GlassCard>
       </div>
 
-      <div className="grid grid-cols-12 gap-6 px-6 pb-2 auto-rows-[var(--row-h)] [--row-h:280px]">
-        {/* Row 2: Facebook */}
-        <GlassCard className="col-span-12 lg:col-span-2" title="Facebook" subtitle="Pages">
-          <div className="h-full flex items-center justify-center">
-            <img src={brandLogos.facebook} alt="Facebook" className="w-20 h-20" />
-          </div>
-        </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-4" title="Facebook Pages" subtitle="Reach">
-          <AreaMini data={seriesByPlatform.facebook} />
-          <div className="mt-2 flex flex-wrap gap-2 justify-end text-[12px] text-white/80">
-            {['Reach 390 ↑51%','Views 279 ↓5%','Engaged 52 ↑27%','Clicks 14 ↑250%','Likes 4 ↓33%'].map((t,i)=>(<span key={i} className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10">{t}</span>))}
-          </div>
-        </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-3" title="Facebook Pages" subtitle="Engaged">
-          <Sparkline data={seriesByPlatform.facebook} color="#5B8CFF" />
-        </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-3" title="Top Posts by Engaged Users" subtitle="Facebook">
-          <BarList items={Array.from({length:6}).map((_,i)=>({id:String(i),text:`Top post ${i+1}`,value:12+i}))} />
-        </GlassCard>
-      </div>
-
-      <div className="grid grid-cols-12 gap-6 px-6 pb-8 auto-rows-[var(--row-h)] [--row-h:280px]">
-        {/* Row 3: Instagram */}
-        <GlassCard className="col-span-12 lg:col-span-2" title="Instagram" subtitle="Summary">
-          <div className="h-full flex items-center justify-center">
-            <img src={brandLogos.instagram} alt="Instagram" className="w-20 h-20" />
-          </div>
-        </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-4" title="Instagram" subtitle="Photos/Followers/Following">
-          <div className="grid grid-cols-3 gap-2">
-            {[{l:'Photos',v:14},{l:'Followers',v:82},{l:'Following',v:275}].map((k)=>(
-              <div key={k.l} className="rounded-xl bg-white/5 border border-white/10 p-3">
-                <div className="text-white/60 text-[11px] uppercase">{k.l}</div>
-                <div className="text-white text-lg font-semibold">{k.v}</div>
+      <div className="grid grid-cols-12 gap-6 px-6 pb-2 [--card-h:300px]">
+        {/* Row 2: Facebook single container */}
+        <GlassCard className="col-span-12" title="Facebook" subtitle="Pages">
+          <div className="grid grid-cols-12 gap-4 h-full">
+            <div className="col-span-12 lg:col-span-2 flex items-center justify-center">
+              <img src={brandLogos.facebook} alt="Facebook" className="w-20 h-20" />
+            </div>
+            <div className="col-span-12 lg:col-span-4">
+              <AreaMini data={seriesByPlatform.facebook} />
+              <div className="mt-2 flex flex-wrap gap-2 justify-end text-[12px] text-white/80">
+                {['Reach 390 ↑51%','Views 279 ↓5%','Engaged 52 ↑27%','Clicks 14 ↑250%','Likes 4 ↓33%'].map((t,i)=>(<span key={i} className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10">{t}</span>))}
               </div>
-            ))}
+            </div>
+            <div className="col-span-12 lg:col-span-3">
+              <Sparkline data={seriesByPlatform.facebook} color="#5B8CFF" />
+            </div>
+            <div className="col-span-12 lg:col-span-3">
+              <BarList items={Array.from({length:6}).map((_,i)=>({id:String(i),text:`Top post ${i+1}`,value:12+i}))} />
+            </div>
           </div>
-        </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-3" title="Followers" subtitle="Instagram">
-          <Sparkline data={seriesByPlatform.instagram} />
-        </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-3" title="Following" subtitle="Instagram">
-          <Sparkline data={seriesByPlatform.instagram} color="#5B8CFF" />
         </GlassCard>
       </div>
 
-      {/* Legacy compact insights retained below if needed */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
-        <motion.div className="glass-liquid rounded-3xl p-4" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}}>
-          <div className="text-sm text-white/70 mb-2">{t.followers}</div>
-          <div className="text-2xl font-semibold">{totalFollowers.toLocaleString('en-IN')}</div>
-          <div className="mt-3 text-white/70 text-sm">FB {followers.fb.toLocaleString('en-IN')} · IG {followers.ig.toLocaleString('en-IN')} · X {followers.x.toLocaleString('en-IN')}</div>
-        </motion.div>
-        <motion.div className="glass-liquid rounded-3xl p-4" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}}>
-          <div className="text-sm text-white/70 mb-2">{t.engagement}</div>
-          <div className="h-[180px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie data={pieData} dataKey="value" innerRadius={50} outerRadius={70} paddingAngle={2}>
-                  {pieData.map((entry, index) => (<Cell key={`c-${index}`} fill={COLORS[index % COLORS.length]} />))}
-                </Pie>
-                <Tooltip contentStyle={{ background:'rgba(0,0,0,.8)', border:'1px solid rgba(255,255,255,.1)', color:'#fff' }} />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
-        <motion.div className="glass-liquid rounded-3xl p-4" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}}>
-          <div className="text-sm text-white/70 mb-2">Growth</div>
-          <div className="h-[180px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={series.x}>
-                <CartesianGrid stroke="#ffffff22" vertical={false} />
-                <XAxis dataKey="t" tick={{ fill: '#ffffff8a', fontSize: 10 }} tickLine={false} axisLine={{ stroke: '#ffffff22' }} />
-                <YAxis tick={{ fill: '#ffffff8a', fontSize: 10 }} tickLine={false} axisLine={{ stroke: '#ffffff22' }} />
-                <Tooltip contentStyle={{ background:'rgba(0,0,0,.8)', border:'1px solid rgba(255,255,255,.1)', color:'#fff' }} />
-                <Line type="monotone" dataKey="v" stroke="#34d399" dot={false} strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
-      </section>
-
-      <section className="space-y-3">
-        <h2 className="card-title text-lg">{t.timelines}</h2>
-        <div className="grid gap-3">
-          {feed.map(p => (
-            <motion.article key={p.id} initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} className="glass-liquid rounded-2xl p-3">
-              <div className="text-xs text-white/70 mb-1 flex items-center gap-2">
-                <img src={brandLogos[p.platform]} alt={p.platform} className="w-4 h-4" />
-                <span>{p.platform.toUpperCase()} · {new Date(p.ts).toLocaleString()}</span>
+      <div className="grid grid-cols-12 gap-6 px-6 pb-6 [--card-h:300px]">
+        {/* Row 3: Instagram single container */}
+        <GlassCard className="col-span-12" title="Instagram" subtitle="Summary">
+          <div className="grid grid-cols-12 gap-4 h-full">
+            <div className="col-span-12 lg:col-span-2 flex items-center justify-center">
+              <img src={brandLogos.instagram} alt="Instagram" className="w-20 h-20" />
+            </div>
+            <div className="col-span-12 lg:col-span-4">
+              <div className="grid grid-cols-3 gap-2">
+                {[{l:'Photos',v:14},{l:'Followers',v:82},{l:'Following',v:275}].map((k)=>(
+                  <div key={k.l} className="rounded-xl bg-white/5 border border-white/10 p-3">
+                    <div className="text-white/60 text-[11px] uppercase">{k.l}</div>
+                    <div className="text-white text-lg font-semibold">{k.v}</div>
+                  </div>
+                ))}
               </div>
-              <div className="news-headline">{p.text}</div>
-              <div className="text-white/70 text-xs mt-1">❤ {p.likes} · 💬 {p.comments} · ↗ {p.shares}</div>
-            </motion.article>
-          ))}
-        </div>
-      </section>
+            </div>
+            <div className="col-span-12 lg:col-span-3">
+              <Sparkline data={seriesByPlatform.instagram} />
+            </div>
+            <div className="col-span-12 lg:col-span-3">
+              <Sparkline data={seriesByPlatform.instagram} color="#5B8CFF" />
+            </div>
+          </div>
+        </GlassCard>
+      </div>
+
+      {/* Timelines and legacy sections removed per request */}
     </div>
   )
 }

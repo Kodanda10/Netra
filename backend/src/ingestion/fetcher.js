@@ -220,4 +220,51 @@ const fetchFDIData = async () => {
   };
 };
 
-module.exports = { ingestCycle, fetchStockData, fetchSocialMediaData, fetchFDIData };
+const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
+const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather';
+
+const fetchWeatherData = async (city) => {
+  if (!WEATHER_API_KEY) {
+    logger.warn('WEATHER_API_KEY is not set. Skipping weather fetch.');
+    return null;
+  }
+  try {
+    const response = await axios.get(WEATHER_API_URL, {
+      params: {
+        q: city,
+        appid: WEATHER_API_KEY,
+        units: 'metric',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    logger.error('Error fetching weather data:', error);
+    return null;
+  }
+};
+
+const NLP_CLOUD_API_KEY = process.env.NLP_CLOUD_API_KEY;
+const NLP_CLOUD_API_URL = 'https://api.nlpcloud.io/v1/gpu/finetuned-gpt-neox-20b/question';
+
+const fetchAIResponse = async (question) => {
+  if (!NLP_CLOUD_API_KEY) {
+    logger.warn('NLP_CLOUD_API_KEY is not set. Skipping AI response fetch.');
+    return null;
+  }
+  try {
+    const response = await axios.post(NLP_CLOUD_API_URL, {
+      question: question,
+    }, {
+      headers: {
+        'Authorization': `Token ${NLP_CLOUD_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    logger.error('Error fetching AI response:', error);
+    return null;
+  }
+};
+
+module.exports = { ingestCycle, fetchStockData, fetchSocialMediaData, fetchFDIData, fetchWeatherData, fetchAIResponse };
