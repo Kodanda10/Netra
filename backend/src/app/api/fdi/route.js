@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { fdi } from '../../../lib/mock-data';
+import { fetchFDIData } from '../../../ingestion/fetcher';
 
 export async function GET(request) {
-  return NextResponse.json(fdi);
+  const fdiData = await fetchFDIData();
+  return NextResponse.json(fdiData);
 }

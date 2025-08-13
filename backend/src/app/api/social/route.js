@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
-import { social } from '../../../lib/mock-data';
+import { fetchSocialMediaData } from '../../../ingestion/fetcher';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const platform = searchParams.get('platform');
+  const username = searchParams.get('username');
 
-  let filteredSocial = social;
-
-  if (platform) {
-    filteredSocial = filteredSocial.filter((item) => item.platform === platform);
+  if (!platform || !username) {
+    return NextResponse.json({ message: 'platform and username are required' }, { status: 400 });
   }
 
-  return NextResponse.json(filteredSocial);
+  const socialData = await fetchSocialMediaData(platform, username);
+  return NextResponse.json(socialData);
 }

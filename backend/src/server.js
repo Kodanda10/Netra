@@ -12,7 +12,7 @@ const jwt = require('jsonwebtoken');
 const { authenticateToken, authorizeRoles } = require('./middleware/auth');
 const { logAuditEvent } = require('./utils/auditLogger');
 const { validate } = require('./middleware/validation');
-const { registerSchema } = require('./schemas/user.schema');
+const { registerSchema, loginSchema } = require('./schemas/user.schema');
 
 const winston = require('winston');
 
@@ -143,7 +143,7 @@ app.post('/register', validate(registerSchema), authenticateToken, authorizeRole
 });
 
 // User login endpoint
-app.post('/login', async (req, res) => {
+app.post('/login', validate(loginSchema), async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {

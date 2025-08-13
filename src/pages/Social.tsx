@@ -37,10 +37,10 @@ const Social: React.FC = () => {
         <h1 className="card-title text-xl font-semibold">{t.title}</h1>
         <button className="px-3 py-1.5 rounded-lg bg-white/10 border border-white/10 text-white/85">{t.refresh}</button>
       </header>
-      {/* Three big rows like reference: X, Facebook, Instagram */}
-      <DashboardGrid>
-        {/* X row */}
-        <GlassCard className="col-span-12 lg:col-span-2" rows={2} title="X" subtitle="Twitter">
+      {/* Three equal-height rows: X, Facebook, Instagram */}
+      <div className="grid grid-cols-12 gap-6 px-6 pb-2 auto-rows-[var(--row-h)] [--row-h:280px]">
+        {/* Row 1: X */}
+        <GlassCard className="col-span-12 lg:col-span-2" title="X" subtitle="Twitter">
           <div className="h-full flex items-center justify-center">
             <img src={brandLogos.x} alt="X" className="w-24 h-24" />
           </div>
@@ -55,15 +55,17 @@ const Social: React.FC = () => {
             {label:'Mentions',value:9}
           ]} />
         </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-2" title="Mentions" subtitle="Twitter">
+        <GlassCard className="col-span-12 lg:col-span-3" title="Mentions" subtitle="Twitter">
           <Sparkline data={seriesByPlatform.x} />
         </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-4" rows={2} title="Top Tweets by Favorites" subtitle="Twitter">
+        <GlassCard className="col-span-12 lg:col-span-3" title="Top Tweets by Favorites" subtitle="Twitter">
           <BarList items={Array.from({length:6}).map((_,i)=>({id:String(i),text:`Sample tweet ${i+1}`,value:20+i}))} />
         </GlassCard>
+      </div>
 
-        {/* Facebook row */}
-        <GlassCard className="col-span-12 lg:col-span-2" rows={2} title="Facebook" subtitle="Pages">
+      <div className="grid grid-cols-12 gap-6 px-6 pb-2 auto-rows-[var(--row-h)] [--row-h:280px]">
+        {/* Row 2: Facebook */}
+        <GlassCard className="col-span-12 lg:col-span-2" title="Facebook" subtitle="Pages">
           <div className="h-full flex items-center justify-center">
             <img src={brandLogos.facebook} alt="Facebook" className="w-20 h-20" />
           </div>
@@ -74,14 +76,16 @@ const Social: React.FC = () => {
             {['Reach 390 ↑51%','Views 279 ↓5%','Engaged 52 ↑27%','Clicks 14 ↑250%','Likes 4 ↓33%'].map((t,i)=>(<span key={i} className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10">{t}</span>))}
           </div>
         </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-2" title="Facebook Pages" subtitle="Engaged">
+        <GlassCard className="col-span-12 lg:col-span-3" title="Facebook Pages" subtitle="Engaged">
           <Sparkline data={seriesByPlatform.facebook} color="#5B8CFF" />
         </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-4" rows={2} title="Top Posts by Engaged Users" subtitle="Facebook">
+        <GlassCard className="col-span-12 lg:col-span-3" title="Top Posts by Engaged Users" subtitle="Facebook">
           <BarList items={Array.from({length:6}).map((_,i)=>({id:String(i),text:`Top post ${i+1}`,value:12+i}))} />
         </GlassCard>
+      </div>
 
-        {/* Instagram row */}
+      <div className="grid grid-cols-12 gap-6 px-6 pb-8 auto-rows-[var(--row-h)] [--row-h:280px]">
+        {/* Row 3: Instagram */}
         <GlassCard className="col-span-12 lg:col-span-2" title="Instagram" subtitle="Summary">
           <div className="h-full flex items-center justify-center">
             <img src={brandLogos.instagram} alt="Instagram" className="w-20 h-20" />
@@ -97,16 +101,13 @@ const Social: React.FC = () => {
             ))}
           </div>
         </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-2" title="Followers" subtitle="Instagram">
+        <GlassCard className="col-span-12 lg:col-span-3" title="Followers" subtitle="Instagram">
           <Sparkline data={seriesByPlatform.instagram} />
         </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-2" title="Following" subtitle="Instagram">
+        <GlassCard className="col-span-12 lg:col-span-3" title="Following" subtitle="Instagram">
           <Sparkline data={seriesByPlatform.instagram} color="#5B8CFF" />
         </GlassCard>
-        <GlassCard className="col-span-12 lg:col-span-2" title="Photos" subtitle="Instagram">
-          <Sparkline data={seriesByPlatform.instagram} color="#B57BFF" />
-        </GlassCard>
-      </DashboardGrid>
+      </div>
 
       {/* Legacy compact insights retained below if needed */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 hidden">

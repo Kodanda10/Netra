@@ -1,0 +1,25 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "c4a7e2e0-3e2a-4d8e-9e4a-0b4e3e2a0b4e",
+    "title": "Backend Metrics",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Fetch Requests",
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 9
+        },
+        "targets": [
+          {
+            "expr": "amogh_fetch_requests_total",
+            "legendFormat": "{{service}}"
+          }
+        ]
+      }
+    ]
+  }
+}
